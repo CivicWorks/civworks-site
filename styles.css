@@ -131,7 +131,7 @@ h1, h2, h3, h4, h5, h6 {
   background: 
     linear-gradient(135deg, rgba(124,58,237,0.15) 0%, transparent 60%),
     linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.8)),
-    url('/images/photo-1501594907352-04cda38ebc29_unsplash.jpg');
+    url('images/photo-1501594907352-04cda38ebc29_unsplash.jpg');
   background-size: cover;
   background-position: center;
   z-index: 0;
@@ -164,9 +164,6 @@ h1, h2, h3, h4, h5, h6 {
 
 .hero-highlight {
   color: var(--purple);
-  -webkit-text-stroke: 1px var(--purple);
-  -webkit-text-fill-color: transparent;
-  text-stroke: 1px var(--purple);
 }
 
 .hero-subtitle {
@@ -1367,4 +1364,26 @@ h1, h2, h3, h4, h5, h6 {
     grid-template-columns: 1fr;
     direction: ltr;
   }
+}
+
+/* Make media cards work as links */
+a.media-card {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+a.media-card:hover {
+  text-decoration: none;
+}
+
+/* Make press cards work as links */
+a.press-card-large {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+a.press-card-large:hover {
+  text-decoration: none;
 }
