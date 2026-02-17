@@ -1387,3 +1387,17 @@ a.press-card-large {
 a.press-card-large:hover {
   text-decoration: none;
 }
+
+/* Logo icon in navigation */
+.logo-icon {
+  height: 32px;
+  width: 32px;
+  margin-right: 12px;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
