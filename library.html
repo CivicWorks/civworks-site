@@ -9,14 +9,17 @@
 </head>
 <body>
 
+<!-- Navigation -->
 <nav class="nav">
   <div class="nav-container">
-    <a href="index.html" class="logo">civ.works</a>
+    <a href="index.html" class="logo">
+      <span class="logo-civ">civ</span><span class="logo-dot">.</span><span class="logo-works">works</span>
+    </a>
     <div class="nav-links">
       <a href="index.html">Home</a>
       <a href="about.html">About</a>
       <a href="defend.html">Defend</a>
-      <a href="library.html">Library</a>
+      <a href="library.html" class="active">Library</a>
       <a href="projects.html">Projects</a>
       <a href="press.html">Press</a>
       <a href="privacy.html">Privacy</a>
@@ -25,135 +28,265 @@
   </div>
 </nav>
 
-<div class="page-header">
+<!-- Page Header -->
+<section class="page-header library-header">
   <div class="container">
-    <p style="font-family: 'Courier Prime', monospace; color: var(--purple); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 1rem;">Library</p>
-    <h1 class="page-title">Learning & Inspiration</h1>
+    <p class="section-eyebrow">LIBRARY</p>
+    <h1 class="page-title">Learning & <span class="gradient-text">Inspiration</span></h1>
     <p class="page-subtitle">Essential resources on democracy, constitutional law, economic justice, equality, rule of law, and human rights.</p>
   </div>
-</div>
+</section>
 
-<div class="section" style="padding-top: 4rem; padding-bottom: 6rem;">
+<!-- Articles -->
+<section class="section">
   <div class="container">
+    <div class="section-icon-header">
+      <span class="section-icon">📄</span>
+      <div>
+        <h2 class="section-title-left">Articles</h2>
+        <p class="section-desc">Essays and analysis on civic engagement</p>
+      </div>
+    </div>
     
-    <h2 style="font-family: 'Courier Prime', monospace; font-size: 2.2rem; color: var(--white); margin-bottom: 2.5rem;">Articles</h2>
-    <p style="color: var(--grey); margin-bottom: 2rem;">Essays and analysis on civic engagement</p>
-    
-    <div class="card" style="max-width: 700px; margin-bottom: 5rem;">
+    <div class="highlight-card">
       <h3>Founder George A. Polisner on Substack</h3>
       <p>Regular articles and essays exploring democracy, civic action, and building a more just society.</p>
-      <a href="https://bomdia.substack.com" target="_blank" class="card-link">Read on Substack →</a>
+      <a href="https://bomdia.substack.com" target="_blank" class="card-link-btn">Read on Substack →</a>
     </div>
-
-    <h2 style="font-family: 'Courier Prime', monospace; font-size: 2.2rem; color: var(--white); margin-bottom: 2.5rem; margin-top: 4rem;">Books</h2>
-    <p style="color: var(--grey); margin-bottom: 2rem;">Essential reads on democracy, law, and justice</p>
-    
-    <div class="card-grid" style="margin-bottom: 5rem;">
-      <div class="card">
-        <img src="/images/93ff832eb_manufacturing_consent.jpg" alt="Manufacturing Consent cover" style="width: 100%; max-width: 200px; height: auto; margin: 0 auto 1rem; display: block; border-radius: 4px;">
-        <h3>Manufacturing Consent</h3>
-        <p>by Noam Chomsky & Edward S. Herman (1988)</p>
-        <p style="color: var(--grey); font-size: 0.9rem; margin-top: 1rem;">A seminal work analyzing how media serves as propaganda for the elite.</p>
-      </div>
-      <div class="card">
-        <img src="/images/bde1db2f4_the_new_jim_crow.jpg" alt="The New Jim Crow cover" style="width: 100%; max-width: 200px; height: auto; margin: 0 auto 1rem; display: block; border-radius: 4px;">
-        <h3>The New Jim Crow</h3>
-        <p>by Michelle Alexander (2010)</p>
-        <p style="color: var(--grey); font-size: 0.9rem; margin-top: 1rem;">A groundbreaking examination of mass incarceration in America.</p>
-      </div>
-      <div class="card">
-        <img src="/images/0794f087c_dark_money.jpg" alt="Dark Money cover" style="width: 100%; max-width: 200px; height: auto; margin: 0 auto 1rem; display: block; border-radius: 4px;">
-        <h3>Dark Money</h3>
-        <p>by Jane Mayer (2016)</p>
-        <p style="color: var(--grey); font-size: 0.9rem; margin-top: 1rem;">The hidden history of the billionaires behind the rise of the radical right.</p>
-      </div>
-      <div class="card">
-        <img src="/images/55920341d_on_tyranny.jpg" alt="On Tyranny cover" style="width: 100%; max-width: 200px; height: auto; margin: 0 auto 1rem; display: block; border-radius: 4px;">
-        <h3>On Tyranny</h3>
-        <p>by Timothy Snyder (2017)</p>
-        <p style="color: var(--grey); font-size: 0.9rem; margin-top: 1rem;">Twenty lessons from the twentieth century on resisting authoritarianism.</p>
-      </div>
-      <div class="card">
-        <img src="/images/33ad93661_democracy_awakening.jpg" alt="Democracy Awakening cover" style="width: 100%; max-width: 200px; height: auto; margin: 0 auto 1rem; display: block; border-radius: 4px;">
-        <h3>Democracy Awakening</h3>
-        <p>by Heather Cox Richardson (2023)</p>
-        <p style="color: var(--grey); font-size: 0.9rem; margin-top: 1rem;">Notes on the state of America and a call to defend democracy.</p>
-      </div>
-      <div class="card">
-        <img src="/images/d55ca66db_the_corporation.png" alt="The Corporation cover" style="width: 100%; max-width: 200px; height: auto; margin: 0 auto 1rem; display: block; border-radius: 4px;">
-        <h3>The Corporation</h3>
-        <p>by Joel Bakan (2004)</p>
-        <p style="color: var(--grey); font-size: 0.9rem; margin-top: 1rem;">The pathological pursuit of profit and power by corporations.</p>
-      </div>
-      <div class="card">
-        <img src="/images/702db8132_the_economics_of_innocent_fraud.jpg" alt="The Economics of Innocent Fraud cover" style="width: 100%; max-width: 200px; height: auto; margin: 0 auto 1rem; display: block; border-radius: 4px;">
-        <h3>The Economics of Innocent Fraud</h3>
-        <p>by John Kenneth Galbraith (2004)</p>
-        <p style="color: var(--grey); font-size: 0.9rem; margin-top: 1rem;">Truth for our time about economics and political power.</p>
-      </div>
-      <div class="card">
-        <img src="/images/5f893e094_dontthinkofanelephant.png" alt="Don't Think of an Elephant cover" style="width: 100%; max-width: 200px; height: auto; margin: 0 auto 1rem; display: block; border-radius: 4px;">
-        <h3>Don't Think of an Elephant</h3>
-        <p>by George Lakoff (2004)</p>
-        <p style="color: var(--grey); font-size: 0.9rem; margin-top: 1rem;">Know your values and frame the debate about progressive politics.</p>
-      </div>
-      <div class="card">
-        <img src="/images/b23eadea0_chomsky_on_miseducation.jpg" alt="Chomsky on Miseducation cover" style="width: 100%; max-width: 200px; height: auto; margin: 0 auto 1rem; display: block; border-radius: 4px;">
-        <h3>Chomsky on Miseducation</h3>
-        <p>by Noam Chomsky (2000)</p>
-        <p style="color: var(--grey); font-size: 0.9rem; margin-top: 1rem;">Critical thinking about education, democracy, and social change.</p>
-      </div>
-    </div>
-
-    <h2 style="font-family: 'Courier Prime', monospace; font-size: 2.2rem; color: var(--white); margin-bottom: 2.5rem; margin-top: 4rem;">Films</h2>
-    <p style="color: var(--grey); margin-bottom: 2rem;">Documentaries and films exploring civic themes</p>
-    
-    <div class="card-grid" style="margin-bottom: 4rem;">
-      <div class="card">
-        <img src="/images/bf9279f90_13th.jpg" alt="13th documentary cover" style="width: 100%; max-width: 200px; height: auto; margin: 0 auto 1rem; display: block; border-radius: 4px;">
-        <h3>13th</h3>
-        <p>by Ava DuVernay (2016)</p>
-        <p style="color: var(--grey); font-size: 0.9rem; margin-top: 1rem;">An exploration of the intersection of race, justice, and mass incarceration in the United States.</p>
-      </div>
-      <div class="card">
-        <img src="/images/83879c22d_the_social_dilemma.jpg" alt="The Social Dilemma documentary cover" style="width: 100%; max-width: 200px; height: auto; margin: 0 auto 1rem; display: block; border-radius: 4px;">
-        <h3>The Social Dilemma</h3>
-        <p>by Jeff Orlowski (2020)</p>
-        <p style="color: var(--grey); font-size: 0.9rem; margin-top: 1rem;">Tech experts sound the alarm on the dangerous human impact of social networking.</p>
-      </div>
-      <div class="card">
-        <img src="/images/b238feabf_an_inconvenient_truth.jpg" alt="An Inconvenient Truth documentary cover" style="width: 100%; max-width: 200px; height: auto; margin: 0 auto 1rem; display: block; border-radius: 4px;">
-        <h3>An Inconvenient Truth</h3>
-        <p>by Davis Guggenheim (2006)</p>
-        <p style="color: var(--grey); font-size: 0.9rem; margin-top: 1rem;">Al Gore's documentary on the urgency of climate change.</p>
-      </div>
-      <div class="card">
-        <img src="/images/283452d62_merchants_of_doubt.jpg" alt="Merchants of Doubt documentary cover" style="width: 100%; max-width: 200px; height: auto; margin: 0 auto 1rem; display: block; border-radius: 4px;">
-        <h3>Merchants of Doubt</h3>
-        <p>by Robert Kenner (2014)</p>
-        <p style="color: var(--grey); font-size: 0.9rem; margin-top: 1rem;">How a handful of scientists obscured the truth on issues from tobacco to climate change.</p>
-      </div>
-      <div class="card">
-        <img src="/images/5dd3102cc_theinternetsownboy.jpg" alt="The Internet's Own Boy documentary cover" style="width: 100%; max-width: 200px; height: auto; margin: 0 auto 1rem; display: block; border-radius: 4px;">
-        <h3>The Internet's Own Boy</h3>
-        <p>by Brian Knappenberger (2014)</p>
-        <p style="color: var(--grey); font-size: 0.9rem; margin-top: 1rem;">The story of Aaron Swartz, programming prodigy and information activist.</p>
-      </div>
-    </div>
-
   </div>
-</div>
+</section>
 
+<!-- Books -->
+<section class="section books-section">
+  <div class="container">
+    <div class="section-icon-header">
+      <span class="section-icon">📚</span>
+      <div>
+        <h2 class="section-title-left">Books</h2>
+        <p class="section-desc">Essential reads on democracy, law, and justice</p>
+      </div>
+    </div>
+    
+    <div class="media-grid">
+      <div class="media-card">
+        <img src="/images/93ff832eb_manufacturing_consent.jpg" alt="Manufacturing Consent">
+        <div class="media-info">
+          <h3>Manufacturing Consent</h3>
+          <p class="media-author">by Noam Chomsky & Edward S. Herman</p>
+          <p class="media-year">1988</p>
+          <p class="media-desc">A seminal work analyzing how media serves as propaganda for the elite.</p>
+        </div>
+      </div>
+      
+      <div class="media-card">
+        <img src="/images/bde1db2f4_the_new_jim_crow.jpg" alt="The New Jim Crow">
+        <div class="media-info">
+          <h3>The New Jim Crow</h3>
+          <p class="media-author">by Michelle Alexander</p>
+          <p class="media-year">2010</p>
+          <p class="media-desc">A groundbreaking examination of mass incarceration in America.</p>
+        </div>
+      </div>
+      
+      <div class="media-card">
+        <img src="/images/0794f087c_dark_money.jpg" alt="Dark Money">
+        <div class="media-info">
+          <h3>Dark Money</h3>
+          <p class="media-author">by Jane Mayer</p>
+          <p class="media-year">2016</p>
+          <p class="media-desc">The hidden history of the billionaires behind the rise of the radical right.</p>
+        </div>
+      </div>
+      
+      <div class="media-card">
+        <img src="/images/55920341d_on_tyranny.jpg" alt="On Tyranny">
+        <div class="media-info">
+          <h3>On Tyranny</h3>
+          <p class="media-author">by Timothy Snyder</p>
+          <p class="media-year">2017</p>
+          <p class="media-desc">Twenty lessons from the twentieth century on resisting authoritarianism.</p>
+        </div>
+      </div>
+      
+      <div class="media-card">
+        <img src="/images/33ad93661_democracy_awakening.jpg" alt="Democracy Awakening">
+        <div class="media-info">
+          <h3>Democracy Awakening</h3>
+          <p class="media-author">by Heather Cox Richardson</p>
+          <p class="media-year">2023</p>
+          <p class="media-desc">Notes on the state of America and a call to defend democracy.</p>
+        </div>
+      </div>
+      
+      <div class="media-card">
+        <img src="/images/d55ca66db_the_corporation.png" alt="The Corporation">
+        <div class="media-info">
+          <h3>The Corporation</h3>
+          <p class="media-author">by Joel Bakan</p>
+          <p class="media-year">2004</p>
+          <p class="media-desc">The pathological pursuit of profit and power by corporations.</p>
+        </div>
+      </div>
+      
+      <div class="media-card">
+        <img src="/images/702db8132_the_economics_of_innocent_fraud.jpg" alt="The Economics of Innocent Fraud">
+        <div class="media-info">
+          <h3>The Economics of Innocent Fraud</h3>
+          <p class="media-author">by John Kenneth Galbraith</p>
+          <p class="media-year">2004</p>
+          <p class="media-desc">Truth for our time about economics and political power.</p>
+        </div>
+      </div>
+      
+      <div class="media-card">
+        <img src="/images/5f893e094_dontthinkofanelephant.png" alt="Don't Think of an Elephant">
+        <div class="media-info">
+          <h3>Don't Think of an Elephant</h3>
+          <p class="media-author">by George Lakoff</p>
+          <p class="media-year">2004</p>
+          <p class="media-desc">Know your values and frame the debate about progressive politics.</p>
+        </div>
+      </div>
+      
+      <div class="media-card">
+        <img src="/images/b23eadea0_chomsky_on_miseducation.jpg" alt="Chomsky on Miseducation">
+        <div class="media-info">
+          <h3>Chomsky on Miseducation</h3>
+          <p class="media-author">by Noam Chomsky</p>
+          <p class="media-year">2000</p>
+          <p class="media-desc">Critical thinking about education, democracy, and social change.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Films -->
+<section class="section films-section">
+  <div class="container">
+    <div class="section-icon-header">
+      <span class="section-icon">🎬</span>
+      <div>
+        <h2 class="section-title-left">Films</h2>
+        <p class="section-desc">Documentaries and films exploring civic themes</p>
+      </div>
+    </div>
+    
+    <div class="media-grid">
+      <div class="media-card">
+        <img src="/images/bf9279f90_13th.jpg" alt="13th">
+        <div class="media-info">
+          <h3>13th</h3>
+          <p class="media-author">by Ava DuVernay</p>
+          <p class="media-year">2016</p>
+          <p class="media-desc">An exploration of the intersection of race, justice, and mass incarceration in the United States.</p>
+        </div>
+      </div>
+      
+      <div class="media-card">
+        <img src="/images/83879c22d_the_social_dilemma.jpg" alt="The Social Dilemma">
+        <div class="media-info">
+          <h3>The Social Dilemma</h3>
+          <p class="media-author">by Jeff Orlowski</p>
+          <p class="media-year">2020</p>
+          <p class="media-desc">Tech experts sound the alarm on the dangerous human impact of social networking.</p>
+        </div>
+      </div>
+      
+      <div class="media-card">
+        <img src="/images/b238feabf_an_inconvenient_truth.jpg" alt="An Inconvenient Truth">
+        <div class="media-info">
+          <h3>An Inconvenient Truth</h3>
+          <p class="media-author">by Davis Guggenheim</p>
+          <p class="media-year">2006</p>
+          <p class="media-desc">Al Gore's documentary on the urgency of climate change.</p>
+        </div>
+      </div>
+      
+      <div class="media-card">
+        <img src="/images/283452d62_merchants_of_doubt.jpg" alt="Merchants of Doubt">
+        <div class="media-info">
+          <h3>Merchants of Doubt</h3>
+          <p class="media-author">by Robert Kenner</p>
+          <p class="media-year">2014</p>
+          <p class="media-desc">How a handful of scientists obscured the truth on issues from tobacco to climate change.</p>
+        </div>
+      </div>
+      
+      <div class="media-card">
+        <img src="/images/5dd3102cc_theinternetsownboy.jpg" alt="The Internet's Own Boy">
+        <div class="media-info">
+          <h3>The Internet's Own Boy</h3>
+          <p class="media-author">by Brian Knappenberger</p>
+          <p class="media-year">2014</p>
+          <p class="media-desc">The story of Aaron Swartz, programming prodigy and information activist.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Authors -->
+<section class="section authors-section">
+  <div class="container">
+    <div class="section-icon-header">
+      <span class="section-icon">✍️</span>
+      <div>
+        <h2 class="section-title-left">Authors</h2>
+        <p class="section-desc">Voices specializing in democracy and human rights</p>
+      </div>
+    </div>
+    
+    <div class="authors-grid">
+      <div class="author-card featured">
+        <span class="badge">Featured</span>
+        <img src="/images/ec8bf2141_heather_cox_richardson.jpg" alt="Heather Cox Richardson">
+        <h3>Heather Cox Richardson</h3>
+        <p>Historian and author of "Letters from an American," providing daily political analysis and historical context.</p>
+        <a href="#" class="author-link">Follow →</a>
+      </div>
+      
+      <div class="author-card featured">
+        <span class="badge">Featured</span>
+        <img src="/images/bc6c05f51_Robert_Reich.png" alt="Robert Reich">
+        <h3>Robert Reich</h3>
+        <p>Former Secretary of Labor, professor at UC Berkeley, and prolific author on economic inequality.</p>
+        <a href="#" class="author-link">Follow →</a>
+      </div>
+      
+      <div class="author-card featured">
+        <span class="badge">Featured</span>
+        <img src="/images/29d97be51_noam_chomsky.jpg" alt="Noam Chomsky">
+        <h3>Noam Chomsky</h3>
+        <p>Linguist, philosopher, cognitive scientist, and one of the foremost critics of U.S. foreign policy.</p>
+        <a href="#" class="author-link">Follow →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Suggestion CTA -->
+<section class="section suggestion-section">
+  <div class="container">
+    <h2 class="section-title">Have a suggestion?</h2>
+    <p class="section-subtitle">Know of a book, film, or author that should be featured in our library? We're always looking to expand our collection of civic resources.</p>
+    <a href="#" class="btn-primary">Submit a Suggestion</a>
+  </div>
+</section>
+
+<!-- Footer -->
 <footer class="footer">
   <div class="container">
     <div class="footer-grid">
       <div class="footer-col">
-        <h4>civ.works</h4>
+        <div class="footer-logo">
+          <span class="logo-civ">civ</span><span class="logo-dot">.</span><span class="logo-works">works</span>
+        </div>
         <p>Building a Trusted Space for People and Civic Action. An ad-free civic social network where your data is never shared.</p>
       </div>
       <div class="footer-col">
         <h4>Navigate</h4>
-        <a href="/">Home</a>
+        <a href="index.html">Home</a>
         <a href="about.html">About</a>
         <a href="defend.html">Defend</a>
         <a href="press.html">Press</a>
@@ -161,12 +294,13 @@
       </div>
       <div class="footer-col">
         <h4>Connect</h4>
-        <a href="https://bomdia.substack.com" target="_blank">Articles →</a>
-        <a href="https://bsky.app/profile/gpolisner.bsky.social" target="_blank">Bluesky →</a>
+        <a href="https://bomdia.substack.com" target="_blank">Articles ↗</a>
+        <a href="#" target="_blank">LinkedIn ↗</a>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2026 civ.works. All rights reserved.</p>
+      <p>© 2026 Civic Works. A 501(c)(3) non-profit organization.</p>
+      <a href="privacy.html">Privacy Policy</a>
     </div>
   </div>
 </footer>
