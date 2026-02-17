@@ -1390,14 +1390,25 @@ a.press-card-large:hover {
 
 /* Logo icon in navigation */
 .logo-icon {
-  height: 32px;
-  width: 32px;
-  margin-right: 12px;
-  vertical-align: middle;
+  height: 28px;
+  width: 28px;
+  margin-right: 10px;
+  background: white;
+  padding: 4px;
+  border-radius: 4px;
   display: inline-block;
+  vertical-align: middle;
 }
 
 .logo {
   display: flex;
   align-items: center;
+  text-decoration: none;
+}
+
+/* Ensure project images aren't affected by logo styles */
+.project-image img {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
