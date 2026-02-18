@@ -60,13 +60,16 @@ body {
   letter-spacing: -0.02em;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 4px;
 }
 
 .logo-icon {
   height: 2rem;
   width: auto;
   display: block;
+  margin-right: 0.5rem;
 }
 
 .nav-links {
@@ -374,10 +377,12 @@ body {
 @media (max-width: 768px) {
   .logo {
     font-size: 1.2rem;
+    padding: 0.4rem 0.6rem;
   }
   
   .logo-icon {
     height: 1.5rem;
+    margin-right: 0.4rem;
   }
   
   .hero-title {
@@ -411,10 +416,12 @@ body {
 @media (max-width: 480px) {
   .logo {
     font-size: 1rem;
+    padding: 0.3rem 0.5rem;
   }
   
   .logo-icon {
     height: 1.25rem;
+    margin-right: 0.35rem;
   }
   
   .hero-title {
