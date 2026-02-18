@@ -1047,8 +1047,15 @@ h1, h2, h3, h4, h5, h6 {
   direction: ltr;
 }
 
+.project-image {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
 .project-image img {
-  width: 100%;
+  max-width: 100%;
+  height: auto;
+  display: block;
   border-radius: 8px;
 }
 
@@ -1406,9 +1413,8 @@ a.press-card-large:hover {
   text-decoration: none;
 }
 
-/* Ensure project images aren't affected by logo styles */
-.project-image img {
-  max-width: 100%;
-  height: auto;
-  display: block;
+
+/* ECI project image color shift */
+.project-img-eci {
+  filter: hue-rotate(90deg);
 }
