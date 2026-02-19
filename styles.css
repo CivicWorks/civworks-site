@@ -601,20 +601,11 @@ body {
 
 /* Press Page */
 .press-featured-grid {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: minmax(auto, 900px);
+  justify-content: center;
   gap: 2rem;
   margin-top: 3rem;
-  max-width: 900px !important;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  position: relative;
-}
-
-.press-featured-grid > * {
-  max-width: 900px !important;
-  width: 100% !important;
 }
 
 .press-card-large {
@@ -627,9 +618,7 @@ body {
   transition: all 0.3s;
   position: relative;
   max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
+  justify-self: center;
 }
 
 .press-card-large:hover {
@@ -678,6 +667,9 @@ body {
   transition: all 0.3s;
   margin-bottom: 1rem;
   box-sizing: border-box;
+  justify-self: center;
+  max-width: 900px;
+  width: 100%;
 }
 
 .press-item:hover {
