@@ -607,6 +607,7 @@ body {
   max-width: 900px;
   margin-left: auto;
   margin-right: auto;
+  width: 100%;
 }
 
 .press-card-large {
@@ -621,6 +622,7 @@ body {
   max-width: 800px;
   margin-left: auto;
   margin-right: auto;
+  width: 100%;
 }
 
 .press-card-large:hover {
@@ -668,6 +670,8 @@ body {
   text-decoration: none;
   transition: all 0.3s;
   margin-bottom: 1rem;
+  width: 100%;
+  max-width: 100%;
 }
 
 .press-item:hover {
