@@ -1043,6 +1043,21 @@ body {
   color: var(--purple);
 }
 
+/* Partner Section */
+.partner-section {
+  background: rgba(124,58,237,0.02);
+  padding: 5rem 0;
+  text-align: center;
+}
+
+.partner-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2.5rem;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .logo {
@@ -1153,6 +1168,10 @@ body {
   
   .press-source-badge {
     justify-self: center;
+  }
+  
+  .partner-buttons {
+    flex-direction: column;
   }
 }
 
