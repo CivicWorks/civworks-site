@@ -24,7 +24,7 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.2;
 }
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   background: var(--dark);
   color: var(--off-white);
   line-height: 1.6;
@@ -57,7 +57,7 @@ body {
 }
 
 .logo {
-  font-family: 'Courier Prime', monospace;
+  font-family: 'Special Elite', monospace;
   font-size: 1.5rem;
   font-weight: 700;
   color: var(--purple);
@@ -151,7 +151,7 @@ body {
 }
 
 .hero-eyebrow {
-  font-family: 'Courier Prime', monospace;
+  font-family: 'Special Elite', monospace;
   font-size: 0.9rem;
   color: var(--purple);
   text-transform: uppercase;
@@ -160,7 +160,7 @@ body {
 }
 
 .hero-title {
-  font-family: 'Courier Prime', monospace;
+  font-family: 'Special Elite', monospace;
   font-size: clamp(2.5rem, 7vw, 5rem);
   line-height: 1.1;
   font-weight: 700;
@@ -231,7 +231,7 @@ body {
 }
 
 .section-title {
-  font-family: 'Courier Prime', monospace;
+  font-family: 'Special Elite', monospace;
   font-size: clamp(2rem, 5vw, 3rem);
   text-align: center;
   margin-bottom: 3rem;
@@ -274,7 +274,7 @@ body {
 }
 
 .mission-card h3 {
-  font-family: 'Courier Prime', monospace;
+  font-family: 'Special Elite', monospace;
   font-size: 1.4rem;
   margin-bottom: 1rem;
   color: var(--white);
@@ -295,7 +295,7 @@ body {
 }
 
 .feature h3 {
-  font-family: 'Courier Prime', monospace;
+  font-family: 'Special Elite', monospace;
   font-size: 1.3rem;
   margin-bottom: 1rem;
   color: var(--purple);
@@ -316,7 +316,7 @@ body {
 }
 
 .cta-section h2 {
-  font-family: 'Courier Prime', monospace;
+  font-family: 'Special Elite', monospace;
   font-size: clamp(2rem, 5vw, 3rem);
   margin-bottom: 1rem;
   color: var(--white);
@@ -346,7 +346,7 @@ body {
 }
 
 .footer-col h4 {
-  font-family: 'Courier Prime', monospace;
+  font-family: 'Special Elite', monospace;
   color: var(--white);
   margin-bottom: 1rem;
   font-size: 1.1rem;
@@ -535,7 +535,7 @@ body {
 
 .structure-box h2 {
   color: var(--white);
-  font-family: 'Courier Prime', monospace;
+  font-family: 'Special Elite', monospace;
   font-size: 2rem;
   margin-bottom: 1.5rem;
 }
@@ -592,7 +592,7 @@ body {
 }
 
 .footer-logo {
-  font-family: 'Courier Prime', monospace;
+  font-family: 'Special Elite', monospace;
   font-size: 1.5rem;
   font-weight: 700;
   color: var(--purple);
@@ -754,7 +754,7 @@ body {
 }
 
 .section-title-left {
-  font-family: 'Courier Prime', monospace;
+  font-family: 'Special Elite', monospace;
   font-size: 2.2rem;
   color: var(--white);
   margin: 0;
@@ -953,7 +953,7 @@ body {
 }
 
 .section-title {
-  font-family: 'Courier Prime', monospace;
+  font-family: 'Special Elite', monospace;
   font-size: 2.5rem;
   color: var(--white);
   margin-bottom: 1rem;
@@ -1024,7 +1024,7 @@ body {
 }
 
 .project-content h2 {
-  font-family: 'Courier Prime', monospace;
+  font-family: 'Special Elite', monospace;
   font-size: 2.2rem;
   color: var(--white);
   margin-bottom: 1rem;
@@ -1096,18 +1096,12 @@ body {
     font-size: 0.85rem;
   }
   
-  /* Ultra-aggressive nav logo constraint for tablets */
   .nav .logo-icon,
   .nav-container .logo-icon {
     height: 1.5rem !important;
     max-height: 1.5rem !important;
     width: auto !important;
     max-width: 1.5rem !important;
-  }
-  
-  .hero-cta {
-    flex-direction: column;
-    align-items: center;
   }
   
   .hero-cta {
@@ -1128,7 +1122,6 @@ body {
     flex-direction: column;
   }
   
-  /* Aggressive image constraints for tablets */
   .card img,
   .card-grid img {
     max-height: 250px !important;
@@ -1231,7 +1224,6 @@ body {
     gap: 0.75rem;
   }
   
-  /* Ultra-aggressive nav logo constraint for mobile */
   .nav .logo-icon,
   .nav-container .logo-icon {
     height: 1.25rem !important;
@@ -1240,7 +1232,6 @@ body {
     max-width: 1.25rem !important;
   }
   
-  /* VERY aggressive image constraints for phones */
   .card img,
   .card-grid img {
     max-height: 180px !important;
@@ -1298,7 +1289,7 @@ body {
 
 /* Page Styles */
 .section-eyebrow {
-  font-family: 'Courier Prime', monospace;
+  font-family: 'Special Elite', monospace;
   color: var(--purple);
   font-size: 0.9rem;
   text-transform: uppercase;
@@ -1314,7 +1305,7 @@ body {
 }
 
 .page-title {
-  font-family: 'Courier Prime', monospace;
+  font-family: 'Special Elite', monospace;
   font-size: clamp(2.5rem, 6vw, 4rem);
   color: var(--white);
   margin-bottom: 1rem;
@@ -1334,14 +1325,14 @@ body {
 }
 
 .content h2 {
-  font-family: 'Courier Prime', monospace;
+  font-family: 'Special Elite', monospace;
   color: var(--white);
   font-size: 2rem;
   margin: 3rem 0 1.5rem;
 }
 
 .content h3 {
-  font-family: 'Courier Prime', monospace;
+  font-family: 'Special Elite', monospace;
   color: var(--purple);
   font-size: 1.5rem;
   margin: 2.5rem 0 1rem;
@@ -1419,7 +1410,7 @@ body {
 }
 
 .card h3 {
-  font-family: 'Courier Prime', monospace;
+  font-family: 'Special Elite', monospace;
   color: var(--white);
   font-size: 1.3rem;
   margin-bottom: 1rem;
