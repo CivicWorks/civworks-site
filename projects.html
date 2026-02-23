@@ -4,9 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Projects - civ.works</title>
-  <link rel="icon" type="image/png" sizes="32x32" href="images/801ee806b_CivWorks_LogoSquare_1.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="images/801ee806b_CivWorks_LogoSquare_1.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="images/801ee806b_CivWorks_LogoSquare_1.png">
+<link rel="icon" type="image/png" href="images/801ee806b_CivWorks_LogoSquare_1.png">
 <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -19,11 +17,6 @@
       <img src="images/801ee806b_CivWorks_LogoSquare_1.png" alt="civ.works" class="logo-icon">
       <span class="logo-civ">civ</span><span class="logo-dot">.</span><span class="logo-works">works</span>
     </a>
-    <button class="hamburger" onclick="this.classList.toggle('active');document.querySelector('.nav-links').classList.toggle('active')" aria-label="Menu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
     <div class="nav-links">
       <a href="index.html">Home</a>
       <a href="about.html">About</a>
@@ -46,15 +39,46 @@
   </div>
 </section>
 
-<!-- Project 1: CivicSky Media -->
+<!-- Project 1: Action Engine (NEW — featured first) -->
 <section class="section project-section">
   <div class="container">
     <div class="project-container">
       <div class="project-image">
-        <img src="images/ea6d2936f_cw_logo.png" alt="CivicSky Media">
+        <div style="background: linear-gradient(135deg, #0a0a0a 0%, #1a1028 100%); border-radius: 8px; padding: 3rem; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 280px; border: 1px solid rgba(124,58,237,0.2);">
+          <div style="font-family: 'Special Elite', monospace; font-size: 1.4rem; color: #f5f5f5; margin-bottom: 0.5rem;">
+            civ<span style="color: #7C3AED;">.</span>works
+          </div>
+          <div style="font-family: 'Special Elite', monospace; font-size: 2.2rem; color: #ffffff; margin-bottom: 1rem; text-align: center;">
+            Action Engine
+          </div>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center;">
+            <span style="font-size: 0.65rem; padding: 0.2rem 0.6rem; border-radius: 3px; background: rgba(124,58,237,0.15); color: #8B5CF6; font-family: 'Open Sans', sans-serif; text-transform: uppercase; letter-spacing: 0.05em;">Privacy-First</span>
+            <span style="font-size: 0.65rem; padding: 0.2rem 0.6rem; border-radius: 3px; background: rgba(16,185,129,0.15); color: #10B981; font-family: 'Open Sans', sans-serif; text-transform: uppercase; letter-spacing: 0.05em;">Civic Action</span>
+            <span style="font-size: 0.65rem; padding: 0.2rem 0.6rem; border-radius: 3px; background: rgba(59,130,246,0.15); color: #3B82F6; font-family: 'Open Sans', sans-serif; text-transform: uppercase; letter-spacing: 0.05em;">Open Standards</span>
+          </div>
+        </div>
       </div>
       <div class="project-content">
-        <p class="project-label">PROJECT 1</p>
+        <p class="project-label">PROJECT 1 — NEW</p>
+        <h2>Action Engine</h2>
+        <p class="project-tagline">Privacy-first civic action for organizations that protect the people who show up</p>
+        <p>Action Engine is a privacy-first platform for creating, distributing, and measuring civic actions — rallies, workshops, campaigns, volunteer events, and more. Built as an alternative to Mobilize.us (now private-equity owned), Action Engine gives organizations full control over their supporter data while providing aggregate-only analytics that never expose individual identities. Designed for EU/Swiss infrastructure hosting to resist jurisdictional overreach, with distribution to Bluesky, Mastodon, and social.civ.works.</p>
+        <div class="project-buttons">
+          <a href="documents/cw_actionengine.pdf" target="_blank" class="btn-secondary">View Presentation →</a>
+          <a href="https://civicworks.github.io/action-engine/" target="_blank" class="btn-secondary">Live Prototype →</a>
+          <a href="https://buy.stripe.com/00gg04bBZd0V2L69AC" class="btn-primary">Support This Project →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Project 2: CivicSky Media -->
+<section class="section project-section-alt">
+  <div class="container">
+    <div class="project-container reverse">
+      <div class="project-content">
+        <p class="project-label">PROJECT 2</p>
         <h2>CivicSky Media</h2>
         <p class="project-tagline">Trusted information for a stronger democracy</p>
         <p>CivicSky Media is an initiative to combat disinformation and provide verified, trustworthy news and information to communities. By partnering with fact-checkers, journalists, and civic organizations, CivicSky aims to create a network of reliable media sources that empower citizens to make informed decisions.</p>
@@ -63,16 +87,22 @@
           <a href="https://buy.stripe.com/00gg04bBZd0V2L69AC" class="btn-primary">Support This Project →</a>
         </div>
       </div>
+      <div class="project-image">
+        <img src="images/ea6d2936f_cw_logo.png" alt="CivicSky Media">
+      </div>
     </div>
   </div>
 </section>
 
-<!-- Project 2: ECI -->
-<section class="section project-section-alt">
+<!-- Project 3: ECI -->
+<section class="section project-section">
   <div class="container">
-    <div class="project-container reverse">
+    <div class="project-container">
+      <div class="project-image">
+        <img src="images/ea6d2936f_cw_logo.png" alt="ECI Platform" class="project-img-eci">
+      </div>
       <div class="project-content">
-        <p class="project-label">PROJECT 2</p>
+        <p class="project-label">PROJECT 3</p>
         <h2>ECI — Ethical Corporate Intelligence</h2>
         <p class="project-tagline">Corporate Social Behavior Ratings</p>
         <p>ECI helps people see what companies actually stand for. We track environmental impact, labor and equity practices, executive pay fairness, supply-chain compliance, and political influence—and we flag when corporate ad dollars support media ecosystems known for disinformation or anti-democratic content. The result is a clearer picture of which brands deserve trust, and which ones quietly undermine the systems they depend on.</p>
@@ -81,20 +111,6 @@
           <a href="https://buy.stripe.com/00gg04bBZd0V2L69AC" class="btn-primary">Support This Project →</a>
         </div>
       </div>
-      <div class="project-image">
-        <img src="images/ea6d2936f_cw_logo.png" alt="ECI Platform" class="project-img-eci">
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Partner CTA -->
-<section class="section partner-section">
-  <div class="container">
-    <h2 class="section-title">Partner With Us</h2>
-    <p class="section-subtitle">We're always looking for partners who share our vision of strengthening democracy through technology and civic engagement. If you're interested in collaborating, we'd love to hear from you.</p>
-    <div class="partner-buttons">
-      <a href="/cdn-cgi/l/email-protection#6900070f06290a001f471e061b021a" class="btn-primary">Become a Partner</a>
     </div>
   </div>
 </section>
@@ -104,9 +120,7 @@
   <div class="container">
     <div class="footer-grid">
       <div class="footer-col">
-        <div class="footer-logo">
-          <span class="logo-civ">civ</span><span class="logo-dot">.</span><span class="logo-works">works</span>
-        </div>
+        <h4>civ.works</h4>
         <p>Building a Trusted Space for People and Civic Action. An ad-free civic social network where your data is never shared.</p>
       </div>
       <div class="footer-col">
@@ -119,10 +133,16 @@
       </div>
       <div class="footer-col">
         <h4>Connect</h4>
-        <a href="https://bomdia.substack.com" target="_blank">Articles ↗</a>
-        <a href="https://www.linkedin.com/in/georgepolisner/" target="_blank">LinkedIn ↗</a>
+        <a href="https://bomdia.substack.com" target="_blank">Articles →</a>
+        <a href="https://bsky.app/profile/gpolisner.bsky.social" target="_blank">Bluesky →</a>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2026 Civic Works. A 501(c)(3) non-profit organization.</p>
-      <a href="p
+      <p>&copy; 2026 civ.works. A 501(c)(3) non-profit organization. All rights reserved.</p>
+      <a href="privacy.html">Privacy Policy</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
