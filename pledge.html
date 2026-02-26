@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ethical Commerce Index — Pledge Your Support | Civic Works</title>
+  <meta name="description" content="Commit to $5/month when ECI launches. Help build the first independent, non-pay-to-play ESG rating platform.">
+  <style>
+    /* ========================================
+       CONFIGURATION — Edit these values
+       ======================================== */
+    :root {
+      --target-pledges: 5000;
+      --monthly-amount: 5;
+      --teal: #0d9488;
+      --teal-light: #06b6d4;
+      --teal-glow: rgba(13, 148, 136, 0.4);
+      --bg-dark: #0f172a;
+      --bg-card: rgba(30, 41, 59, 0.7);
+      --border: rgba(51, 65, 85, 0.5);
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --text-dim: #475569;
+    }
+
+    /* ========================================
+       BASE STYLES
+       ======================================== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, var(--bg-dark) 0%, #1a1a2e 50%, var(--bg-dark) 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+    }
+
+    .container {
+      max-width: 640px;
+      width: 100%;
+    }
+
+    /* ========================================
+       HEADER
+       ======================================== */
+    .header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .header-org {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: var(--teal);
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .header-title {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--text-primary);
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    .header-desc {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* ========================================
+       MAIN CARD
+       ======================================== */
+    .card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      padding: 32px 28px;
+      backdrop-filter: blur(8px);
+    }
+
+    /* ========================================
+       COUNTER
+       ======================================== */
+    .counter {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .counter-number {
+      font-size: 48px;
+      font-weight: 800;
+      color: var(--teal);
+      line-height: 1;
+    }
+
+    .counter-label {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    /* ========================================
+       THERMOMETER BAR
+       ======================================== */
+    .thermometer {
+      position: relative;
+      margin-bottom: 48px;
+      margin-top: 8px;
+    }
+
+    .thermo-track {
+      height: 8px;
+      border-radius: 999px;
+      background-color: #1e293b;
+      overflow: hidden;
+      border: 1px solid #334155;
+    }
+
+    .thermo-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--teal) 0%, var(--teal-light) 100%);
+      width: 0%;
+      transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+      box-shadow: 0 0 12px var(--teal-glow);
+    }
+
+    /* ========================================
+       MILESTONES
+       ======================================== */
+    .milestones {
+      position: relative;
+      height: 40px;
+    }
+
+    .milestone {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transform: translateX(-50%);
+    }
+
+    .milestone-label {
+      position: absolute;
+      top: -7px;
+      white-space: nowrap;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      transition: color 0.5s ease;
+    }
+
+    .milestone-label.reached { color: var(--teal); }
+
+    .milestone-dot {
+      position: absolute;
+      top: 10px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 2px solid var(--text-dim);
+      background: #1e293b;
+      transition: all 0.5s ease;
+    }
+
+    .milestone-dot.reached {
+      border-color: var(--teal);
+      background: var(--teal);
+    }
+
+    .milestone-count {
+      position: absolute;
+      top: 26px;
+      white-space: nowrap;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* ========================================
+       IMPACT TOGGLE
+       ======================================== */
+    .impact-toggle {
+      display: block;
+      width: 100%;
+      background: rgba(13, 148, 136, 0.08);
+      border: 1px solid rgba(13, 148, 136, 0.2);
+      border-radius: 10px;
+      padding: 14px 16px;
+      cursor: pointer;
+      margin-bottom: 24px;
+      text-align: left;
+      color: var(--teal);
+      font-size: 13px;
+      font-weight: 600;
+      font-family: inherit;
+    }
+
+    .impact-toggle:hover { background: rgba(13, 148, 136, 0.12); }
+
+    .impact-grid {
+      display: none;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .impact-grid.visible { display: grid; }
+
+    .impact-stat {
+      background: rgba(15, 23, 42, 0.5);
+      border-radius: 8px;
+      padding: 12px;
+    }
+
+    .impact-value {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .impact-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* ========================================
+       FORM
+       ======================================== */
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .form-input {
+      background: var(--bg-dark);
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 14px;
+      color: var(--text-primary);
+      outline: none;
+      width: 100%;
+      font-family: inherit;
+    }
+
+    .form-input:focus { border-color: var(--teal); }
+    .form-input.error { border-color: #ef4444; }
+    .form-input::placeholder { color: var(--text-dim); }
+
+    .error-text {
+      font-size: 12px;
+      color: #ef4444;
+      margin-bottom: 8px;
+      padding-left: 2px;
+      display: none;
+    }
+
+    .error-text.visible { display: block; }
+
+    .submit-btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      border: none;
+      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-light) 100%);
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: 0.02em;
+      box-shadow: 0 4px 14px rgba(13, 148, 136, 0.3);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      font-family: inherit;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px var(--teal-glow);
+    }
+
+    .submit-btn:active { transform: translateY(0); }
+
+    .submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .form-fine-print {
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+
+    /* ========================================
+       CONFIRMATION
+       ======================================== */
+    .confirmation {
+      display: none;
+      text-align: center;
+      background: rgba(13, 148, 136, 0.1);
+      border: 1px solid rgba(13, 148, 136, 0.3);
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    .confirmation.visible { display: block; }
+
+    .confirmation-check { font-size: 28px; margin-bottom: 8px; }
+
+    .confirmation-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--teal);
+      margin-bottom: 6px;
+    }
+
+    .confirmation-text {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    .confirmation-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .confirmation-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-secondary {
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-teal {
+      border: 1px solid rgba(13, 148, 136, 0.3);
+      background: rgba(13, 148, 136, 0.1);
+      color: var(--teal);
+    }
+
+    .btn-gray {
+      border: 1px solid var(--border);
+      background: rgba(30, 41, 59, 0.5);
+      color: var(--text-secondary);
+    }
+
+    /* ========================================
+       TRUST SIGNALS
+       ======================================== */
+    .trust {
+      text-align: center;
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .trust span {
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+
+    /* ========================================
+       RESPONSIVE
+       ======================================== */
+    @media (max-width: 480px) {
+      .header-title { font-size: 22px; }
+      .counter-number { font-size: 36px; }
+      .card { padding: 24px 18px; }
+      .form-row { grid-template-columns: 1fr; }
+      .impact-grid { grid-template-columns: 1fr; }
+      .trust { flex-direction: column; gap: 8px; }
+      .milestone-label { font-size: 9px; }
+      .milestone-count { font-size: 9px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-org">Civic Works · 501(c)(3)</div>
+    <h1 class="header-title">Ethical Commerce Index</h1>
+    <p class="header-desc">
+      The first independent, non-pay-to-play ESG rating platform.
+      Commit to $5/month when we launch — your pledge signals real demand
+      and helps us secure the funding to build this.
+    </p>
+  </div>
+
+  <!-- Main Card -->
+  <div class="card">
+
+    <!-- Counter -->
+    <div class="counter">
+      <div class="counter-number" id="pledgeCount">0</div>
+      <div class="counter-label">people committed to $5/month at launch</div>
+    </div>
+
+    <!-- Thermometer -->
+    <div class="thermometer">
+      <div class="thermo-track">
+        <div class="thermo-fill" id="thermoFill"></div>
+      </div>
+      <div class="milestones" id="milestones"></div>
+    </div>
+
+    <!-- Impact Toggle -->
+    <button class="impact-toggle" id="impactToggle">
+      <span id="impactArrow">▸</span> What <span id="impactCountLabel">0</span> pledges means for the project
+    </button>
+    <div class="impact-grid" id="impactGrid">
+      <div class="impact-stat">
+        <div class="impact-value" id="mrrValue">$0</div>
+        <div class="impact-label">Projected MRR</div>
+      </div>
+      <div class="impact-stat">
+        <div class="impact-value" id="arrValue">$0</div>
+        <div class="impact-label">Projected ARR</div>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <div id="pledgeForm">
+      <div class="form-row">
+        <input type="text" class="form-input" id="nameInput" placeholder="First name (optional)">
+        <input type="email" class="form-input" id="emailInput" placeholder="Email address *">
+      </div>
+      <div class="error-text" id="errorText"></div>
+      <button class="submit-btn" id="submitBtn">
+        I'm in — Count me at $5/month when it launches
+      </button>
+      <div class="form-fine-print">
+        No charge today. No credit card required. We'll notify you at launch.<br>
+        Your pledge helps us demonstrate demand to funders and investors.
+      </div>
+    </div>
+
+    <!-- Confirmation (hidden until submit) -->
+    <div class="confirmation" id="confirmation">
+      <div class="confirmation-check">✓</div>
+      <div class="confirmation-title" id="confirmTitle">You're pledged!</div>
+      <div class="confirmation-text" id="confirmText"></div>
+      <div class="confirmation-subtitle">Want to accelerate the launch?</div>
+      <div class="confirmation-actions">
+        <a href="https://bsky.app" target="_blank" class="btn-secondary btn-teal">Share on Bluesky</a>
+        <a href="https://civ.works" class="btn-secondary btn-gray">Make a donation now</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Trust Signals -->
+  <div class="trust">
+    <span>🔒 No payment collected until launch</span>
+    <span>501(c)(3) nonprofit</span>
+    <span>100% independent ratings</span>
+  </div>
+
+</div>
+
+<script>
+  // ============================================
+  // CONFIGURATION — EDIT THESE TWO VALUES
+  // ============================================
+  const SUPABASE_URL = 'YOUR_SUPABASE_PROJECT_URL';       // e.g. https://xyzxyz.supabase.co
+  const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';     // e.g. eyJhbGciOi...
+
+  const TARGET = 5000;
+  const AMOUNT = 5;
+  const MILESTONES = [
+    { count: 1000, label: 'POC Funded' },
+    { count: 2500, label: 'Beta Launch' },
+    { count: 5000, label: 'Production Ready' },
+  ];
+
+  // ============================================
+  // STATE
+  // ============================================
+  let currentCount = 0;
+  let impactOpen = false;
+
+  // ============================================
+  // DOM REFS
+  // ============================================
+  const $count = document.getElementById('pledgeCount');
+  const $fill = document.getElementById('thermoFill');
+  const $milestones = document.getElementById('milestones');
+  const $impactToggle = document.getElementById('impactToggle');
+  const $impactArrow = document.getElementById('impactArrow');
+  const $impactCountLabel = document.getElementById('impactCountLabel');
+  const $impactGrid = document.getElementById('impactGrid');
+  const $mrr = document.getElementById('mrrValue');
+  const $arr = document.getElementById('arrValue');
+  const $form = document.getElementById('pledgeForm');
+  const $name = document.getElementById('nameInput');
+  const $email = document.getElementById('emailInput');
+  const $error = document.getElementById('errorText');
+  const $submit = document.getElementById('submitBtn');
+  const $confirm = document.getElementById('confirmation');
+  const $confirmTitle = document.getElementById('confirmTitle');
+  const $confirmText = document.getElementById('confirmText');
+
+  // ============================================
+  // RENDER MILESTONES
+  // ============================================
+  MILESTONES.forEach(m => {
+    const pct = (m.count / TARGET) * 100;
+    const div = document.createElement('div');
+    div.className = 'milestone';
+    div.style.left = pct + '%';
+    div.innerHTML = `
+      <div class="milestone-label" data-milestone="${m.count}">${m.label}</div>
+      <div class="milestone-dot" data-milestone="${m.count}"></div>
+      <div class="milestone-count">${m.count.toLocaleString()}</div>
+    `;
+    $milestones.appendChild(div);
+  });
+
+  // ============================================
+  // UPDATE UI
+  // ============================================
+  function animateCount(target) {
+    const duration = 1200;
+    const start = performance.now();
+    const from = 0;
+
+    function step(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const val = Math.floor(from + (target - from) * eased);
+      $count.textContent = val.toLocaleString();
+      if (progress < 1) requestAnimationFrame(step);
+    }
+
+    requestAnimationFrame(step);
+  }
+
+  function updateUI(count) {
+    currentCount = count;
+    const pct = Math.min((count / TARGET) * 100, 100);
+
+    // Animate counter on first load
+    animateCount(count);
+
+    // Thermometer fill
+    setTimeout(() => { $fill.style.width = pct + '%'; }, 100);
+
+    // Milestones
+    document.querySelectorAll('.milestone-label').forEach(el => {
+      const mc = parseInt(el.dataset.milestone);
+      el.classList.toggle('reached', count >= mc);
+    });
+    document.querySelectorAll('.milestone-dot').forEach(el => {
+      const mc = parseInt(el.dataset.milestone);
+      el.classList.toggle('reached', count >= mc);
+    });
+
+    // Impact numbers
+    const mrr = count * AMOUNT;
+    const arr = mrr * 12;
+    $impactCountLabel.textContent = count.toLocaleString();
+    $mrr.textContent = '$' + mrr.toLocaleString();
+    $arr.textContent = '$' + arr.toLocaleString();
+  }
+
+  // ============================================
+  // SUPABASE HELPERS
+  // ============================================
+  async function fetchCount() {
+    try {
+      // Use Supabase's PostgREST API to get count
+      const res = await fetch(
+        `${SUPABASE_URL}/rest/v1/pledges?select=id`,
+        {
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            'Prefer': 'count=exact'
+          },
+          method: 'HEAD'
+        }
+      );
+      const count = parseInt(res.headers.get('content-range')?.split('/')[1] || '0');
+      return count;
+    } catch (err) {
+      console.error('Failed to fetch count:', err);
+      return 0;
+    }
+  }
+
+  async function submitPledge(email, name) {
+    const body = { email };
+    if (name && name.trim()) body.name = name.trim();
+
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/pledges`,
+      {
+        method: 'POST',
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify(body)
+      }
+    );
+
+    if (res.status === 409 || res.status === 400) {
+      // Likely duplicate email
+      throw new Error('duplicate');
+    }
+
+    if (!res.ok) {
+      throw new Error('submit_failed');
+    }
+  }
+
+  // ============================================
+  // EVENT HANDLERS
+  // ============================================
+  $impactToggle.addEventListener('click', () => {
+    impactOpen = !impactOpen;
+    $impactArrow.textContent = impactOpen ? '▾' : '▸';
+    $impactGrid.classList.toggle('visible', impactOpen);
+  });
+
+  $submit.addEventListener('click', async () => {
+    const email = $email.value.trim();
+    const name = $name.value.trim();
+
+    // Validate
+    if (!email || !email.includes('@') || !email.includes('.')) {
+      $error.textContent = 'Please enter a valid email address.';
+      $error.classList.add('visible');
+      $email.classList.add('error');
+      return;
+    }
+
+    $error.classList.remove('visible');
+    $email.classList.remove('error');
+    $submit.disabled = true;
+    $submit.textContent = 'Submitting...';
+
+    try {
+      await submitPledge(email, name);
+      currentCount += 1;
+
+      // Update counter display
+      $count.textContent = currentCount.toLocaleString();
+      const pct = Math.min((currentCount / TARGET) * 100, 100);
+      $fill.style.width = pct + '%';
+      $impactCountLabel.textContent = currentCount.toLocaleString();
+      $mrr.textContent = '$' + (currentCount * AMOUNT).toLocaleString();
+      $arr.textContent = '$' + (currentCount * AMOUNT * 12).toLocaleString();
+
+      // Show confirmation
+      $form.style.display = 'none';
+      $confirmTitle.textContent = name ? `You're pledged, ${name}!` : "You're pledged!";
+      $confirmText.textContent = `You're #${currentCount.toLocaleString()} to commit. We'll email you when ECI launches.`;
+      $confirm.classList.add('visible');
+
+    } catch (err) {
+      if (err.message === 'duplicate') {
+        $error.textContent = "You've already pledged — thank you! We'll be in touch at launch.";
+      } else {
+        $error.textContent = 'Something went wrong. Please try again.';
+      }
+      $error.classList.add('visible');
+      $submit.disabled = false;
+      $submit.textContent = "I'm in — Count me at $5/month when it launches";
+    }
+  });
+
+  // Enter key submits
+  $email.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') $submit.click();
+  });
+
+  // ============================================
+  // INIT
+  // ============================================
+  (async function init() {
+    const count = await fetchCount();
+    updateUI(count);
+  })();
+</script>
+
+</body>
+</html>
