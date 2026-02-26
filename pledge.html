@@ -575,7 +575,7 @@
     const pct = Math.min((count / TARGET) * 100, 100);
 
     // Animate counter on first load
-    animateCount(count);
+    $count.textContent = count.toLocaleString();
     $count.style.opacity = '1';
 
     // Thermometer fill
