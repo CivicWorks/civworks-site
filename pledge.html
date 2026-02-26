@@ -96,12 +96,14 @@
       margin-bottom: 28px;
     }
 
-    .counter-number {
-      font-size: 48px;
-      font-weight: 800;
-      color: var(--teal);
-      line-height: 1;
-    }
+   .counter-number {
+  font-size: 48px;
+  font-weight: 800;
+  color: var(--teal);
+  line-height: 1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
 
     .counter-label {
       font-size: 14px;
@@ -574,6 +576,7 @@
 
     // Animate counter on first load
     animateCount(count);
+    $count.style.opacity = '1';
 
     // Thermometer fill
     setTimeout(() => { $fill.style.width = pct + '%'; }, 100);
