@@ -19,9 +19,9 @@
       --bg-card: rgba(30, 41, 59, 0.7);
       --border: rgba(51, 65, 85, 0.5);
       --text-primary: #f1f5f9;
-      --text-secondary: #94a3b8;
-      --text-muted: #64748b;
-      --text-dim: #475569;
+      --text-secondary: #b0bec5;
+      --text-muted: #8896a6;
+      --text-dim: #6b7d8f;
     }
 
     /* ========================================
@@ -114,7 +114,7 @@
        ======================================== */
     .thermometer {
       position: relative;
-      margin-bottom: 48px;
+      margin-bottom: 64px;
       margin-top: 8px;
     }
 
@@ -140,51 +140,49 @@
        ======================================== */
     .milestones {
       position: relative;
-      height: 40px;
+      height: 44px;
+      margin-top: 8px;
     }
 
     .milestone {
       position: absolute;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      text-align: center;
       transform: translateX(-50%);
     }
 
+    /* Prevent rightmost milestone from overflowing */
+    .milestone:last-child {
+      transform: translateX(-85%);
+    }
+
     .milestone-label {
-      position: absolute;
-      top: -7px;
-      white-space: nowrap;
       font-size: 11px;
       font-weight: 600;
       color: var(--text-secondary);
+      white-space: nowrap;
       transition: color 0.5s ease;
     }
 
     .milestone-label.reached { color: var(--teal); }
 
     .milestone-dot {
-      position: absolute;
-      top: 10px;
-      width: 10px;
-      height: 10px;
+      display: inline-block;
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
-      border: 2px solid var(--text-dim);
-      background: #1e293b;
+      background: var(--text-dim);
+      margin: 4px auto;
       transition: all 0.5s ease;
     }
 
     .milestone-dot.reached {
-      border-color: var(--teal);
       background: var(--teal);
     }
 
     .milestone-count {
-      position: absolute;
-      top: 26px;
-      white-space: nowrap;
-      font-size: 11px;
+      font-size: 10px;
       color: var(--text-muted);
+      white-space: nowrap;
     }
 
     /* ========================================
@@ -259,7 +257,7 @@
 
     .form-input:focus { border-color: var(--teal); }
     .form-input.error { border-color: #ef4444; }
-    .form-input::placeholder { color: var(--text-dim); }
+    .form-input::placeholder { color: #7a8a9a; }
 
     .error-text {
       font-size: 12px;
@@ -303,7 +301,7 @@
     .form-fine-print {
       text-align: center;
       font-size: 11px;
-      color: var(--text-dim);
+      color: var(--text-muted);
       margin-top: 10px;
       line-height: 1.5;
     }
@@ -388,7 +386,7 @@
 
     .trust span {
       font-size: 11px;
-      color: var(--text-dim);
+      color: var(--text-muted);
     }
 
     /* ========================================
@@ -402,7 +400,7 @@
       .impact-grid { grid-template-columns: 1fr; }
       .trust { flex-direction: column; gap: 8px; }
       .milestone-label { font-size: 9px; }
-      .milestone-count { font-size: 9px; }
+      .milestone-count { font-size: 8px; }
     }
   </style>
 </head>
