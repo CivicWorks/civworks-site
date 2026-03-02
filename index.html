@@ -9,6 +9,36 @@
   <link rel="apple-touch-icon" sizes="180x180" href="images/801ee806b_CivWorks_LogoSquare_1.png">
 <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<style>
+  /* Testimonial photo enhancements */
+  .testimonial-card-with-photo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .testimonial-portrait {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+    margin-bottom: 1.25rem;
+    border: 3px solid rgba(139, 92, 246, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  }
+  .testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  @media (max-width: 768px) {
+    .testimonial-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
 </head>
 <body>
 
@@ -125,16 +155,8 @@
     <p class="section-subtitle">And we like what they have to say.</p>
     
     <div class="testimonial-grid">
-      <div class="testimonial-card">
-        <div class="quote-icon">"</div>
-        <p class="testimonial-quote">It is a great pleasure to welcome civ.works. It's a wonderful idea, with great promise to provide a platform for meaningful civic action without the severely distorting interference of concentrated power, private or state. Civ.works is insulated from the forces that have been so destructive of functioning democracy and is readily available for the kinds of constructive use that are so badly needed today.</p>
-        <div class="testimonial-author">
-          <p class="author-name">Professor Noam Chomsky</p>
-          <p class="author-title">Writer & Father of Modern Linguistics</p>
-        </div>
-      </div>
-      
-      <div class="testimonial-card">
+      <div class="testimonial-card testimonial-card-with-photo">
+        <img src="images/jed.webp" alt="Jed Emerson" class="testimonial-portrait">
         <div class="quote-icon">"</div>
         <p class="testimonial-quote">Was interested to see this new offering from our colleague, George Polisner, Civic Works, a social media platform for activists and promoted here below. Good to see!</p>
         <div class="testimonial-author">
@@ -143,7 +165,8 @@
         </div>
       </div>
       
-      <div class="testimonial-card">
+      <div class="testimonial-card testimonial-card-with-photo">
+        <img src="images/colleen_hardwick_2022.jpg" alt="Colleen Hardwick" class="testimonial-portrait">
         <div class="quote-icon">"</div>
         <p class="testimonial-quote">Civ.Works is the product of very similar thinking to PlaceSpeak in that it seeks to authenticate the online civic engagement process with the objective, ultimately, to build trust in democracy. I met Civ.Works founder, George Polisner, after he famously resigned from Oracle in protest to its CEO joining Trump's technology caucus.</p>
         <div class="testimonial-author">
