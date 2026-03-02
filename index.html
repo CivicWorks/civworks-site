@@ -33,8 +33,15 @@
     max-width: 900px;
     margin: 0 auto;
   }
+  /* 3-member team grid */
+  .team-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
   @media (max-width: 768px) {
     .testimonial-grid {
+      grid-template-columns: 1fr;
+    }
+    .team-grid {
       grid-template-columns: 1fr;
     }
   }
@@ -142,6 +149,14 @@
         <p class="team-role">CTO & Board Member</p>
         <p class="team-bio">Golda has worked for JPL, Oracle, and other major enterprises and startups to direct complex projects, programs, and teams. She is deeply involved in human rights efforts worldwide.</p>
         <a href="https://www.linkedin.com/in/goldavelez/" target="_blank" class="team-link">LinkedIn →</a>
+      </div>
+      
+      <div class="team-card">
+        <img src="images/ed_p.png" alt="Ed Peselman" class="team-portrait">
+        <h3>Ed Peselman</h3>
+        <p class="team-role">Chief Marketing Officer</p>
+        <p class="team-bio">Ed is a content creator and producer focused on developing revolutionary tools for civic engagement and activism.</p>
+        <a href="https://www.linkedin.com/in/edward-peselman-9a614b1/" target="_blank" class="team-link">LinkedIn →</a>
       </div>
     </div>
   </div>
