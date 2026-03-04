@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -85,6 +84,8 @@
       position: relative;
       overflow: hidden;
       transition: border-color 0.3s ease;
+      text-decoration: none;
+      display: block;
     }
 
     .project-card::before {
@@ -118,7 +119,19 @@
       font-size: 11px;
       color: var(--text-muted);
       line-height: 1.5;
+      margin-bottom: 10px;
     }
+
+    .project-learn {
+      font-size: 11px;
+      color: var(--teal);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .project-card:hover .project-learn { opacity: 1; }
 
     /* ── MAIN CARD ── */
     .card {
@@ -414,6 +427,7 @@
       .form-row { grid-template-columns: 1fr; }
       .impact-grid { grid-template-columns: 1fr; }
       .trust { flex-direction: column; gap: 8px; }
+      .project-learn { opacity: 1; }
     }
   </style>
 </head>
@@ -434,21 +448,24 @@
 
   <!-- Project Cards -->
   <div class="projects">
-    <div class="project-card">
+    <a href="action-engine.html" class="project-card">
       <span class="project-icon">⚙️</span>
       <div class="project-name">Action Engine</div>
       <p class="project-desc">Privacy-first civic organizing — the independent alternative to corporate-owned mobilization platforms.</p>
-    </div>
-    <div class="project-card">
+      <div class="project-learn">Learn more →</div>
+    </a>
+    <a href="civicsky.html" class="project-card">
       <span class="project-icon">📡</span>
       <div class="project-name">CivicSky Media</div>
       <p class="project-desc">Decentralized, ad-free civic social network — short-form and long-form, built on the AT Protocol.</p>
-    </div>
-    <div class="project-card">
+      <div class="project-learn">Learn more →</div>
+    </a>
+    <a href="alonovo.html" class="project-card">
       <span class="project-icon">🔍</span>
       <div class="project-name">alonovo / ESG</div>
       <p class="project-desc">Scan a barcode, see the truth. Independent corporate accountability ratings — lobbying, labor, environment.</p>
-    </div>
+      <div class="project-learn">Learn more →</div>
+    </a>
   </div>
 
   <!-- Main Card -->
