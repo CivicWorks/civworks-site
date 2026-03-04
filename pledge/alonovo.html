@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>alonovo / ESG | Civic Works</title>
+  <meta name="description" content="alonovo/ESG — scan a barcode, see the truth. Independent corporate accountability ratings covering lobbying, labor, environment, and more.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --teal: #0d9488;
+      --teal-light: #06b6d4;
+      --teal-glow: rgba(13, 148, 136, 0.4);
+      --bg-dark: #0f172a;
+      --bg-card: rgba(30, 41, 59, 0.7);
+      --border: rgba(51, 65, 85, 0.5);
+      --text-primary: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --text-muted: #8896a6;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: linear-gradient(135deg, var(--bg-dark) 0%, #1a1a2e 50%, var(--bg-dark) 100%);
+      min-height: 100vh;
+      padding: 40px 16px 60px;
+      color: var(--text-primary);
+    }
+
+    .container { max-width: 660px; margin: 0 auto; }
+
+    /* ── RETURN LINK ── */
+    .return-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--teal);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      margin-bottom: 36px;
+      padding: 10px 16px;
+      border: 1px solid rgba(13, 148, 136, 0.3);
+      border-radius: 8px;
+      background: rgba(13, 148, 136, 0.06);
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+    .return-link:hover {
+      background: rgba(13, 148, 136, 0.12);
+      border-color: rgba(13, 148, 136, 0.5);
+    }
+
+    /* ── HEADER ── */
+    .header { text-align: center; margin-bottom: 36px; }
+
+    .project-badge {
+      display: inline-block;
+      background: rgba(13, 148, 136, 0.12);
+      border: 1px solid rgba(13, 148, 136, 0.3);
+      color: var(--teal);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 999px;
+      margin-bottom: 18px;
+    }
+
+    .header-icon { font-size: 48px; display: block; margin-bottom: 14px; }
+
+    .header-title {
+      font-family: 'Special Elite', serif;
+      font-size: 32px;
+      font-weight: 400;
+      color: var(--text-primary);
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+
+    .header-tagline {
+      font-size: 16px;
+      color: var(--teal);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .header-desc {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      padding: 32px 28px;
+      backdrop-filter: blur(8px);
+      margin-bottom: 16px;
+    }
+
+    .card-title {
+      font-family: 'Special Elite', serif;
+      font-size: 18px;
+      color: var(--teal);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── HOW IT WORKS STEPS ── */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .step {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      position: relative;
+    }
+
+    .step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 17px;
+      top: 36px;
+      bottom: -14px;
+      width: 2px;
+      background: rgba(13, 148, 136, 0.2);
+    }
+
+    .step + .step { margin-top: 14px; }
+
+    .step-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(13, 148, 136, 0.12);
+      border: 1px solid rgba(13, 148, 136, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Special Elite', serif;
+      font-size: 15px;
+      color: var(--teal);
+      flex-shrink: 0;
+    }
+
+    .step-text strong {
+      display: block;
+      font-size: 14px;
+      color: var(--text-primary);
+      margin-bottom: 3px;
+      margin-top: 6px;
+    }
+
+    .step-text span {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    /* ── DATA CATEGORIES ── */
+    .data-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .data-item {
+      background: rgba(15, 23, 42, 0.5);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .data-emoji { font-size: 18px; flex-shrink: 0; }
+
+    .data-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 3px;
+    }
+
+    .data-source {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* ── MOCK RATING CARD ── */
+    .mock-card {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(13, 148, 136, 0.2);
+      border-radius: 12px;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .mock-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--teal), var(--teal-light));
+    }
+
+    .mock-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .mock-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: rgba(51, 65, 85, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .mock-company-name {
+      font-family: 'Special Elite', serif;
+      font-size: 16px;
+      color: var(--text-primary);
+    }
+
+    .mock-overall {
+      margin-left: auto;
+      text-align: center;
+    }
+
+    .mock-grade {
+      font-family: 'Special Elite', serif;
+      font-size: 28px;
+      line-height: 1;
+    }
+
+    .grade-d { color: #f87171; }
+    .grade-b { color: #34d399; }
+    .grade-c { color: #fbbf24; }
+
+    .mock-grade-label {
+      font-size: 10px;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+    }
+
+    .mock-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+      border-top: 1px solid rgba(51, 65, 85, 0.4);
+    }
+
+    .mock-row-label {
+      font-size: 12px;
+      color: var(--text-secondary);
+      flex: 1;
+    }
+
+    .mock-row-grade {
+      font-family: 'Special Elite', serif;
+      font-size: 14px;
+      min-width: 28px;
+      text-align: center;
+    }
+
+    .mock-note {
+      font-size: 10px;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 12px;
+      font-style: italic;
+    }
+
+    /* ── RETURN CTA ── */
+    .return-cta {
+      text-align: center;
+      margin-top: 36px;
+    }
+
+    .return-cta-title {
+      font-family: 'Special Elite', serif;
+      font-size: 20px;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .return-cta-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .btn-pledge {
+      display: inline-block;
+      padding: 15px 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-light) 100%);
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      box-shadow: 0 4px 14px rgba(13, 148, 136, 0.3);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .btn-pledge:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px var(--teal-glow);
+    }
+
+    @media (max-width: 540px) {
+      .header-title { font-size: 26px; }
+      .card { padding: 24px 18px; }
+      .data-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Return Link (top) -->
+  <a href="pledge.html" class="return-link">
+    <span>←</span> Return to Pledge Page
+  </a>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="project-badge">Project Three · Civic Works</div>
+    <span class="header-icon">🔍</span>
+    <h1 class="header-title">alonovo / ESG</h1>
+    <p class="header-tagline">Scan a Barcode. See the Truth.</p>
+    <p class="header-desc">
+      Independent corporate accountability ratings covering lobbying, labor, environment, animal welfare,
+      and executive pay — sourced from public data, not paid self-reporting.
+      Point your phone at any product and know who made it.
+    </p>
+  </div>
+
+  <!-- How It Works -->
+  <div class="card">
+    <div class="card-title">How It Works</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">
+          <strong>Scan any barcode</strong>
+          <span>Point the alonovo app at any product in a store. The barcode maps to the parent company behind the brand.</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">
+          <strong>We look up the company</strong>
+          <span>alonovo cross-references FEC lobbying records, labor filings, environmental disclosures, and animal welfare data — all from public sources.</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text">
+          <strong>You get a real score</strong>
+          <span>Not paid self-reporting. Not greenwashing. Independently calculated ratings across categories that actually matter to people.</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-text">
+          <strong>See alternatives</strong>
+          <span>alonovo surfaces comparable products from companies that score better — so your purchase decision is informed, not just your conscience.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sample Rating Card -->
+  <div class="card">
+    <div class="card-title">What a Rating Looks Like</div>
+    <div class="mock-card">
+      <div class="mock-card-header">
+        <div class="mock-logo">🛒</div>
+        <div>
+          <div class="mock-company-name">Example Corp</div>
+          <div style="font-size:11px;color:var(--text-muted);">Consumer Goods · Fortune 500</div>
+        </div>
+        <div class="mock-overall">
+          <div class="mock-grade grade-c">C+</div>
+          <div class="mock-grade-label">OVERALL</div>
+        </div>
+      </div>
+      <div class="mock-row">
+        <span class="mock-row-label">Environment / Climate</span>
+        <span class="mock-row-grade grade-c">C</span>
+      </div>
+      <div class="mock-row">
+        <span class="mock-row-label">Labor &amp; Worker Rights</span>
+        <span class="mock-row-grade grade-b">B</span>
+      </div>
+      <div class="mock-row">
+        <span class="mock-row-label">Political Lobbying (FEC)</span>
+        <span class="mock-row-grade grade-d">D</span>
+      </div>
+      <div class="mock-row">
+        <span class="mock-row-label">Executive Pay Ratio</span>
+        <span class="mock-row-grade grade-d">D+</span>
+      </div>
+      <div class="mock-row">
+        <span class="mock-row-label">Animal Welfare</span>
+        <span class="mock-row-grade grade-b">B-</span>
+      </div>
+      <div class="mock-note">Illustrative example · Live data sourced from FEC, SEC, and public disclosures</div>
+    </div>
+  </div>
+
+  <!-- Data Sources -->
+  <div class="card">
+    <div class="card-title">What We Measure</div>
+    <div class="data-grid">
+      <div class="data-item">
+        <div class="data-emoji">🏛️</div>
+        <div>
+          <div class="data-name">Political Lobbying</div>
+          <div class="data-source">FEC filings, lobbying disclosures, PAC contributions</div>
+        </div>
+      </div>
+      <div class="data-item">
+        <div class="data-emoji">🌍</div>
+        <div>
+          <div class="data-name">Environment</div>
+          <div class="data-source">GRI/SASB/TCFD frameworks, EPA records, emissions data</div>
+        </div>
+      </div>
+      <div class="data-item">
+        <div class="data-emoji">👷</div>
+        <div>
+          <div class="data-name">Labor &amp; Equity</div>
+          <div class="data-source">OSHA filings, wage data, union activity, pay equity reports</div>
+        </div>
+      </div>
+      <div class="data-item">
+        <div class="data-emoji">💼</div>
+        <div>
+          <div class="data-name">Executive Pay</div>
+          <div class="data-source">SEC proxy filings · CEO-to-median-worker pay ratio</div>
+        </div>
+      </div>
+      <div class="data-item">
+        <div class="data-emoji">🐾</div>
+        <div>
+          <div class="data-name">Animal Welfare</div>
+          <div class="data-source">Independent welfare databases, certification records</div>
+        </div>
+      </div>
+      <div class="data-item">
+        <div class="data-emoji">📊</div>
+        <div>
+          <div class="data-name">Supply Chain</div>
+          <div class="data-source">Forced labor flags, sourcing disclosures, audit data</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Return CTA -->
+  <div class="return-cta">
+    <div class="return-cta-title">Ready to support alonovo/ESG?</div>
+    <p class="return-cta-desc">One $5/month pledge supports all three Civic Works projects — Action Engine, CivicSky Media, and alonovo/ESG.</p>
+    <a href="pledge.html" class="btn-pledge">← Return to Pledge Page</a>
+  </div>
+
+</div>
+</body>
+</html>

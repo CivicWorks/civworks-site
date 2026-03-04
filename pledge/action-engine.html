@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Action Engine | Civic Works</title>
+  <meta name="description" content="Action Engine — the privacy-first civic organizing platform. An independent alternative to corporate-owned mobilization tools.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --teal: #0d9488;
+      --teal-light: #06b6d4;
+      --teal-glow: rgba(13, 148, 136, 0.4);
+      --bg-dark: #0f172a;
+      --bg-card: rgba(30, 41, 59, 0.7);
+      --border: rgba(51, 65, 85, 0.5);
+      --text-primary: #f1f5f9;
+      --text-secondary: #b0bec5;
+      --text-muted: #8896a6;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: linear-gradient(135deg, var(--bg-dark) 0%, #1a1a2e 50%, var(--bg-dark) 100%);
+      min-height: 100vh;
+      padding: 40px 16px 60px;
+      color: var(--text-primary);
+    }
+
+    .container { max-width: 660px; margin: 0 auto; }
+
+    /* ── RETURN LINK ── */
+    .return-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--teal);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      margin-bottom: 36px;
+      padding: 10px 16px;
+      border: 1px solid rgba(13, 148, 136, 0.3);
+      border-radius: 8px;
+      background: rgba(13, 148, 136, 0.06);
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+    .return-link:hover {
+      background: rgba(13, 148, 136, 0.12);
+      border-color: rgba(13, 148, 136, 0.5);
+    }
+    .return-link .arrow { font-size: 16px; }
+
+    /* ── HEADER ── */
+    .header {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    .project-badge {
+      display: inline-block;
+      background: rgba(13, 148, 136, 0.12);
+      border: 1px solid rgba(13, 148, 136, 0.3);
+      color: var(--teal);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 999px;
+      margin-bottom: 18px;
+    }
+
+    .header-icon {
+      font-size: 48px;
+      display: block;
+      margin-bottom: 14px;
+    }
+
+    .header-title {
+      font-family: 'Special Elite', serif;
+      font-size: 32px;
+      font-weight: 400;
+      color: var(--text-primary);
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+
+    .header-tagline {
+      font-size: 16px;
+      color: var(--teal);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .header-desc {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      padding: 32px 28px;
+      backdrop-filter: blur(8px);
+      margin-bottom: 16px;
+    }
+
+    .card-title {
+      font-family: 'Special Elite', serif;
+      font-size: 18px;
+      color: var(--teal);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── PROBLEM / SOLUTION ── */
+    .problem-solution {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 0;
+    }
+
+    .ps-block {
+      border-radius: 10px;
+      padding: 16px;
+    }
+
+    .ps-block.problem {
+      background: rgba(239, 68, 68, 0.07);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+    }
+
+    .ps-block.solution {
+      background: rgba(13, 148, 136, 0.07);
+      border: 1px solid rgba(13, 148, 136, 0.2);
+    }
+
+    .ps-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .ps-block.problem .ps-label { color: #f87171; }
+    .ps-block.solution .ps-label { color: var(--teal); }
+
+    .ps-text {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    /* ── FEATURES ── */
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .feature-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .feature-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: rgba(13, 148, 136, 0.1);
+      border: 1px solid rgba(13, 148, 136, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .feature-text strong {
+      display: block;
+      font-size: 14px;
+      color: var(--text-primary);
+      margin-bottom: 3px;
+    }
+
+    .feature-text span {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    /* ── DIFFERENTIATOR ── */
+    .diff-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .diff-item {
+      background: rgba(15, 23, 42, 0.5);
+      border-radius: 8px;
+      padding: 14px;
+      border: 1px solid var(--border);
+    }
+
+    .diff-value {
+      font-family: 'Special Elite', serif;
+      font-size: 22px;
+      color: var(--teal);
+      margin-bottom: 4px;
+    }
+
+    .diff-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* ── RETURN CTA ── */
+    .return-cta {
+      text-align: center;
+      margin-top: 36px;
+    }
+
+    .return-cta-title {
+      font-family: 'Special Elite', serif;
+      font-size: 20px;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .return-cta-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .btn-pledge {
+      display: inline-block;
+      padding: 15px 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-light) 100%);
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      box-shadow: 0 4px 14px rgba(13, 148, 136, 0.3);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .btn-pledge:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px var(--teal-glow);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 540px) {
+      .header-title { font-size: 26px; }
+      .card { padding: 24px 18px; }
+      .problem-solution { grid-template-columns: 1fr; }
+      .diff-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Return Link (top) -->
+  <a href="pledge.html" class="return-link">
+    <span class="arrow">←</span> Return to Pledge Page
+  </a>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="project-badge">Project One · Civic Works</div>
+    <span class="header-icon">⚙️</span>
+    <h1 class="header-title">Action Engine</h1>
+    <p class="header-tagline">Privacy-First Civic Organizing</p>
+    <p class="header-desc">
+      The independent, privacy-first alternative to corporate-owned mobilization platforms —
+      built for the civic organizations and campaigns that need to own their own supporter relationships.
+    </p>
+  </div>
+
+  <!-- Problem / Solution -->
+  <div class="card">
+    <div class="card-title">The Problem We're Solving</div>
+    <div class="problem-solution">
+      <div class="ps-block problem">
+        <div class="ps-label">The Problem</div>
+        <p class="ps-text">Mobilize.us — the dominant civic organizing platform — was acquired by private equity. Civic organizations now pay to access their own supporter data, and that data is monetized by the platform.</p>
+      </div>
+      <div class="ps-block solution">
+        <div class="ps-label">Our Answer</div>
+        <p class="ps-text">Action Engine is privacy-first by architecture. Organizations retain full ownership of their supporter data. No platform lock-in. No surveillance. No surprise fee hikes.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Features -->
+  <div class="card">
+    <div class="card-title">What It Does</div>
+    <ul class="feature-list">
+      <li class="feature-item">
+        <div class="feature-icon">🔒</div>
+        <div class="feature-text">
+          <strong>Supporter Data Sovereignty</strong>
+          <span>Organizations own 100% of their data. No licensing of your lists. No third-party access. EU/Swiss hosting available.</span>
+        </div>
+      </li>
+      <li class="feature-item">
+        <div class="feature-icon">📋</div>
+        <div class="feature-text">
+          <strong>Event & Action Management</strong>
+          <span>Canvassing, phone banks, town halls, petitions — managed in one place with clean, simple tooling that doesn't get in the way.</span>
+        </div>
+      </li>
+      <li class="feature-item">
+        <div class="feature-icon">📊</div>
+        <div class="feature-text">
+          <strong>Aggregate-Only Analytics</strong>
+          <span>Understand how your campaigns perform without profiling individuals. Privacy by design, not as an afterthought.</span>
+        </div>
+      </li>
+      <li class="feature-item">
+        <div class="feature-icon">🔗</div>
+        <div class="feature-text">
+          <strong>Open & Interoperable</strong>
+          <span>Built on open standards. No proprietary lock-in. Export your data any time, in standard formats.</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Why It Matters -->
+  <div class="card">
+    <div class="card-title">Why It Matters Now</div>
+    <div class="diff-grid">
+      <div class="diff-item">
+        <div class="diff-value">$0</div>
+        <div class="diff-label">Supporter data sold to advertisers or political operatives</div>
+      </div>
+      <div class="diff-item">
+        <div class="diff-value">100%</div>
+        <div class="diff-label">Organizational ownership of supporter relationships</div>
+      </div>
+      <div class="diff-item">
+        <div class="diff-value">Non-profit</div>
+        <div class="diff-label">No private equity extraction. Governed for mission, not returns.</div>
+      </div>
+      <div class="diff-item">
+        <div class="diff-value">Open</div>
+        <div class="diff-label">Source code and data models are open and auditable</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Return CTA -->
+  <div class="return-cta">
+    <div class="return-cta-title">Ready to support Action Engine?</div>
+    <p class="return-cta-desc">One $5/month pledge supports all three Civic Works projects — Action Engine, CivicSky Media, and alonovo/ESG.</p>
+    <a href="pledge.html" class="btn-pledge">← Return to Pledge Page</a>
+  </div>
+
+</div>
+
+</body>
+</html>
