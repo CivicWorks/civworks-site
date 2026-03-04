@@ -1,0 +1,525 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Action Engine — Mockups | CivicWorks</title>
+<link rel="icon" type="image/png" href="https://civ.works/images/801ee806b_CivWorks_LogoSquare_1.png">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Special+Elite&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0a0a0a; }
+  #root { min-height: 100vh; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState, useCallback, useRef } = React;
+
+
+
+/* ── civ.works Design System ──────────────────────────────── */
+const C = {
+  dark: "#0a0a0a", darker: "#050505", surface: "#111111", card: "#161616",
+  input: "#1a1a1a", border: "rgba(255,255,255,0.08)",
+  purple: "#7C3AED", purpleDark: "#6D28D9", purpleLight: "#8B5CF6",
+  purpleDim: "rgba(124,58,237,0.12)",
+  green: "#10B981", greenDim: "rgba(16,185,129,0.12)",
+  amber: "#F59E0B", amberDim: "rgba(245,158,11,0.12)",
+  red: "#EF4444", blue: "#3B82F6", blueDim: "rgba(59,130,246,0.12)",
+  white: "#ffffff", offWhite: "#f5f5f5", grey: "#a3a3a3",
+  greyDark: "#525252", textMuted: "#6b7280",
+};
+
+/* Fonts loaded via HTML head */
+
+const H = "'Special Elite', monospace";
+const B = "'Open Sans', sans-serif";
+
+/* ── Logo ─────────────────────────────────────────────────── */
+function CivLogo({ size = 28 }) {
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+      <div style={{ width: size, height: size, background: C.white, borderRadius: 4, padding: 2, display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <svg viewBox="0 0 40 40" width={size - 4} height={size - 4}>
+          <rect width="40" height="40" rx="4" fill={C.white} />
+          <text x="20" y="28" textAnchor="middle" fontFamily={H} fontSize="22" fill={C.dark}>cw</text>
+          <circle cx="33" cy="10" r="4" fill={C.purple} />
+        </svg>
+      </div>
+      <span style={{ fontFamily: H, fontSize: size * 0.55, color: C.offWhite }}>
+        civ<span style={{ color: C.purple }}>.</span>works
+      </span>
+    </div>
+  );
+}
+
+function Badge({ children, color, bg }) {
+  return <span style={{ fontSize: 10, fontWeight: 700, fontFamily: B, textTransform: "uppercase", letterSpacing: "0.06em", padding: "3px 8px", borderRadius: 4, background: bg || C.purpleDim, color: color || C.purple, display: "inline-block" }}>{children}</span>;
+}
+
+function Card({ children, style: sx }) {
+  return <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 10, padding: 24, ...sx }}>{children}</div>;
+}
+
+function PrivacyNote({ children }) {
+  return (
+    <div style={{ marginTop: 18, padding: 12, borderRadius: 8, background: C.purpleDim, fontSize: 12, fontFamily: B, color: C.purpleLight, lineHeight: 1.5, display: "flex", alignItems: "flex-start", gap: 8, border: "1px solid rgba(124,58,237,0.15)" }}>
+      <span style={{ fontSize: 15, flexShrink: 0 }}>🔒</span><span>{children}</span>
+    </div>
+  );
+}
+
+/* ════════════════════════════════════════════════════════════
+   MOCKUP 1: LARGE-SCALE ORG ANALYTICS (20,000 subscribers)
+   ════════════════════════════════════════════════════════════ */
+
+function OrgAnalyticsMockup() {
+  const action = {
+    title: "National Day of Action: Defend Democracy",
+    org: "United Democracy Coalition",
+    date: "2026-03-01",
+    scope: "National",
+    issues: ["Government", "Voting Rights", "Corruption", "Equality"]
+  };
+
+  const stats = { views: 89420, calendared: 23847, completed: 20103, shared: 12340 };
+  const completionRate = Math.round(stats.completed / stats.views * 100);
+  const calendarRate = Math.round(stats.calendared / stats.views * 100);
+
+  const channelData = [
+    { channel: "CivicWorks Feed", views: 31200, cal: 8340, completed: 7120, pct: 35 },
+    { channel: "Bluesky", views: 24600, cal: 6540, completed: 5480, pct: 28 },
+    { channel: "Subscriber Push", views: 18900, cal: 5630, completed: 4890, pct: 21 },
+    { channel: "Email Digest", views: 14720, cal: 3337, completed: 2613, pct: 16 },
+  ];
+
+  const regionData = [
+    { region: "Southwest (AZ, NM, NV)", subs: 4280, completed: 3620, pct: 85 },
+    { region: "Pacific (CA, OR, WA)", subs: 5120, completed: 4210, pct: 82 },
+    { region: "Northeast (NY, MA, PA)", subs: 3890, completed: 3150, pct: 81 },
+    { region: "Midwest (IL, MI, OH)", subs: 3640, completed: 2870, pct: 79 },
+    { region: "Southeast (GA, FL, NC)", subs: 3210, completed: 2490, pct: 78 },
+    { region: "Mountain (CO, UT, MT)", subs: 2100, completed: 1680, pct: 80 },
+    { region: "Other regions", subs: 1607, completed: 2083, pct: 77 },
+  ];
+
+  const issueAffinity = [
+    { issue: "Government", pct: 94 },
+    { issue: "Voting Rights", pct: 87 },
+    { issue: "Corruption", pct: 82 },
+    { issue: "Equality", pct: 71 },
+    { issue: "Climate / Environment", pct: 48 },
+    { issue: "Health Care", pct: 39 },
+  ];
+
+  const timelineData = [
+    { day: "Feb 15", event: "Published", metric: "—" },
+    { day: "Feb 16-20", event: "Initial distribution", metric: "+12,400 views" },
+    { day: "Feb 21-25", event: "Organic sharing peak", metric: "+34,200 views" },
+    { day: "Feb 26-28", event: "Calendar reminders sent", metric: "+8,900 calendared" },
+    { day: "Mar 1", event: "Action day", metric: "20,103 completed" },
+    { day: "Mar 2", event: "Analytics finalized", metric: "22.5% completion rate" },
+  ];
+
+  return (
+    <div style={{ maxWidth: 640, margin: "0 auto", padding: "40px 24px" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
+        <Badge color={C.green} bg={C.greenDim}>Completed</Badge>
+        <Badge color={C.purpleLight} bg={C.purpleDim}>National</Badge>
+      </div>
+      <h2 style={{ fontFamily: H, fontSize: 26, color: C.offWhite, marginBottom: 4 }}>{action.title}</h2>
+      <p style={{ fontFamily: B, fontSize: 14, color: C.grey, marginBottom: 6 }}>{action.org}</p>
+      <p style={{ fontFamily: B, fontSize: 13, color: C.textMuted, marginBottom: 28 }}>Action Date: March 1, 2026 — Analytics as of March 2, 2026</p>
+
+      {/* Hero Stats */}
+      <Card style={{ marginBottom: 14, background: "linear-gradient(135deg, #161616 0%, #1a1028 100%)" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: 16 }}>
+          {[
+            { label: "Total Views", value: stats.views.toLocaleString(), color: C.blue },
+            { label: "Calendared", value: stats.calendared.toLocaleString(), color: C.amber },
+            { label: "Completed", value: stats.completed.toLocaleString(), color: C.green },
+            { label: "Shared", value: stats.shared.toLocaleString(), color: C.purpleLight },
+          ].map((s, i) => (
+            <div key={i} style={{ textAlign: "center" }}>
+              <div style={{ fontSize: 28, fontFamily: H, color: s.color }}>{s.value}</div>
+              <div style={{ fontSize: 11, fontFamily: B, color: C.textMuted, marginTop: 2 }}>{s.label}</div>
+            </div>
+          ))}
+        </div>
+        <div style={{ marginTop: 20, display: "flex", gap: 12 }}>
+          <div style={{ flex: 1, padding: 12, background: "rgba(16,185,129,0.08)", borderRadius: 8, textAlign: "center", border: "1px solid rgba(16,185,129,0.15)" }}>
+            <div style={{ fontSize: 24, fontFamily: H, color: C.green }}>{completionRate}%</div>
+            <div style={{ fontSize: 11, fontFamily: B, color: C.green }}>Completion Rate</div>
+          </div>
+          <div style={{ flex: 1, padding: 12, background: "rgba(245,158,11,0.08)", borderRadius: 8, textAlign: "center", border: "1px solid rgba(245,158,11,0.15)" }}>
+            <div style={{ fontSize: 24, fontFamily: H, color: C.amber }}>{calendarRate}%</div>
+            <div style={{ fontSize: 11, fontFamily: B, color: C.amber }}>Calendar Rate</div>
+          </div>
+          <div style={{ flex: 1, padding: 12, background: "rgba(139,92,246,0.08)", borderRadius: 8, textAlign: "center", border: "1px solid rgba(139,92,246,0.15)" }}>
+            <div style={{ fontSize: 24, fontFamily: H, color: C.purpleLight }}>84%</div>
+            <div style={{ fontSize: 11, fontFamily: B, color: C.purpleLight }}>Calendar→Complete</div>
+          </div>
+        </div>
+      </Card>
+
+      {/* Engagement Funnel */}
+      <Card style={{ marginBottom: 14 }}>
+        <div style={{ fontSize: 11, fontWeight: 700, fontFamily: B, textTransform: "uppercase", letterSpacing: "0.08em", color: C.textMuted, marginBottom: 16 }}>Engagement Funnel</div>
+        {[
+          { label: "Viewed", val: stats.views, pct: 100, color: C.blue },
+          { label: "Calendared", val: stats.calendared, pct: calendarRate, color: C.amber },
+          { label: "Completed", val: stats.completed, pct: completionRate, color: C.green },
+          { label: "Shared", val: stats.shared, pct: Math.round(stats.shared / stats.views * 100), color: C.purpleLight },
+        ].map((row, i) => (
+          <div key={i} style={{ marginBottom: 14 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", fontSize: 13, fontFamily: B, marginBottom: 4 }}>
+              <span style={{ color: C.grey }}>{row.label}</span>
+              <span style={{ color: C.offWhite, fontWeight: 600 }}>{row.val.toLocaleString()} <span style={{ color: C.textMuted, fontWeight: 400 }}>({row.pct}%)</span></span>
+            </div>
+            <div style={{ height: 8, borderRadius: 4, background: C.input }}>
+              <div style={{ height: "100%", borderRadius: 4, width: `${row.pct}%`, background: row.color, transition: "width 1s ease" }} />
+            </div>
+          </div>
+        ))}
+      </Card>
+
+      {/* Distribution Channels */}
+      <Card style={{ marginBottom: 14 }}>
+        <div style={{ fontSize: 11, fontWeight: 700, fontFamily: B, textTransform: "uppercase", letterSpacing: "0.08em", color: C.textMuted, marginBottom: 16 }}>Distribution Channel Performance</div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 0 }}>
+          {channelData.map((ch, i) => (
+            <div key={i} style={{ padding: "12px 0", borderBottom: i < channelData.length - 1 ? `1px solid ${C.border}` : "none" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
+                <span style={{ fontSize: 14, fontFamily: B, fontWeight: 500, color: C.offWhite }}>{ch.channel}</span>
+                <span style={{ fontSize: 12, fontFamily: B, color: C.textMuted }}>{ch.pct}% of traffic</span>
+              </div>
+              <div style={{ display: "flex", gap: 20, fontSize: 12, fontFamily: B }}>
+                <span style={{ color: C.blue }}>{ch.views.toLocaleString()} views</span>
+                <span style={{ color: C.amber }}>{ch.cal.toLocaleString()} calendared</span>
+                <span style={{ color: C.green }}>{ch.completed.toLocaleString()} completed</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Card>
+
+      {/* Regional Breakdown */}
+      <Card style={{ marginBottom: 14 }}>
+        <div style={{ fontSize: 11, fontWeight: 700, fontFamily: B, textTransform: "uppercase", letterSpacing: "0.08em", color: C.textMuted, marginBottom: 16 }}>Regional Participation</div>
+        {regionData.map((r, i) => (
+          <div key={i} style={{ marginBottom: 12 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", fontSize: 13, fontFamily: B, marginBottom: 4 }}>
+              <span style={{ color: C.grey }}>{r.region}</span>
+              <span style={{ color: C.offWhite, fontWeight: 500 }}>{r.completed.toLocaleString()} / {r.subs.toLocaleString()} <span style={{ color: C.green }}>({r.pct}%)</span></span>
+            </div>
+            <div style={{ height: 6, borderRadius: 3, background: C.input }}>
+              <div style={{ height: "100%", borderRadius: 3, width: `${r.pct}%`, background: `linear-gradient(90deg, ${C.purple}, ${C.green})` }} />
+            </div>
+          </div>
+        ))}
+      </Card>
+
+      {/* Issue Affinity of Participants */}
+      <Card style={{ marginBottom: 14 }}>
+        <div style={{ fontSize: 11, fontWeight: 700, fontFamily: B, textTransform: "uppercase", letterSpacing: "0.08em", color: C.textMuted, marginBottom: 16 }}>Participant Issue Affinity Profile</div>
+        <p style={{ fontSize: 12, fontFamily: B, color: C.textMuted, marginBottom: 14 }}>Top issue interests among the 20,103 participants (aggregate, anonymized)</p>
+        {issueAffinity.map((iss, i) => (
+          <div key={i} style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 10 }}>
+            <span style={{ fontSize: 12, fontFamily: B, color: C.grey, width: 160, flexShrink: 0 }}>{iss.issue}</span>
+            <div style={{ flex: 1, height: 6, borderRadius: 3, background: C.input }}>
+              <div style={{ height: "100%", borderRadius: 3, width: `${iss.pct}%`, background: C.purpleLight }} />
+            </div>
+            <span style={{ fontSize: 12, fontFamily: B, color: C.purpleLight, width: 36, textAlign: "right" }}>{iss.pct}%</span>
+          </div>
+        ))}
+      </Card>
+
+      {/* Timeline */}
+      <Card style={{ marginBottom: 14 }}>
+        <div style={{ fontSize: 11, fontWeight: 700, fontFamily: B, textTransform: "uppercase", letterSpacing: "0.08em", color: C.textMuted, marginBottom: 16 }}>Campaign Timeline</div>
+        {timelineData.map((t, i) => (
+          <div key={i} style={{ display: "flex", gap: 14, paddingBottom: 14, marginBottom: 14, borderBottom: i < timelineData.length - 1 ? `1px solid ${C.border}` : "none" }}>
+            <div style={{ width: 10, display: "flex", flexDirection: "column", alignItems: "center", paddingTop: 4 }}>
+              <div style={{ width: 10, height: 10, borderRadius: "50%", background: i === timelineData.length - 1 ? C.green : C.purple, flexShrink: 0 }} />
+              {i < timelineData.length - 1 && <div style={{ width: 1, flex: 1, background: C.border, marginTop: 4 }} />}
+            </div>
+            <div>
+              <div style={{ fontSize: 12, fontFamily: B, color: C.textMuted }}>{t.day}</div>
+              <div style={{ fontSize: 14, fontFamily: B, fontWeight: 500, color: C.offWhite }}>{t.event}</div>
+              <div style={{ fontSize: 13, fontFamily: B, color: C.green }}>{t.metric}</div>
+            </div>
+          </div>
+        ))}
+      </Card>
+
+      <PrivacyNote>
+        All analytics are aggregate only. No individual subscriber identities, locations, or behaviors are included in this report. Regional data uses city-level precision only. CivicWorks does not retain individual participation records after aggregation.
+      </PrivacyNote>
+    </div>
+  );
+}
+
+/* ════════════════════════════════════════════════════════════
+   MOCKUP 2: CALENDAR REMINDER (Subscriber Notification)
+   ════════════════════════════════════════════════════════════ */
+
+function CalendarReminderMockup() {
+  return (
+    <div style={{ maxWidth: 420, margin: "0 auto", padding: "40px 24px" }}>
+      {/* Email-style notification */}
+      <Card style={{ overflow: "hidden", padding: 0 }}>
+        {/* Header */}
+        <div style={{ background: "linear-gradient(135deg, #1a1028 0%, #161616 100%)", padding: "20px 24px", borderBottom: `1px solid ${C.border}` }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
+            <CivLogo size={22} />
+            <span style={{ fontSize: 11, fontFamily: B, color: C.textMuted, marginLeft: "auto" }}>Action Reminder</span>
+          </div>
+          <div style={{ fontSize: 11, fontFamily: B, color: C.textMuted, marginBottom: 4 }}>Tomorrow, March 15, 2026</div>
+          <h3 style={{ fontFamily: H, fontSize: 20, color: C.offWhite }}>Your Action is Tomorrow!</h3>
+        </div>
+
+        {/* Body */}
+        <div style={{ padding: 24 }}>
+          <div style={{ padding: 16, background: C.input, borderRadius: 8, border: `1px solid ${C.border}`, marginBottom: 16 }}>
+            <div style={{ fontSize: 11, fontFamily: B, color: C.textMuted, marginBottom: 6 }}>Southern AZ Climate Coalition</div>
+            <div style={{ fontSize: 17, fontFamily: H, color: C.offWhite, marginBottom: 10 }}>Neighborhood Climate Resilience Workshop</div>
+
+            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                <span style={{ fontSize: 16, width: 24, textAlign: "center" }}>📅</span>
+                <div>
+                  <div style={{ fontSize: 14, fontFamily: B, fontWeight: 600, color: C.offWhite }}>Sunday, March 15</div>
+                  <div style={{ fontSize: 13, fontFamily: B, color: C.grey }}>10:00 AM – 1:00 PM MST</div>
+                </div>
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                <span style={{ fontSize: 16, width: 24, textAlign: "center" }}>📍</span>
+                <div>
+                  <div style={{ fontSize: 14, fontFamily: B, fontWeight: 600, color: C.offWhite }}>Ward 3 Community Center</div>
+                  <div style={{ fontSize: 13, fontFamily: B, color: C.grey }}>1500 N Oracle Rd, Tucson, AZ 85705</div>
+                </div>
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                <span style={{ fontSize: 16, width: 24, textAlign: "center" }}>🎯</span>
+                <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
+                  <span style={{ fontSize: 10, padding: "3px 8px", borderRadius: 4, background: C.purpleDim, color: C.purpleLight, fontFamily: B }}>Climate / Environment</span>
+                  <span style={{ fontSize: 10, padding: "3px 8px", borderRadius: 4, background: C.purpleDim, color: C.purpleLight, fontFamily: B }}>Infrastructure</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p style={{ fontSize: 14, fontFamily: B, color: C.grey, lineHeight: 1.6, marginBottom: 16 }}>
+            Hands-on workshop on extreme heat preparedness, water harvesting, and advocating for municipal cooling centers. Bring your neighbors — this affects all of us.
+          </p>
+          <p style={{ fontSize: 13, fontFamily: B, color: C.textMuted, marginBottom: 20 }}>
+            Light refreshments provided. ASL interpretation available on request.
+          </p>
+
+          {/* Action buttons */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            <button style={{ padding: "12px 20px", borderRadius: 8, border: "none", background: C.purple, color: C.white, fontSize: 14, fontWeight: 600, fontFamily: B, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, width: "100%" }}>
+              📅 Open in Calendar
+            </button>
+            <button style={{ padding: "12px 20px", borderRadius: 8, border: `1px solid rgba(124,58,237,0.3)`, background: C.purpleDim, color: C.purpleLight, fontSize: 14, fontWeight: 600, fontFamily: B, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, width: "100%" }}>
+              📍 Get Directions
+            </button>
+          </div>
+
+          {/* What to bring */}
+          <div style={{ marginTop: 16, padding: 14, background: C.input, borderRadius: 8, border: `1px solid ${C.border}` }}>
+            <div style={{ fontSize: 12, fontFamily: B, fontWeight: 600, color: C.offWhite, marginBottom: 6 }}>What to Bring</div>
+            <div style={{ fontSize: 13, fontFamily: B, color: C.grey, lineHeight: 1.6 }}>
+              Water bottle, notebook, and sunscreen if arriving early. The venue has indoor seating and A/C.
+            </div>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div style={{ padding: "14px 24px", borderTop: `1px solid ${C.border}`, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <span style={{ fontSize: 11, fontFamily: B, color: C.textMuted }}>Matched: Location + Issue Affinity</span>
+          <span style={{ fontSize: 11, fontFamily: B, color: C.textMuted }}>🔒 Privacy-first</span>
+        </div>
+      </Card>
+
+      {/* Phone notification preview */}
+      <div style={{ marginTop: 24, padding: 4 }}>
+        <div style={{ fontSize: 11, fontFamily: B, color: C.textMuted, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 10 }}>Push Notification Preview</div>
+        <div style={{ background: "#1c1c1e", borderRadius: 14, padding: 14, display: "flex", gap: 12, alignItems: "flex-start", border: "1px solid rgba(255,255,255,0.1)" }}>
+          <div style={{ width: 36, height: 36, background: C.white, borderRadius: 8, padding: 3, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+            <svg viewBox="0 0 40 40" width={28} height={28}>
+              <rect width="40" height="40" rx="4" fill={C.white} />
+              <text x="20" y="28" textAnchor="middle" fontFamily={H} fontSize="22" fill={C.dark}>cw</text>
+              <circle cx="33" cy="10" r="4" fill={C.purple} />
+            </svg>
+          </div>
+          <div style={{ flex: 1 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 2 }}>
+              <span style={{ fontSize: 13, fontFamily: B, fontWeight: 600, color: C.offWhite }}>CivicWorks</span>
+              <span style={{ fontSize: 11, fontFamily: B, color: C.textMuted }}>now</span>
+            </div>
+            <div style={{ fontSize: 13, fontFamily: B, fontWeight: 600, color: C.offWhite, marginBottom: 2 }}>⏰ Action Tomorrow: Climate Resilience Workshop</div>
+            <div style={{ fontSize: 12, fontFamily: B, color: C.grey }}>Ward 3 Community Center, 10AM. Tap for details.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ════════════════════════════════════════════════════════════
+   MOCKUP 3: POST-ACTION THANK YOU
+   ════════════════════════════════════════════════════════════ */
+
+function ThankYouMockup() {
+  return (
+    <div style={{ maxWidth: 480, margin: "0 auto", padding: "40px 24px" }}>
+      <Card style={{ overflow: "hidden", padding: 0, textAlign: "center" }}>
+        {/* Celebration header */}
+        <div style={{ background: "linear-gradient(135deg, #0d2818 0%, #161616 50%, #1a1028 100%)", padding: "40px 32px 32px" }}>
+          <div style={{ fontSize: 56, marginBottom: 16 }}>✊</div>
+          <h2 style={{ fontFamily: H, fontSize: 28, color: C.green, marginBottom: 8 }}>Thank You for Taking Action</h2>
+          <p style={{ fontFamily: B, fontSize: 15, color: C.grey, lineHeight: 1.6 }}>
+            Your participation in civic action makes a real difference.
+          </p>
+        </div>
+
+        <div style={{ padding: "24px 32px" }}>
+          {/* Action completed */}
+          <div style={{ padding: 16, background: C.greenDim, borderRadius: 10, border: "1px solid rgba(16,185,129,0.2)", marginBottom: 20, textAlign: "left" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+              <span style={{ color: C.green, fontSize: 16 }}>✓</span>
+              <span style={{ fontSize: 12, fontFamily: B, fontWeight: 600, color: C.green, textTransform: "uppercase", letterSpacing: "0.06em" }}>Action Completed</span>
+            </div>
+            <div style={{ fontSize: 16, fontFamily: H, color: C.offWhite, marginBottom: 6 }}>Neighborhood Climate Resilience Workshop</div>
+            <div style={{ fontSize: 13, fontFamily: B, color: C.grey }}>Southern AZ Climate Coalition · March 15, 2026</div>
+          </div>
+
+          {/* Impact statement */}
+          <div style={{ marginBottom: 24, textAlign: "left" }}>
+            <div style={{ fontSize: 11, fontFamily: B, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: C.textMuted, marginBottom: 12 }}>Your Impact</div>
+            <p style={{ fontSize: 14, fontFamily: B, color: C.grey, lineHeight: 1.7, marginBottom: 12 }}>
+              You were one of <span style={{ color: C.green, fontWeight: 600 }}>87 community members</span> who participated in this action. Together, you showed that Tucson residents are ready to take climate resilience into their own hands.
+            </p>
+            <p style={{ fontSize: 14, fontFamily: B, color: C.grey, lineHeight: 1.7 }}>
+              Civic engagement creates change — not just in policy, but in the connections between neighbors who share a commitment to their community.
+            </p>
+          </div>
+
+          {/* Civic action score */}
+          <div style={{ padding: 20, background: C.input, borderRadius: 10, border: `1px solid ${C.border}`, marginBottom: 20 }}>
+            <div style={{ fontSize: 11, fontFamily: B, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: C.textMuted, marginBottom: 12 }}>Your Civic Action Journey</div>
+            <div style={{ display: "flex", justifyContent: "center", gap: 24, marginBottom: 14 }}>
+              <div style={{ textAlign: "center" }}>
+                <div style={{ fontSize: 32, fontFamily: H, color: C.purpleLight }}>12</div>
+                <div style={{ fontSize: 11, fontFamily: B, color: C.textMuted }}>Actions Completed</div>
+              </div>
+              <div style={{ width: 1, background: C.border }} />
+              <div style={{ textAlign: "center" }}>
+                <div style={{ fontSize: 32, fontFamily: H, color: C.green }}>4</div>
+                <div style={{ fontSize: 11, fontFamily: B, color: C.textMuted }}>Issue Areas</div>
+              </div>
+              <div style={{ width: 1, background: C.border }} />
+              <div style={{ textAlign: "center" }}>
+                <div style={{ fontSize: 32, fontFamily: H, color: C.amber }}>🔥</div>
+                <div style={{ fontSize: 11, fontFamily: B, color: C.textMuted }}>3-Month Streak</div>
+              </div>
+            </div>
+            <div style={{ height: 6, borderRadius: 3, background: C.input, border: `1px solid ${C.border}` }}>
+              <div style={{ height: "100%", borderRadius: 3, width: "60%", background: `linear-gradient(90deg, ${C.purple}, ${C.green})` }} />
+            </div>
+            <div style={{ display: "flex", justifyContent: "space-between", marginTop: 6 }}>
+              <span style={{ fontSize: 11, fontFamily: B, color: C.textMuted }}>12 / 20 toward Civic Leader badge</span>
+              <span style={{ fontSize: 11, fontFamily: B, color: C.purpleLight }}>60%</span>
+            </div>
+          </div>
+
+          {/* Up next */}
+          <div style={{ textAlign: "left", marginBottom: 20 }}>
+            <div style={{ fontSize: 11, fontFamily: B, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: C.textMuted, marginBottom: 12 }}>Up Next — Matched for You</div>
+            <div style={{ padding: 14, background: C.input, borderRadius: 8, border: `1px solid ${C.border}`, display: "flex", gap: 12, alignItems: "center" }}>
+              <div style={{ width: 40, height: 40, background: C.purpleDim, borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20, flexShrink: 0 }}>🏛️</div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 14, fontFamily: H, color: C.offWhite }}>Rally for Reproductive Healthcare Access</div>
+                <div style={{ fontSize: 12, fontFamily: B, color: C.textMuted }}>Mar 22 · Phoenix · State/Regional</div>
+              </div>
+              <span style={{ color: C.purpleLight, fontSize: 16 }}>→</span>
+            </div>
+          </div>
+
+          {/* Share */}
+          <div style={{ display: "flex", gap: 8 }}>
+            <button style={{ flex: 1, padding: "10px 16px", borderRadius: 8, border: "none", background: C.purple, color: C.white, fontSize: 13, fontWeight: 600, fontFamily: B, cursor: "pointer" }}>
+              Share Your Action
+            </button>
+            <button style={{ flex: 1, padding: "10px 16px", borderRadius: 8, border: `1px solid ${C.border}`, background: "transparent", color: C.grey, fontSize: 13, fontWeight: 600, fontFamily: B, cursor: "pointer" }}>
+              Browse More Actions
+            </button>
+          </div>
+
+          <PrivacyNote>Your participation is recorded anonymously. Only you can see your personal action history. Organizations receive aggregate data only.</PrivacyNote>
+        </div>
+      </Card>
+    </div>
+  );
+}
+
+/* ── MAIN: TAB NAVIGATOR ─────────────────────────────────── */
+
+function Mockups() {
+  const [tab, setTab] = useState("analytics");
+
+  const tabs = [
+    { id: "analytics", label: "📊 Org Analytics", subtitle: "20K subscribers" },
+    { id: "reminder", label: "📅 Calendar Reminder", subtitle: "Subscriber" },
+    { id: "thankyou", label: "✊ Thank You", subtitle: "Post-action" },
+  ];
+
+  return (
+    <div style={{ background: C.dark, color: C.offWhite, minHeight: "100vh", fontFamily: B }}>
+      {/* Header */}
+      <div style={{ background: C.darker, borderBottom: `1px solid ${C.border}`, padding: "10px 24px", display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, zIndex: 100 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          <CivLogo size={26} />
+          <span style={{ color: C.textMuted, fontSize: 13 }}>›</span>
+          <span style={{ fontFamily: H, fontSize: 14, color: C.grey }}>Action Engine Mockups</span>
+        </div>
+      </div>
+
+      {/* Tab Bar */}
+      <div style={{ display: "flex", justifyContent: "center", gap: 8, padding: "16px 24px", borderBottom: `1px solid ${C.border}` }}>
+        {tabs.map(t => (
+          <button key={t.id} onClick={() => setTab(t.id)} style={{
+            padding: "8px 18px", borderRadius: 8, border: `1px solid ${tab === t.id ? C.purple : C.border}`,
+            background: tab === t.id ? C.purpleDim : "transparent",
+            color: tab === t.id ? C.purpleLight : C.grey,
+            fontSize: 13, fontWeight: 600, fontFamily: B, cursor: "pointer", transition: "all 0.2s",
+            display: "flex", flexDirection: "column", alignItems: "center", gap: 2
+          }}>
+            <span>{t.label}</span>
+            <span style={{ fontSize: 10, color: C.textMuted }}>{t.subtitle}</span>
+          </button>
+        ))}
+      </div>
+
+      {/* Content */}
+      {tab === "analytics" && <OrgAnalyticsMockup />}
+      {tab === "reminder" && <CalendarReminderMockup />}
+      {tab === "thankyou" && <ThankYouMockup />}
+    </div>
+  );
+}
+
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  React.createElement(Mockups)
+);
+</script>
+</body>
+</html>
