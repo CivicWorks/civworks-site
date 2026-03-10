@@ -931,9 +931,7 @@ body {
 }
 
 .author-card .badge {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
+  display: inline-block;
   background: var(--purple);
   color: var(--white);
   font-size: 0.7rem;
@@ -941,6 +939,8 @@ body {
   border-radius: 3px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+  /* removed: position: absolute; top: 1rem; right: 1rem; */
 }
 
 .author-card img {
