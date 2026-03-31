@@ -540,8 +540,8 @@
 </div>
 
 <script>
-  const SUPABASE_URL = 'https://rqsbqfpedquazbpkjnkn.supabase.co';
-  const SUPABASE_ANON_KEY = 'sb_publishable_mMDu8CNHLTip0NGMIqcNNw_K_syxdUS';
+  const TURSO_URL = 'https://civworks-pledges-gpolisne.aws-eu-west-1.turso.io';
+  const TURSO_TOKEN = 'eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicnciLCJpYXQiOjE3NzQ5NjUxNDIsImlkIjoiMDE5ZDQ0MjctZWIwMS03YzRiLWIzNTgtOTUwMjQ0ZTkxNTM1IiwicmlkIjoiMzRlMjViNmUtYWFmZi00NzIyLWEzNmYtZWUxNGRlOGQyNGU0In0.wcpS4oMvkr3Q139RCv2QxC_Qcqr2dQJ8SLcuOl7O1kFw-EEhwudVWRgzwYyUCzZg3z38m__7Xc0dUniqMzhUBg';
 
   const TARGET = 5000;
   const AMOUNT = 5;
@@ -572,7 +572,6 @@
   const $cTitle   = document.getElementById('confirmTitle');
   const $cText    = document.getElementById('confirmText');
 
-  // Render milestones
   MILESTONES.forEach(m => {
     const pct = (m.count / TARGET) * 100;
     const div = document.createElement('div');
@@ -589,55 +588,57 @@
   function updateUI(count) {
     currentCount = count;
     const pct = Math.min((count / TARGET) * 100, 100);
-
     $count.textContent = count.toLocaleString();
     $count.style.opacity = '1';
-
     setTimeout(() => { $fill.style.width = pct + '%'; }, 100);
-
     document.querySelectorAll('.milestone-label').forEach(el => {
       el.classList.toggle('reached', count >= parseInt(el.dataset.milestone));
     });
     document.querySelectorAll('.milestone-dot').forEach(el => {
       el.classList.toggle('reached', count >= parseInt(el.dataset.milestone));
     });
-
     $iLabel.textContent = count.toLocaleString();
     $mrr.textContent = '$' + (count * AMOUNT).toLocaleString();
     $arr.textContent = '$' + (count * AMOUNT * 12).toLocaleString();
   }
 
+  async function tursoQuery(sql, args) {
+    const res = await fetch(`${TURSO_URL}/v2/pipeline`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${TURSO_TOKEN}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        requests: [
+          { type: 'execute', stmt: { sql, args: args || [] } },
+          { type: 'close' }
+        ]
+      })
+    });
+    return res.json();
+  }
+
   async function fetchCount() {
     try {
-      const res = await fetch(`${SUPABASE_URL}/rest/v1/pledges?select=id`, {
-        headers: {
-          'apikey': SUPABASE_ANON_KEY,
-          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-          'Prefer': 'count=exact'
-        },
-        method: 'HEAD'
-      });
-      return parseInt(res.headers.get('content-range')?.split('/')[1] || '0');
+      const data = await tursoQuery('SELECT COUNT(*) as count FROM pledges');
+      return parseInt(data.results[0].response.result.rows[0][0].value || '0');
     } catch { return 0; }
   }
 
   async function submitPledge(email, name) {
-    const body = { email };
-    if (name) body.name = name;
-
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/pledges`, {
-      method: 'POST',
-      headers: {
-        'apikey': SUPABASE_ANON_KEY,
-        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-        'Content-Type': 'application/json',
-        'Prefer': 'return=minimal'
-      },
-      body: JSON.stringify(body)
-    });
-
-    if (res.status === 409 || res.status === 400) throw new Error('duplicate');
-    if (!res.ok) throw new Error('submit_failed');
+    const data = await tursoQuery(
+      'INSERT INTO pledges (email, name) VALUES (?, ?)',
+      [
+        { type: 'text', value: email },
+        { type: 'text', value: name || '' }
+      ]
+    );
+    if (data.results[0].type === 'error') {
+      const msg = data.results[0].error.message || '';
+      if (msg.includes('UNIQUE')) throw new Error('duplicate');
+      throw new Error('submit_failed');
+    }
   }
 
   $toggle.addEventListener('click', () => {
