@@ -540,8 +540,7 @@
 </div>
 
 <script>
-  const TURSO_URL = 'https://civworks-pledges-gpolisne.aws-eu-west-1.turso.io';
-  const TURSO_TOKEN = 'eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicnciLCJpYXQiOjE3NzQ5NjUxNDIsImlkIjoiMDE5ZDQ0MjctZWIwMS03YzRiLWIzNTgtOTUwMjQ0ZTkxNTM1IiwicmlkIjoiMzRlMjViNmUtYWFmZi00NzIyLWEzNmYtZWUxNGRlOGQyNGU0In0.wcpS4oMvkr3Q139RCv2QxC_Qcqr2dQJ8SLcuOl7O1kFw-EEhwudVWRgzwYyUCzZg3z38m__7Xc0dUniqMzhUBg';
+  const WORKER_URL = 'https://civworks-pledge-api.george-fd8.workers.dev';
 
   const TARGET = 5000;
   const AMOUNT = 5;
@@ -602,43 +601,23 @@
     $arr.textContent = '$' + (count * AMOUNT * 12).toLocaleString();
   }
 
-  async function tursoQuery(sql, args) {
-    const res = await fetch(`${TURSO_URL}/v2/pipeline`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${TURSO_TOKEN}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        requests: [
-          { type: 'execute', stmt: { sql, args: args || [] } },
-          { type: 'close' }
-        ]
-      })
-    });
-    return res.json();
-  }
-
   async function fetchCount() {
     try {
-      const data = await tursoQuery('SELECT COUNT(*) as count FROM pledges');
-      return parseInt(data.results[0].response.result.rows[0][0].value || '0');
+      const res = await fetch(`${WORKER_URL}/count`);
+      const data = await res.json();
+      return data.count || 0;
     } catch { return 0; }
   }
 
   async function submitPledge(email, name) {
-    const data = await tursoQuery(
-      'INSERT INTO pledges (email, name) VALUES (?, ?)',
-      [
-        { type: 'text', value: email },
-        { type: 'text', value: name || '' }
-      ]
-    );
-    if (data.results[0].type === 'error') {
-      const msg = data.results[0].error.message || '';
-      if (msg.includes('UNIQUE')) throw new Error('duplicate');
-      throw new Error('submit_failed');
-    }
+    const res = await fetch(`${WORKER_URL}/pledge`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, name })
+    });
+    const data = await res.json();
+    if (data.error === 'duplicate') throw new Error('duplicate');
+    if (!res.ok) throw new Error('submit_failed');
   }
 
   $toggle.addEventListener('click', () => {
