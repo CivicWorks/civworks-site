@@ -239,7 +239,7 @@
           <button class="action-box primary" onclick="openModal('action-engine')">
             <span class="action-box-icon">🖥️</span>
             <span class="action-box-label">Sample</span>
-            <span class="action-box-sub">Interactive mockup</span>
+            <span class="action-box-sub">Live demo</span>
           </button>
           <a href="documents/cw_actionengine.pdf" target="_blank" class="action-box">
             <span class="action-box-icon">📄</span>
@@ -274,7 +274,12 @@
         <p class="project-tagline">Trusted information for a stronger democracy</p>
         <p>CivicSky Media is an initiative to combat disinformation and provide verified, trustworthy news and information to communities. By partnering with fact-checkers, journalists, and civic organizations, CivicSky aims to create a network of reliable media sources that empower citizens to make informed decisions.</p>
 
-        <div class="action-boxes three-up">
+        <div class="action-boxes four-up">
+          <button class="action-box primary" onclick="openModal('civicsky')">
+            <span class="action-box-icon">🖥️</span>
+            <span class="action-box-label">Sample</span>
+            <span class="action-box-sub">Live demo</span>
+          </button>
           <a href="documents/cw_media.pdf" target="_blank" class="action-box">
             <span class="action-box-icon">📄</span>
             <span class="action-box-label">Overview</span>
@@ -386,12 +391,16 @@
 <script>
   const MODAL_SOURCES = {
     'action-engine': {
-      title: 'Action Engine — Interactive Mockup',
-      src: 'mockups.html'
+      title: 'Action Engine — Live Demo',
+      src: 'https://ae.civ.works'
+    },
+    'civicsky': {
+      title: 'CivicSky Media — Live Demo',
+      src: 'https://civicsky.civ.works'
     },
     'eci': {
       title: 'alonovo / linked trust ESG — Receipt to Report',
-      src: 'https://civicworks.github.io/gapworks/alonovo/'
+      src: 'https://demos.linkedtrust.us/alonovo/'
     }
   };
 
