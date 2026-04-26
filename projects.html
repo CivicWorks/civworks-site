@@ -408,14 +408,25 @@
     const cfg = MODAL_SOURCES[key];
     if (!cfg) return;
     document.getElementById('modalTitle').textContent = cfg.title;
-    document.getElementById('modalIframe').src = cfg.src;
+    
+    const iframe = document.getElementById('modalIframe');
+    // Use location.replace inside the iframe to avoid polluting browser history
+    // Fallback to setting src if cross-origin prevents access (which it will for external domains)
+    try {
+      iframe.contentWindow.location.replace(cfg.src);
+    } catch (e) {
+      // Cross-origin access denied — fall back to src assignment
+      iframe.src = cfg.src;
+    }
+    
     document.getElementById('sampleModal').classList.add('open');
     document.body.style.overflow = 'hidden';
   }
 
   function closeModal() {
     document.getElementById('sampleModal').classList.remove('open');
-    document.getElementById('modalIframe').src = '';
+    // Set iframe to about:blank to fully unload the demo
+    document.getElementById('modalIframe').src = 'about:blank';
     document.body.style.overflow = '';
   }
 
