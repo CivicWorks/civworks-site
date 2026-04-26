@@ -404,38 +404,60 @@
     }
   };
 
+  let modalIsOpen = false;
+
   function openModal(key) {
     const cfg = MODAL_SOURCES[key];
     if (!cfg) return;
     document.getElementById('modalTitle').textContent = cfg.title;
-    
-    const iframe = document.getElementById('modalIframe');
-    // Use location.replace inside the iframe to avoid polluting browser history
-    // Fallback to setting src if cross-origin prevents access (which it will for external domains)
-    try {
-      iframe.contentWindow.location.replace(cfg.src);
-    } catch (e) {
-      // Cross-origin access denied — fall back to src assignment
-      iframe.src = cfg.src;
-    }
-    
+    document.getElementById('modalIframe').src = cfg.src;
     document.getElementById('sampleModal').classList.add('open');
     document.body.style.overflow = 'hidden';
+    
+    // Push a history entry so the back button closes the modal
+    // instead of navigating away from the projects page
+    if (!modalIsOpen) {
+      modalIsOpen = true;
+      history.pushState({ modalOpen: true }, '', window.location.href);
+    }
   }
 
   function closeModal() {
+    if (!modalIsOpen) return;
+    
     document.getElementById('sampleModal').classList.remove('open');
-    // Set iframe to about:blank to fully unload the demo
     document.getElementById('modalIframe').src = 'about:blank';
     document.body.style.overflow = '';
+    
+    // If we still have our history entry, pop it so the user's
+    // back stack doesn't grow with each modal open/close cycle
+    if (history.state && history.state.modalOpen) {
+      modalIsOpen = false;
+      history.back();
+    } else {
+      modalIsOpen = false;
+    }
   }
+
+  // When the user hits the browser back button while the modal is open,
+  // close the modal instead of letting the browser navigate
+  window.addEventListener('popstate', (event) => {
+    if (modalIsOpen) {
+      // The back button has already popped our history entry,
+      // so just close the modal UI without calling history.back() again
+      modalIsOpen = false;
+      document.getElementById('sampleModal').classList.remove('open');
+      document.getElementById('modalIframe').src = 'about:blank';
+      document.body.style.overflow = '';
+    }
+  });
 
   function handleOverlayClick(e) {
     if (e.target === document.getElementById('sampleModal')) closeModal();
   }
 
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeModal();
+    if (e.key === 'Escape' && modalIsOpen) closeModal();
   });
 
   /* ── Hamburger nav (propagate from other pages if needed) ── */
