@@ -14,6 +14,9 @@
     gap: 10px;
     margin-top: 1.5rem;
   }
+  @media (max-width: 768px) {
+  .project-container.reverse .project-image { order: -1; }
+}
 
   .action-boxes.four-up { grid-template-columns: 1fr 1fr; }
   .action-boxes.three-up { grid-template-columns: 1fr 1fr 1fr; }
@@ -321,8 +324,8 @@
     <div class="project-container reverse">
       <div class="project-content">
         <p class="project-label">PROJECT 2</p>
-        <h2>CivicSky Media</h2>
-        <p class="project-tagline">Trusted information for a stronger democracy</p>
+        <h2>CivicSky</h2>
+        <p class="project-tagline">Where communities find common ground, and take action</p>
         <p>CivicSky is a different kind of social network, one built for understanding rather than outrage. It invites people who don't all agree into small, facilitated groups to work through real issues, build understanding, and reach considered, well-reasoned conclusions. As those conclusions converge across many independent groups, CivicSky helps carry them into real public policy: budgets and lawmaking. Decentralized and privacy-first, it is designed to give people a genuine voice in the choices that shape their communities, region, and nation instead of amplified polarizing talking points.</p>
 
         <div class="action-boxes four-up">
@@ -349,7 +352,7 @@
         </div>
       </div>
       <div class="project-image" style="display:flex; align-items:center; justify-content:center;">
-        <img src="images/civicsky.png" alt="CivicSky Media" class="project-logo-swap">
+        <img src="images/civicsky.png" alt="CivicSky" class="project-logo-swap">
       </div>
     </div>
   </div>
