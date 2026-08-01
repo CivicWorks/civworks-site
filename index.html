@@ -111,6 +111,100 @@
     </div>
   </div>
 </nav>
+  <!-- ============ TEMPORARY: Voter Action Strip — remove after November ============ -->
+<style>
+  .vr-strip {
+    background: linear-gradient(90deg, rgba(124,58,237,0.12), rgba(124,58,237,0.04));
+    border-bottom: 1px solid rgba(124,58,237,0.25);
+  }
+  .vr-strip-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0.75rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
+  }
+  .vr-strip-label {
+    font-family: 'Special Elite', monospace;
+    font-size: 0.95rem;
+    color: var(--off-white);
+    letter-spacing: 0.02em;
+    margin: 0;
+  }
+  .vr-strip-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .vr-btn {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.5rem 1.25rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .vr-btn-primary {
+    background: var(--purple);
+    color: var(--white);
+    border: 1px solid var(--purple);
+  }
+  .vr-btn-primary:hover {
+    background: var(--purple-light);
+    border-color: var(--purple-light);
+  }
+  .vr-btn-secondary {
+    background: transparent;
+    color: var(--white);
+    border: 1px solid var(--grey-dark);
+  }
+  .vr-btn-secondary:hover {
+    border-color: var(--purple);
+    background: rgba(124,58,237,0.15);
+  }
+  @media (max-width: 768px) {
+    .vr-strip-inner {
+      padding: 0.75rem 1rem;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .vr-strip-label {
+      font-size: 0.85rem;
+      text-align: center;
+    }
+    .vr-strip-actions {
+      width: 100%;
+    }
+    .vr-btn {
+      flex: 1 1 auto;
+      font-size: 0.85rem;
+      padding: 0.6rem 0.75rem;
+    }
+  }
+</style>
+
+<section class="vr-strip" aria-label="Voter registration actions">
+  <div class="vr-strip-inner">
+    <p class="vr-strip-label">Make sure you are still on the voter rolls.</p>
+    <div class="vr-strip-actions">
+      <button type="button" class="vr-btn vr-btn-primary"
+        onclick="window.open('https://www.vote.org/am-i-registered-to-vote/','_blank','noopener,noreferrer')">
+        Check Voter Registration
+      </button>
+      <button type="button" class="vr-btn vr-btn-secondary"
+        onclick="window.open('https://www.vote.org/register-to-vote/','_blank','noopener,noreferrer')">
+        Register to Vote
+      </button>
+    </div>
+  </div>
+</section>
+<!-- ============ END TEMPORARY ============ -->
 
 <!-- Hero -->
 <section class="hero">
