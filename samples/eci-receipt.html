@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>alonovo sample: receipt to report</title>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:wght@400;700&family=Caveat:wght@600;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --paper: #fbfaf5;
+    --paper-ink: #2a2a2a;
+    --paper-faint: #8a8778;
+    --text: #e8e6f0;
+    --muted: #a3a3a3;
+    --violet: #a78bfa;
+    --line: rgba(124, 58, 237, 0.22);
+    --grade-a: #2f8f5b;
+    --grade-b: #2d74b8;
+    --grade-c: #c07a12;
+    --grade-d: #c83a3a;
+    --receipt-font: 'Courier Prime', 'Courier New', Courier, monospace;
+    --ink-font: 'Caveat', 'Segoe Print', 'Bradley Hand', cursive;
+    --body-font: 'Open Sans', 'Segoe UI', Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--body-font);
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  .wrap {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 28px 22px 40px;
+    display: grid;
+    grid-template-columns: minmax(0, 340px) minmax(0, 1fr);
+    gap: 36px;
+    align-items: start;
+  }
+
+  /* ── Receipt ─────────────────────────────── */
+  .receipt {
+    position: relative;
+    background: var(--paper);
+    color: var(--paper-ink);
+    font-family: var(--receipt-font);
+    font-size: 13px;
+    line-height: 1.45;
+    padding: 22px 18px 34px;
+    transform: rotate(-0.6deg);
+    box-shadow: 0 18px 50px rgba(0,0,0,0.55);
+  }
+  .receipt::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -12px;
+    height: 12px;
+    background:
+      linear-gradient(-45deg, transparent 8px, var(--paper) 0) 0 0 / 16px 16px,
+      linear-gradient(45deg, transparent 8px, var(--paper) 0) 0 0 / 16px 16px;
+    background-repeat: repeat-x;
+  }
+
+  .r-head { text-align: center; margin-bottom: 14px; }
+  .r-store { font-weight: 700; font-size: 16px; letter-spacing: 0.04em; }
+  .r-meta { color: var(--paper-faint); font-size: 12px; }
+
+  .r-rule { border: 0; border-top: 1px dashed #b9b6a8; margin: 10px 0; }
+
+  .r-item {
+    display: grid;
+    grid-template-columns: 1fr auto 42px;
+    gap: 8px;
+    align-items: baseline;
+    padding: 3px 0;
+  }
+  .r-name { text-transform: uppercase; }
+  .r-price { text-align: right; }
+
+  .mark {
+    font-family: var(--ink-font);
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 1;
+    text-align: center;
+    transform: rotate(-6deg);
+  }
+  .g-a { color: var(--grade-a); }
+  .g-b { color: var(--grade-b); }
+  .g-c { color: var(--grade-c); }
+  .g-d { color: var(--grade-d); }
+
+  .r-total {
+    display: grid;
+    grid-template-columns: 1fr auto 42px;
+    gap: 8px;
+    padding: 2px 0;
+  }
+  .r-total.grand { font-weight: 700; font-size: 15px; }
+  .r-total span:nth-child(2) { text-align: right; }
+
+  .stamp {
+    margin: 22px auto 4px;
+    width: 128px;
+    height: 128px;
+    border: 3px solid var(--grade-b);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--grade-b);
+    transform: rotate(-9deg);
+  }
+  .stamp-grade {
+    font-family: var(--ink-font);
+    font-weight: 700;
+    font-size: 64px;
+    line-height: 0.9;
+  }
+  .stamp-label {
+    font-family: var(--receipt-font);
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  /* ── Report ──────────────────────────────── */
+  .report h1 {
+    font-family: 'Special Elite', var(--receipt-font);
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 1.2;
+    margin: 4px 0 8px;
+    color: #fff;
+  }
+  .lede { color: var(--muted); margin: 0 0 22px; max-width: 60ch; }
+
+  .report h2 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--violet);
+    margin: 26px 0 10px;
+  }
+
+  .dims { display: grid; gap: 10px; }
+  .dim {
+    display: grid;
+    grid-template-columns: 150px 1fr 34px;
+    gap: 12px;
+    align-items: center;
+    font-size: 14px;
+  }
+  .bar { height: 8px; background: rgba(255,255,255,0.07); border-radius: 4px; overflow: hidden; }
+  .bar i { display: block; height: 100%; border-radius: 4px; }
+  .dim b { font-weight: 700; text-align: right; }
+
+  .flag {
+    border-left: 3px solid var(--grade-d);
+    padding: 4px 0 4px 14px;
+    margin-bottom: 14px;
+  }
+  .flag.c { border-color: var(--grade-c); }
+  .flag p { margin: 2px 0; }
+  .flag .swap { color: var(--muted); font-size: 14px; }
+  .flag .swap strong { color: var(--grade-b); }
+
+  .lines { list-style: none; margin: 0; padding: 0; }
+  .lines li {
+    display: grid;
+    grid-template-columns: 34px 1fr;
+    gap: 10px;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 14px;
+  }
+  .lines li:last-child { border-bottom: 0; }
+  .lines .mark { font-size: 22px; transform: none; text-align: left; }
+  .lines .who { color: #fff; font-weight: 600; }
+  .lines .why { color: var(--muted); }
+
+  .note {
+    grid-column: 1 / -1;
+    border-top: 1px solid var(--line);
+    padding-top: 16px;
+    color: var(--muted);
+    font-size: 13px;
+    max-width: 70ch;
+  }
+  .note strong { color: var(--text); }
+
+  /* one load moment: grades ink in, in receipt order */
+  @media (prefers-reduced-motion: no-preference) {
+    .receipt .mark, .stamp {
+      opacity: 0;
+      animation: ink 0.35s ease-out forwards;
+    }
+    .receipt .r-item:nth-of-type(1) .mark { animation-delay: 0.3s; }
+    .receipt .r-item:nth-of-type(2) .mark { animation-delay: 0.45s; }
+    .receipt .r-item:nth-of-type(3) .mark { animation-delay: 0.6s; }
+    .receipt .r-item:nth-of-type(4) .mark { animation-delay: 0.75s; }
+    .receipt .r-item:nth-of-type(5) .mark { animation-delay: 0.9s; }
+    .receipt .r-item:nth-of-type(6) .mark { animation-delay: 1.05s; }
+    .receipt .r-item:nth-of-type(7) .mark { animation-delay: 1.2s; }
+    .receipt .r-item:nth-of-type(8) .mark { animation-delay: 1.35s; }
+    .stamp { animation-delay: 1.7s; animation-duration: 0.4s; }
+    @keyframes ink {
+      from { opacity: 0; scale: 1.35; }
+      to   { opacity: 1; scale: 1; }
+    }
+  }
+
+  @media (max-width: 700px) {
+    .wrap { grid-template-columns: 1fr; gap: 40px; padding: 20px 16px 32px; }
+    .receipt { max-width: 360px; margin: 0 auto; width: 100%; }
+    .dim { grid-template-columns: 120px 1fr 30px; }
+  }
+</style>
+</head>
+<body>
+<main class="wrap">
+
+  <!-- The uploaded receipt, graded -->
+  <section class="receipt" aria-label="Sample grocery receipt with grades">
+    <div class="r-head">
+      <div class="r-store">NEIGHBORHOOD MARKET</div>
+      <div class="r-meta">Store 214 &nbsp; 09/12/2026 &nbsp; 10:42 AM</div>
+    </div>
+    <hr class="r-rule">
+
+    <div class="items">
+      <div class="r-item"><span class="r-name">Harvest Valley Oats 42oz</span><span class="r-price">5.49</span><span class="mark g-a" aria-label="Grade A">A</span></div>
+      <div class="r-item"><span class="r-name">Sunmeadow Org Milk 1/2gal</span><span class="r-price">4.79</span><span class="mark g-b" aria-label="Grade B plus">B+</span></div>
+      <div class="r-item"><span class="r-name">Crestline Cola 12pk</span><span class="r-price">7.99</span><span class="mark g-d" aria-label="Grade D">D</span></div>
+      <div class="r-item"><span class="r-name">Brightbay Potato Chips</span><span class="r-price">4.29</span><span class="mark g-c" aria-label="Grade C minus">C−</span></div>
+      <div class="r-item"><span class="r-name">Riverbend Eggs Doz</span><span class="r-price">5.99</span><span class="mark g-a" aria-label="Grade A minus">A−</span></div>
+      <div class="r-item"><span class="r-name">Northgate Paper Towel 6pk</span><span class="r-price">9.49</span><span class="mark g-c" aria-label="Grade C">C</span></div>
+      <div class="r-item"><span class="r-name">Coastal Catch Tuna</span><span class="r-price">2.19</span><span class="mark g-b" aria-label="Grade B minus">B−</span></div>
+      <div class="r-item"><span class="r-name">Evergreen Dish Soap</span><span class="r-price">3.49</span><span class="mark g-b" aria-label="Grade B">B</span></div>
+    </div>
+
+    <hr class="r-rule">
+    <div class="r-total"><span>SUBTOTAL</span><span>43.72</span><span></span></div>
+    <div class="r-total"><span>TAX</span><span>1.13</span><span></span></div>
+    <div class="r-total grand"><span>TOTAL</span><span>44.85</span><span></span></div>
+    <div class="r-meta" style="margin-top:8px;">VISA ****0000 &nbsp; ITEMS 8</div>
+
+    <div class="stamp" aria-label="Overall purchase grade B minus">
+      <span class="stamp-grade">B−</span>
+      <span class="stamp-label">THIS TRIP</span>
+    </div>
+  </section>
+
+  <!-- What alonovo tells the shopper -->
+  <section class="report">
+    <h1>This trip earned a B−</h1>
+    <p class="lede">We matched each item on your receipt to the company behind it, graded that company's record, and weighted the result by what you spent. Most of your cart did well. Two items pulled the grade down.</p>
+
+    <h2>Where your $43.72 went</h2>
+    <div class="dims">
+      <div class="dim"><span>Environment</span><span class="bar"><i style="width:74%; background:var(--grade-b)"></i></span><b class="g-b">B</b></div>
+      <div class="dim"><span>Labor and equity</span><span class="bar"><i style="width:68%; background:var(--grade-b)"></i></span><b class="g-b">B−</b></div>
+      <div class="dim"><span>Executive pay</span><span class="bar"><i style="width:57%; background:var(--grade-c)"></i></span><b class="g-c">C+</b></div>
+      <div class="dim"><span>Political influence</span><span class="bar"><i style="width:50%; background:var(--grade-c)"></i></span><b class="g-c">C</b></div>
+    </div>
+
+    <h2>Worth a second look</h2>
+    <div class="flag">
+      <p><strong>Crestline Cola</strong> <span class="g-d">D</span></p>
+      <p>Its parent company lobbies against bottle-deposit laws, and its CEO earns 410 times the median worker.</p>
+      <p class="swap">Next time, try Clearwater Sparkling: <strong>B+</strong></p>
+    </div>
+    <div class="flag c">
+      <p><strong>Brightbay Potato Chips</strong> <span class="g-c">C−</span></p>
+      <p>Its palm oil supply chain is unverified, and it advertises on outlets flagged for disinformation.</p>
+      <p class="swap">Next time, try Old Mill Kettle Chips: <strong>B</strong></p>
+    </div>
+
+    <h2>Line by line</h2>
+    <ul class="lines">
+      <li><span class="mark g-a">A</span><span><span class="who">Harvest Valley Co-op</span><br><span class="why">Farmer-owned, 6:1 pay ratio, no federal lobbying.</span></span></li>
+      <li><span class="mark g-a">A−</span><span><span class="who">Riverbend Farms</span><br><span class="why">Independent animal welfare audits, living-wage employer.</span></span></li>
+      <li><span class="mark g-b">B+</span><span><span class="who">Sunmeadow Dairy</span><br><span class="why">Strong on emissions, thin supply-chain reporting.</span></span></li>
+      <li><span class="mark g-b">B</span><span><span class="who">Evergreen Home</span><br><span class="why">Plant-based formulas, limited pay disclosure.</span></span></li>
+      <li><span class="mark g-b">B−</span><span><span class="who">Coastal Catch Seafood</span><br><span class="why">Pole-caught, but labor audits cover only part of its fleet.</span></span></li>
+      <li><span class="mark g-c">C</span><span><span class="who">Northgate Consumer Products</span><br><span class="why">Virgin wood fiber, missed its own emissions targets.</span></span></li>
+      <li><span class="mark g-c">C−</span><span><span class="who">Brightbay Foods</span><br><span class="why">Unverified palm oil, ads on flagged outlets.</span></span></li>
+      <li><span class="mark g-d">D</span><span><span class="who">Crestline Beverage Group</span><br><span class="why">Anti-deposit lobbying, 410:1 CEO pay ratio.</span></span></li>
+    </ul>
+  </section>
+
+  <p class="note"><strong>Illustrative sample.</strong> The store, brands, companies, and grades shown here are fictional. Real alonovo grades are based on public records such as SEC filings, lobbying disclosures, and company sustainability reports, and no company can pay to change its grade.</p>
+
+</main>
+</body>
+</html>
