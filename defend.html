@@ -43,9 +43,76 @@
     <p style="font-family: 'Special Elite', monospace; color: var(--purple); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 1rem;">Resources</p>
     <h1 class="page-title">Defend</h1>
     <p class="page-subtitle">A directory of organizations and influencers committed to helping those most vulnerable to illegality and abuse.</p>
-    <p style="color: var(--purple); font-size: 0.9rem; margin-top: 1rem;">Last updated: February 21, 2026</p>
+    <p style="color: var(--purple); font-size: 0.9rem; margin-top: 1rem;">Last updated: October 3, 2026</p>
   </div>
 </div>
+
+<!-- PROTECT-THE-VOTE START (remove after Nov 4, 2026) -->
+<style>
+  #protect-the-vote .ptv-panel { max-width: 800px; margin: 0 auto; padding: 3rem; background: rgba(124,58,237,0.05); border: 1px solid rgba(124,58,237,0.2); border-radius: 8px; }
+  #protect-the-vote h2 { font-family: 'Special Elite', monospace; font-size: 2rem; color: var(--white); text-align: center; margin-bottom: 2.5rem; }
+  #protect-the-vote ol { list-style: none; padding: 0; }
+  #protect-the-vote ol > li { margin-bottom: 2rem; color: var(--grey); }
+  #protect-the-vote ol > li:last-child { margin-bottom: 0; }
+  #protect-the-vote ol > li > strong:first-child { display: block; color: var(--white); margin-bottom: 0.4rem; }
+  #protect-the-vote ul { list-style: none; padding: 0; margin-top: 0.6rem; }
+  #protect-the-vote ul li { margin-bottom: 0.4rem; }
+  #protect-the-vote ul strong { color: var(--white); }
+  #protect-the-vote a { color: var(--purple-light); text-decoration: underline; overflow-wrap: anywhere; }
+  #protect-the-vote a:hover { color: var(--white); }
+  @media (max-width: 768px) { #protect-the-vote .ptv-panel { padding: 1.5rem; } }
+</style>
+<div class="section" id="protect-the-vote">
+  <div class="container">
+    <div class="ptv-panel">
+      <h2>Protect the Vote</h2>
+      <ol>
+        <li>
+          <strong>1. Check your registration now, and again before Election Day.</strong>
+          This entire order is built around lists: who is on them, who gets removed, and who decides. Verify at <a href="https://www.vote.org" target="_blank">vote.org</a> or your state's election website. If your name is missing or your status has changed, you want to know now, not at the polling place on November 3.
+        </li>
+        <li>
+          <strong>2. Vote early, and vote in a way that leaves a record.</strong>
+          If your state has a mail ballot grace period, it survived a Supreme Court challenge in June. Don't rely on it. Return your ballot at least a week before your state's deadline, use a drop box or vote in person if you can, and track your ballot through your county's system. Confirmed and counted early is one less ballot to argue about in December.
+        </li>
+        <li>
+          <strong>3. Work the polls.</strong>
+          Poll worker shortages have run for six cycles, and the shortage creates the improvisation that later gets called irregularity. Apply through <a href="https://www.powerthepolls.org" target="_blank">Power the Polls</a>, the <a href="https://www.workelections.com" target="_blank">Work Elections Project</a>, or your county elections office. Most pay. All train you.
+        </li>
+        <li>
+          <strong>4. Volunteer with Election Protection.</strong>
+          The nonpartisan coalition led by the Lawyers' Committee for Civil Rights Under Law, with more than 100 partners in all 50 states. Volunteers staff hotlines, monitor polling places, and document what happens. Sign up at <a href="https://866ourvote.org" target="_blank">866ourvote.org</a> or <a href="https://protectthevote.net" target="_blank">protectthevote.net</a>, or email <a href="mailto:volunteer@866ourvote.org">volunteer@866ourvote.org</a>. Attorneys can find placements through We The Action, including defending election officials facing threats.
+        </li>
+        <li>
+          <strong>5. Save these numbers in your phone.</strong>
+          <ul>
+            <li><a href="tel:+18666878683"><strong>866-OUR-VOTE</strong> (866-687-8683)</a>: English</li>
+            <li><a href="tel:+18888398682"><strong>888-VE-Y-VOTA</strong> (888-839-8682)</a>: Spanish and English</li>
+            <li><a href="tel:+18882748683"><strong>888-API-VOTE</strong> (888-274-8683)</a>: Asian languages and English</li>
+            <li><a href="tel:+18449255287"><strong>844-YALLA-US</strong> (844-925-5287)</a>: Arabic and English</li>
+            <li><strong>301-818-VOTE</strong> (301-818-8683): American Sign Language video call</li>
+          </ul>
+        </li>
+        <li>
+          <strong>6. Report it, all of it.</strong>
+          Voter intimidation, federal agents near polling places, misapplied ID requirements, last-minute polling place closures, harassment of poll workers, ballots refused, voters turned away. Call the hotline, your county elections office, and your secretary of state. Report threats against election officials to your state attorney general and local law enforcement, and document them through the Committee for Safe and Secure Elections. Reporting isn't complaining. It creates the record lawyers and courts need in December.
+        </li>
+        <li>
+          <strong>7. Say the quiet part out loud.</strong>
+          Your county elections director is a public servant who has spent two years being accused of crimes by the Justice Department in letters with five-day deadlines. Show up at a board of elections meeting. Write to your local paper. The people running your election are the last institutional layer between a manufactured emergency and a remedy waiting on the shelf. They shouldn't have to hold that line alone.
+        </li>
+      </ol>
+    </div>
+  </div>
+</div>
+<script>
+  // Hide the section from this moment on. Arizona (America/Phoenix) has no DST, so it is always UTC-7.
+  const PROTECT_THE_VOTE_EXPIRES = "2026-11-04T00:00:00-07:00";
+  if (Date.now() >= Date.parse(PROTECT_THE_VOTE_EXPIRES)) {
+    document.getElementById("protect-the-vote").remove();
+  }
+</script>
+<!-- PROTECT-THE-VOTE END (remove after Nov 4, 2026) -->
 
 <!-- Voting Section -->
 <div class="section" style="background: var(--darker); border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05);">
