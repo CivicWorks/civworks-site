@@ -9,7 +9,7 @@ compatibility_date = "2026-10-01"
 [[d1_databases]]
 binding = "DB"
 database_name = "civicsky-backers"
-database_id = "PASTE-DATABASE-ID-HERE"
+database_id = "f0abfd50-c1e2-4f07-9d7b-7e4de34fd2f8"
 
 [vars]
 # Pages allowed to read the counter and wall.
