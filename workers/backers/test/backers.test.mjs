@@ -227,4 +227,20 @@ await test('Numbers outside the reserved range are refused', () => {
   assert.throws(() => giftsFrom('number,email,amount,date\n26,x@example.org,20,2025-01-01\n'), /1 to 25/);
 });
 
+await test('Refunds: a refunded gift stops counting; repeats and partial refunds add up right', async () => {
+  const db = fakeD1();
+  db.exec(reserveSql);
+  await handleEvent(db, checkout()); // $20, pi_1
+  await handleEvent(db, checkout({ id: 'cs_test_m', mode: 'subscription', amount_total: 500, invoice: 'in_1', payment_intent: null, customer_details: { email: 'm@example.org' }, custom_fields: [] }));
+  const refund = (o) => ({ type: 'charge.refunded', created: 1, data: { object: o } });
+  await handleEvent(db, refund({ amount: 2000, amount_refunded: 500, payment_intent: 'pi_1' }));
+  assert.equal((await stats(db, {})).raisedCents, 1500 + 500);
+  await handleEvent(db, refund({ amount: 2000, amount_refunded: 500, payment_intent: 'pi_1' })); // repeat: no change
+  assert.equal((await stats(db, {})).raisedCents, 1500 + 500);
+  await handleEvent(db, refund({ amount: 2000, amount_refunded: 2000, payment_intent: 'pi_1' }));
+  await handleEvent(db, refund({ amount: 500, amount_refunded: 500, payment_intent: 'pi_m', invoice: 'in_1' }));
+  assert.deepEqual(await stats(db, {}), { backers: 0, raisedCents: 0, goalCents: 12_000_000 });
+  await handleEvent(db, refund({ amount: 900, amount_refunded: 900, payment_intent: 'pi_unknown' })); // not ours: ignored
+});
+
 console.log(`\n${passed} tests passed.`);

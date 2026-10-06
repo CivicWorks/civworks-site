@@ -2,8 +2,8 @@
 // civ.works/pledge shows.
 //
 //   POST /stripe   Stripe webhook (signed). Records one-time gifts, first
-//                  monthly gifts, and each monthly renewal. A backer's first
-//                  gift assigns their founding number.
+//                  monthly gifts, each monthly renewal, and refunds. A
+//                  backer's first gift assigns their founding number.
 //   GET  /stats    { backers, raisedCents, goalCents }
 //   GET  /wall     Backers who chose to be listed: name, badge, number, year.
 //   GET  /thanks?session=cs_...   The thank-you screen's lookup after checkout:
@@ -104,6 +104,20 @@ export async function recordGift(db, { stripeId, email, amountCents, kind, sessi
   return backerId;
 }
 
+/** Reduce a recorded gift (and its backer's total) to what was kept after a refund. */
+export async function recordRefund(db, { stripeIds, keptCents }) {
+  for (const id of stripeIds) {
+    const gift = await db.prepare('SELECT backer_id, amount_cents FROM gifts WHERE stripe_id = ?').bind(id).first();
+    if (!gift) continue;
+    const kept = Math.max(0, Math.min(gift.amount_cents, keptCents));
+    const drop = gift.amount_cents - kept;
+    if (drop <= 0) return;
+    await db.prepare('UPDATE gifts SET amount_cents = ? WHERE stripe_id = ?').bind(kept, id).run();
+    await db.prepare('UPDATE backers SET total_cents = MAX(0, total_cents - ?) WHERE id = ?').bind(drop, gift.backer_id).run();
+    return;
+  }
+}
+
 /** Turn one Stripe event into a recorded gift, or ignore it. */
 export async function handleEvent(db, event) {
   const o = event.data?.object ?? {};
@@ -121,6 +135,12 @@ export async function handleEvent(db, event) {
       choices: choicesFrom(o),
     });
     return 'recorded';
+  }
+  // Refunds: a gift counts only what was kept. charge.amount_refunded is the running
+  // total refunded, so this is safe to receive more than once.
+  if (event.type === 'charge.refunded') {
+    await recordRefund(db, { stripeIds: [o.payment_intent, o.invoice].filter(Boolean), keptCents: (o.amount ?? 0) - (o.amount_refunded ?? 0) });
+    return 'refund recorded';
   }
   // Monthly renewals. The first monthly payment is recorded from its checkout above.
   if (event.type === 'invoice.paid' && o.billing_reason === 'subscription_cycle') {
