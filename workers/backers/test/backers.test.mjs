@@ -182,4 +182,49 @@ await test('A simple hand-made list works too', () => {
   assert.deepEqual([g.length, g[0].amountCents, g[0].name], [1, 50_000, 'Ann']);
 });
 
+const reserveSql = readFileSync(new URL('../reserve.sql', import.meta.url), 'utf8');
+
+await test('Reserving #00001 to #00025: new backers start at #00026 and empty slots count for nothing', async () => {
+  const db = fakeD1();
+  db.exec(reserveSql);
+  db.exec(reserveSql); // safe to run twice
+  assert.deepEqual(await stats(db, {}), { backers: 0, raisedCents: 0, goalCents: 12_000_000 });
+  await handleEvent(db, checkout());
+  assert.equal((await thanks(db, 'cs_test_a1')).number, '#00026');
+  assert.equal((await wall(db)).length, 1); // only Ada, who chose the wall
+});
+
+await test('Filling reserved slots: named or anonymous, counted once, still private', async () => {
+  const db = fakeD1();
+  db.exec(reserveSql);
+  await handleEvent(db, checkout());
+  const list = 'number,email,name,amount,date\n3,early@example.org,Early Donor,$500,2025-04-01\n7,,,"1,000",2025-05-01\n3,early@example.org,Early Donor,250,2025-09-01\n';
+  db.exec(importSql(giftsFrom(list)));
+  db.exec(importSql(giftsFrom(list))); // twice: nothing doubles
+  const s = await stats(db, {});
+  assert.deepEqual([s.backers, s.raisedCents], [3, 2000 + 75_000 + 100_000]);
+  const three = await db.prepare('SELECT email, wall_name, total_cents, show_on_wall FROM backers WHERE id = 3').first();
+  assert.deepEqual([three.email, three.wall_name, badgeFor(three.total_cents), three.show_on_wall], ['early@example.org', 'Early Donor', 'Charter', 0]);
+  const seven = await db.prepare('SELECT email, total_cents FROM backers WHERE id = 7').first();
+  assert.deepEqual([seven.email, badgeFor(seven.total_cents)], ['reserved-07', 'Charter']);
+  assert.equal((await wall(db)).length, 1);
+  // A new backer still gets the next open number.
+  await handleEvent(db, checkout({ id: 'cs_test_n', payment_intent: 'pi_n', customer_details: { email: 'new@example.org' } }));
+  assert.equal((await thanks(db, 'cs_test_n')).number, '#00027');
+});
+
+await test('A reserved slot is never given an email that already has a number', async () => {
+  const db = fakeD1();
+  db.exec(reserveSql);
+  await handleEvent(db, checkout()); // ada@example.org is #00026
+  db.exec(importSql(giftsFrom('number,email,amount,date\n5,ada@example.org,500,2025-01-01\n')));
+  const five = await db.prepare('SELECT email, total_cents FROM backers WHERE id = 5').first();
+  assert.deepEqual([five.email, five.total_cents], ['reserved-05', 0]);
+  assert.equal((await stats(db, {})).raisedCents, 2000);
+});
+
+await test('Numbers outside the reserved range are refused', () => {
+  assert.throws(() => giftsFrom('number,email,amount,date\n26,x@example.org,20,2025-01-01\n'), /1 to 25/);
+});
+
 console.log(`\n${passed} tests passed.`);
