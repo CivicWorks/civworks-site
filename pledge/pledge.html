@@ -115,7 +115,7 @@
     /* Thank-you */
     .thanks { position: fixed; inset: 0; background: rgba(2, 6, 23, 0.86); display: none; align-items: center; justify-content: center; padding: 16px; z-index: 10; }
     .thanks.open { display: flex; }
-    .thanks .card { max-width: 480px; width: 100%; text-align: center; margin: 0; }
+    .thanks .card { max-width: 480px; width: 100%; text-align: center; margin: 0; background: #0f172a; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6); }
     .thanks .big-num { font-family: 'Special Elite', serif; font-size: 52px; color: var(--teal-light); line-height: 1.1; margin: 8px 0; }
     .thanks .actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 18px; }
 
@@ -224,9 +224,10 @@
 <!-- Thank-you screen (after checkout: ?thanks=cs_...) -->
 <div class="thanks" id="thanks" role="dialog" aria-modal="true" aria-labelledby="thanks-title">
   <div class="card">
-    <div class="eyebrow">Thank you</div>
+    <div class="eyebrow">You're in</div>
     <div class="big-num" id="thanks-num">&hellip;</div>
-    <h2 id="thanks-title" style="margin-top:0">Welcome to CivicSky.</h2>
+    <h2 id="thanks-title" style="margin-top:0">Thank you for backing CivicSky.</h2>
+    <div><span class="badge" id="thanks-badge" hidden></span></div>
     <p class="lead" id="thanks-text">Finding your founding number&hellip;</p>
     <div class="actions">
       <a class="btn" id="share-bsky" href="#" target="_blank" rel="noopener">Share on Bluesky</a>
@@ -316,8 +317,10 @@
       try {
         const t = await get('/thanks?session=' + encodeURIComponent(session));
         $('thanks-num').textContent = t.number;
-        $('thanks-title').textContent = `Welcome, ${t.badge}.`;
-        $('thanks-text').textContent = `You're ${t.number}, ${t.founding}. Your founding number is yours for good. We'll email when CivicSky opens, and your badge will be waiting if you want it.`;
+        $('thanks-title').textContent = 'Thank you for backing CivicSky.';
+        $('thanks-badge').textContent = `${t.badge} backer`;
+        $('thanks-badge').hidden = false;
+        $('thanks-text').textContent = `You're backer ${t.number}, one of the first ${t.founding.replace('Founding ', '')}. Your founding number is yours for good. We'll email when CivicSky opens, and your badge will be waiting if you want it.`;
         share = `I'm ${t.number} backing CivicSky, the social network no billionaire can buy. civ.works/pledge/pledge`;
         setShare();
         loadStats();
