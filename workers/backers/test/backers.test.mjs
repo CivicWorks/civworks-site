@@ -71,8 +71,8 @@ await test('A first gift creates backer #00001; the same webhook twice counts on
   const db = fakeD1();
   await handleEvent(db, checkout());
   await handleEvent(db, checkout());
-  const s = await stats(db, { GOAL_CENTS: '85000000' });
-  assert.deepEqual(s, { backers: 1, raisedCents: 2000, goalCents: 85_000_000 });
+  const s = await stats(db, { GOAL_CENTS: '12000000' });
+  assert.deepEqual(s, { backers: 1, raisedCents: 2000, goalCents: 12_000_000 });
   assert.equal((await thanks(db, 'cs_test_a1')).number, '#00001');
 });
 
@@ -131,10 +131,10 @@ await test('Stripe signatures: valid passes; tampered, missing, or stale fail', 
 });
 
 await test('The Worker answers the page and rejects unsigned webhooks', async () => {
-  const env = { DB: fakeD1(), GOAL_CENTS: '85000000', ALLOWED_ORIGINS: 'https://civ.works', STRIPE_WEBHOOK_SECRET: 'whsec_x' };
+  const env = { DB: fakeD1(), GOAL_CENTS: '12000000', ALLOWED_ORIGINS: 'https://civ.works', STRIPE_WEBHOOK_SECRET: 'whsec_x' };
   const r = await worker.fetch(new Request('https://w.example/stats', { headers: { Origin: 'https://civ.works' } }), env);
   assert.equal(r.headers.get('Access-Control-Allow-Origin'), 'https://civ.works');
-  assert.equal((await r.json()).goalCents, 85_000_000);
+  assert.equal((await r.json()).goalCents, 12_000_000);
   const bad = await worker.fetch(new Request('https://w.example/stripe', { method: 'POST', body: '{}' }), env);
   assert.equal(bad.status, 400);
   const pending = await worker.fetch(new Request('https://w.example/thanks?session=cs_nope'), env);

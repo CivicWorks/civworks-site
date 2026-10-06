@@ -73,6 +73,15 @@
     .proof a { display: block; text-align: center; text-decoration: none; background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border); border-radius: 12px; padding: 14px 8px; font-size: 13px; font-weight: 600; color: var(--text-primary); }
     .proof a:hover { border-color: var(--teal); }
 
+    /* Use of funds */
+    .funds { margin-top: 18px; display: grid; gap: 12px; }
+    .fund { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 16px 18px; }
+    .fund-top { display: flex; justify-content: space-between; gap: 12px; font-weight: 600; }
+    .fund-top strong { color: var(--teal-light); white-space: nowrap; }
+    .fund-bar { height: 6px; border-radius: 99px; background: rgba(148, 163, 184, 0.15); margin: 10px 0 8px; overflow: hidden; }
+    .fund-bar > div { height: 100%; background: linear-gradient(90deg, var(--teal), var(--teal-light)); border-radius: 99px; }
+    .fund p { font-size: 14px; color: var(--text-secondary); }
+
     /* Badges */
     h2 { font-size: 24px; margin-top: 44px; }
     .lead { color: var(--text-secondary); margin-top: 8px; }
@@ -126,10 +135,10 @@
 
   <!-- Counter -->
   <div class="card" aria-live="polite">
-    <div class="raised"><span id="raised">$0</span><small>raised of $850,000</small></div>
-    <div class="bar" role="progressbar" aria-label="Progress toward $850,000" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="fill"></div></div>
+    <div class="raised"><span id="raised">$0</span><small>raised of $120,000</small></div>
+    <div class="bar" role="progressbar" aria-label="Progress toward $120,000" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="fill"></div></div>
     <div class="counter-row"><span><strong id="backers">0</strong> backers</span><span id="pct">0%</span></div>
-    <p class="math"><strong>$850,000 builds CivicSky.</strong> That's 42,500 people giving $20, money that answers to no one but the people who gave it, with no debt and no strings.</p>
+    <p class="math"><strong>$120,000 lays the groundwork for CivicSky.</strong> That's 6,000 people giving $20, so the moment CivicSky is funded, building starts.</p>
   </div>
 
   <!-- Give -->
@@ -157,13 +166,22 @@
   <div class="why">
     <h2>Why backers, not billionaires</h2>
     <p><strong>Every platform answers to someone.</strong> Most answer to advertisers who profit from outrage, or to a single owner who decides what you see. CivicSky will answer to the people who built it.</p>
-    <p><strong>Big money comes with strings.</strong> Venture capital wants an exit. Billionaires want influence. Forty thousand people giving $20 each want one thing: a place where facts, neighbors, and elected officials meet without anyone's thumb on the scale.</p>
+    <p><strong>Big money comes with strings.</strong> Billionaires want influence. Advertisers want your outrage. Thousands of people giving $20 each want one thing: a place where facts, neighbors, and elected officials meet without anyone's thumb on the scale.</p>
     <p><strong>CivicSky is built so it can't be sold.</strong> It's designed to be held in a perpetual purpose trust. No buyout, no takeover, no new owner with an agenda. Your $20 builds something no one can take away.</p>
     <div class="proof">
       <a href="https://civicsky.civ.works">Ad-free</a>
       <a href="https://civicsky.civ.works">Subscriber-supported</a>
       <a href="https://civicsky.civ.works">Built for civic action</a>
     </div>
+  </div>
+
+  <!-- Use of funds -->
+  <h2>What your gift pays for</h2>
+  <p class="lead">Every dollar of the $120,000 goes to the groundwork Civic Works needs so CivicSky can be built safely and fast.</p>
+  <div class="funds">
+    <div class="fund"><div class="fund-top"><span>Security, database, and performance architecture</span><strong>$50,000</strong></div><div class="fund-bar"><div style="width:41.7%"></div></div><p>Turning the working prototype into a production design: a security plan and outside review, the database, and the plans to scale.</p></div>
+    <div class="fund"><div class="fund-top"><span>Legal and accounting groundwork</span><strong>$45,000</strong></div><div class="fund-bar"><div style="width:37.5%"></div></div><p>The legal structure that protects the mission for good: the perpetual purpose trust plan, the license that keeps revenue flowing back to Civic Works, and sound books.</p></div>
+    <div class="fund"><div class="fund-top"><span>Partner commitments</span><strong>$25,000</strong></div><div class="fund-bar"><div style="width:20.8%"></div></div><p>Locking in partners, starting with independent news trust and bias ratings and address verification.</p></div>
   </div>
 
   <!-- Badges -->
@@ -227,7 +245,7 @@
     monthly10: '',     // Stripe payment link: $10 per month
     monthly25: '',     // Stripe payment link: $25 per month
   };
-  const GOAL_CENTS = 85000000;
+  const GOAL_CENTS = 12000000;
 
   const $ = (id) => document.getElementById(id);
   const usd = (cents) => '$' + Math.round(cents / 100).toLocaleString('en-US');

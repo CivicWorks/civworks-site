@@ -14,7 +14,7 @@ database_id = "PASTE-DATABASE-ID-HERE"
 [vars]
 # Pages allowed to read the counter and wall.
 ALLOWED_ORIGINS = "https://civ.works,https://www.civ.works"
-# Fundraising goal in cents ($850,000).
-GOAL_CENTS = "85000000"
+# Fundraising goal in cents ($120,000).
+GOAL_CENTS = "12000000"
 
 # Secret, set with: npx wrangler secret put STRIPE_WEBHOOK_SECRET

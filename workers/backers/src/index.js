@@ -134,7 +134,7 @@ export async function handleEvent(db, event) {
 
 export async function stats(db, env) {
   const r = await db.prepare('SELECT COUNT(*) AS backers, COALESCE(SUM(total_cents), 0) AS raised FROM backers').first();
-  return { backers: r.backers, raisedCents: r.raised, goalCents: Number(env.GOAL_CENTS ?? 85_000_000) };
+  return { backers: r.backers, raisedCents: r.raised, goalCents: Number(env.GOAL_CENTS ?? 12_000_000) };
 }
 
 export async function wall(db, limit = 100) {
