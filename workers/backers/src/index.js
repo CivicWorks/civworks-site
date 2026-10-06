@@ -9,6 +9,7 @@
 //   GET  /thanks?session=cs_...   The thank-you screen's lookup after checkout:
 //                  founding number and badge for that checkout only.
 //
+// Only gifts through the CivicSky backer links count (isBackerCheckout).
 // Gifts go to Civic Works (501(c)(3)). Nothing here is an investment.
 
 import { badgeFor, formatNumber, foundingBand } from './badges.js';
@@ -63,6 +64,15 @@ export function choicesFrom(session) {
     showOnWall: yes(field(session, /wall/i, 'dropdown')),
     showBadge: yes(field(session, /badge|profile/i, 'dropdown')),
   };
+}
+
+/**
+ * True only for checkouts from the CivicSky backer links. Civic Works' general
+ * Donate link (and anything else on the Stripe account) is ignored. The backer
+ * links are the only ones that ask about the Founders Wall.
+ */
+export function isBackerCheckout(session) {
+  return (session.custom_fields ?? []).some((f) => /founders wall/i.test(f.label?.custom ?? ''));
 }
 
 // --- Recording gifts ----------------------------------------------------------
@@ -123,6 +133,7 @@ export async function handleEvent(db, event) {
   const o = event.data?.object ?? {};
   const at = new Date((event.created ?? Math.floor(Date.now() / 1000)) * 1000).toISOString();
   if (event.type === 'checkout.session.completed' || event.type === 'checkout.session.async_payment_succeeded') {
+    if (!isBackerCheckout(o)) return 'ignored: not a CivicSky backer link';
     if (o.payment_status !== 'paid') return 'waiting for payment';
     const monthly = o.mode === 'subscription';
     await recordGift(db, {
@@ -143,8 +154,12 @@ export async function handleEvent(db, event) {
     return 'refund recorded';
   }
   // Monthly renewals. The first monthly payment is recorded from its checkout above.
+  // Only for backers who signed up monthly through a backer link.
   if (event.type === 'invoice.paid' && o.billing_reason === 'subscription_cycle') {
-    await recordGift(db, { stripeId: o.id, email: o.customer_email, amountCents: o.amount_paid, kind: 'monthly', at });
+    const email = (o.customer_email ?? '').toLowerCase().trim();
+    const monthly = email && (await db.prepare('SELECT id FROM backers WHERE email = ? AND monthly = 1').bind(email).first());
+    if (!monthly) return 'ignored: not a CivicSky monthly backer';
+    await recordGift(db, { stripeId: o.id, email, amountCents: o.amount_paid, kind: 'monthly', at });
     return 'recorded';
   }
   return 'ignored';

@@ -46,6 +46,9 @@ const checkout = (over = {}) => ({
   },
 });
 
+// The backer form with every question left blank (what a private backer sends).
+const PRIVATE = checkout().data.object.custom_fields.map((f) => ({ ...f, text: f.text ? { value: null } : undefined, dropdown: f.dropdown ? { value: null } : undefined }));
+
 await test('Badge levels follow total giving; any first gift is Signal', () => {
   assert.equal(badgeFor(500), 'Signal');
   assert.equal(badgeFor(2000), 'Signal');
@@ -87,7 +90,7 @@ await test('Unpaid checkouts wait; async success records them', async () => {
 await test('Monthly backers keep their number and climb badges with renewals', async () => {
   const db = fakeD1();
   await handleEvent(db, checkout());
-  await handleEvent(db, checkout({ id: 'cs_test_m1', mode: 'subscription', amount_total: 500, invoice: 'in_first', payment_intent: null, customer_details: { email: 'grace@example.org' }, custom_fields: [] }));
+  await handleEvent(db, checkout({ id: 'cs_test_m1', mode: 'subscription', amount_total: 500, invoice: 'in_first', payment_intent: null, customer_details: { email: 'grace@example.org' }, custom_fields: PRIVATE }));
   for (let i = 0; i < 4; i++) {
     await handleEvent(db, { type: 'invoice.paid', created: 1791200000 + i, data: { object: { id: `in_r${i}`, billing_reason: 'subscription_cycle', amount_paid: 500, customer_email: 'grace@example.org' } } });
   }
@@ -102,7 +105,7 @@ await test('Monthly backers keep their number and climb badges with renewals', a
 await test('The Founders Wall lists only backers who chose it, with no amounts', async () => {
   const db = fakeD1();
   await handleEvent(db, checkout());
-  await handleEvent(db, checkout({ id: 'cs_test_b', payment_intent: 'pi_2', customer_details: { email: 'private@example.org' }, custom_fields: [] }));
+  await handleEvent(db, checkout({ id: 'cs_test_b', payment_intent: 'pi_2', customer_details: { email: 'private@example.org' }, custom_fields: PRIVATE }));
   const w = await wall(db);
   assert.equal(w.length, 1);
   assert.deepEqual(w[0], { name: 'Ada L.', badge: 'Signal', number: '#00001', founding: 'Founding 1,000', since: '2026' });
@@ -231,7 +234,7 @@ await test('Refunds: a refunded gift stops counting; repeats and partial refunds
   const db = fakeD1();
   db.exec(reserveSql);
   await handleEvent(db, checkout()); // $20, pi_1
-  await handleEvent(db, checkout({ id: 'cs_test_m', mode: 'subscription', amount_total: 500, invoice: 'in_1', payment_intent: null, customer_details: { email: 'm@example.org' }, custom_fields: [] }));
+  await handleEvent(db, checkout({ id: 'cs_test_m', mode: 'subscription', amount_total: 500, invoice: 'in_1', payment_intent: null, customer_details: { email: 'm@example.org' }, custom_fields: PRIVATE }));
   const refund = (o) => ({ type: 'charge.refunded', created: 1, data: { object: o } });
   await handleEvent(db, refund({ amount: 2000, amount_refunded: 500, payment_intent: 'pi_1' }));
   assert.equal((await stats(db, {})).raisedCents, 1500 + 500);
@@ -241,6 +244,29 @@ await test('Refunds: a refunded gift stops counting; repeats and partial refunds
   await handleEvent(db, refund({ amount: 500, amount_refunded: 500, payment_intent: 'pi_m', invoice: 'in_1' }));
   assert.deepEqual(await stats(db, {}), { backers: 0, raisedCents: 0, goalCents: 12_000_000 });
   await handleEvent(db, refund({ amount: 900, amount_refunded: 900, payment_intent: 'pi_unknown' })); // not ours: ignored
+});
+
+await test("Civic Works' general Donate link never counts as a CivicSky backer", async () => {
+  const db = fakeD1();
+  db.exec(reserveSql);
+  const general = { id: 'cs_general', payment_intent: 'pi_general', amount_total: 500, custom_fields: [] };
+  assert.equal(await handleEvent(db, checkout(general)), 'ignored: not a CivicSky backer link');
+  assert.equal(await handleEvent(db, checkout({ id: 'cs_general2', payment_intent: 'pi_g2' , custom_fields: undefined })), 'ignored: not a CivicSky backer link');
+  assert.deepEqual([(await stats(db, {})).backers, (await stats(db, {})).raisedCents], [0, 0]);
+  // A backer-link gift with every question left unanswered still counts.
+  const unanswered = checkout().data.object.custom_fields.map((f) => ({ ...f, text: f.text ? { value: null } : undefined, dropdown: f.dropdown ? { value: null } : undefined }));
+  await handleEvent(db, checkout({ custom_fields: unanswered }));
+  assert.deepEqual([(await stats(db, {})).backers, (await stats(db, {})).raisedCents], [1, 2000]);
+});
+
+await test('Monthly renewals count only for backers who signed up monthly', async () => {
+  const db = fakeD1();
+  db.exec(reserveSql);
+  await handleEvent(db, checkout()); // Ada gave once, not monthly
+  const renewal = (id, email) => ({ type: 'invoice.paid', created: 1, data: { object: { id, billing_reason: 'subscription_cycle', amount_paid: 500, customer_email: email } } });
+  assert.equal(await handleEvent(db, renewal('in_x', 'stranger@example.org')), 'ignored: not a CivicSky monthly backer');
+  assert.equal(await handleEvent(db, renewal('in_y', 'ada@example.org')), 'ignored: not a CivicSky monthly backer');
+  assert.equal((await stats(db, {})).raisedCents, 2000);
 });
 
 console.log(`\n${passed} tests passed.`);
