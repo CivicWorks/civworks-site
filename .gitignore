@@ -1,0 +1,5 @@
+# Donor lists hold names and emails: never commit them.
+workers/backers/*.csv
+workers/backers/import.sql
+workers/backers/node_modules/
+workers/backers/.wrangler/

@@ -3,669 +3,344 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pledge Your Support | Civic Works</title>
-  <meta name="description" content="Commit to $5/month when Civic Works launches — one pledge supporting Action Engine, CivicSky Media, and alonovo/ESG.">
+  <title>Back CivicSky | Civic Works</title>
+  <meta name="description" content="Backed by people. Owned by no billionaire. Help build CivicSky, the ad-free, subscriber-supported social network built for civic action.">
+  <meta property="og:title" content="Back CivicSky: owned by no billionaire">
+  <meta property="og:description" content="Every backer gets a permanent founding number. Help build the social network no billionaire can buy.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --teal: #0d9488;
-      --teal-light: #06b6d4;
-      --teal-glow: rgba(13, 148, 136, 0.4);
+      --teal-light: #2dd4bf;
+      --teal-glow: rgba(13, 148, 136, 0.35);
       --bg-dark: #0f172a;
       --bg-card: rgba(30, 41, 59, 0.7);
-      --border: rgba(51, 65, 85, 0.5);
+      --border: rgba(51, 65, 85, 0.6);
       --text-primary: #f1f5f9;
       --text-secondary: #b0bec5;
       --text-muted: #8896a6;
-      --text-dim: #6b7d8f;
-      --target: 5000;
+      --forge: #f97316;
     }
-
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     body {
       font-family: 'Open Sans', sans-serif;
       background: linear-gradient(135deg, var(--bg-dark) 0%, #1a1a2e 50%, var(--bg-dark) 100%);
+      color: var(--text-primary);
       min-height: 100vh;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      padding: 40px 16px 60px;
-    }
-
-    .container { max-width: 660px; width: 100%; }
-
-    /* ── HEADER ── */
-    .header {
-      text-align: center;
-      margin-bottom: 36px;
-    }
-
-    .header-org {
-      font-family: 'Special Elite', serif;
-      font-size: 13px;
-      letter-spacing: 0.12em;
-      color: var(--teal);
-      margin-bottom: 10px;
-    }
-
-    .header-title {
-      font-family: 'Special Elite', serif;
-      font-size: 30px;
-      font-weight: 400;
-      color: var(--text-primary);
-      line-height: 1.25;
-      margin-bottom: 14px;
-    }
-
-    .header-desc {
-      font-size: 15px;
-      color: var(--text-secondary);
-      line-height: 1.7;
-      max-width: 540px;
-      margin: 0 auto;
-    }
-
-    /* ── PROJECT CARDS ── */
-    .projects {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-bottom: 28px;
-    }
-
-    .project-card {
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 16px 14px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      transition: border-color 0.3s ease;
-      text-decoration: none;
-      display: block;
-    }
-
-    .project-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--teal), var(--teal-light));
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .project-card:hover { border-color: rgba(13, 148, 136, 0.4); }
-    .project-card:hover::before { opacity: 1; }
-
-    .project-icon {
-      font-size: 24px;
-      margin-bottom: 8px;
-      display: block;
-    }
-
-    .project-name {
-      font-family: 'Special Elite', serif;
-      font-size: 13px;
-      color: var(--teal);
-      margin-bottom: 6px;
-      letter-spacing: 0.04em;
-    }
-
-    .project-desc {
-      font-size: 11px;
-      color: var(--text-muted);
-      line-height: 1.5;
-      margin-bottom: 10px;
-    }
-
-    .project-learn {
-      font-size: 11px;
-      color: var(--teal);
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      opacity: 0;
-      transition: opacity 0.2s ease;
-    }
-
-    .project-card:hover .project-learn { opacity: 1; }
-
-    /* ── MAIN CARD ── */
-    .card {
-      background: var(--bg-card);
-      border-radius: 16px;
-      border: 1px solid var(--border);
-      padding: 32px 28px;
-      backdrop-filter: blur(8px);
-    }
-
-    /* ── COUNTER ── */
-    .counter {
-      text-align: center;
-      margin-bottom: 24px;
-    }
-
-    .counter-number {
-      font-family: 'Special Elite', serif;
-      font-size: 52px;
-      color: var(--teal);
-      line-height: 1;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .counter-label {
-      font-size: 13px;
-      color: var(--text-secondary);
-      margin-top: 6px;
-    }
-
-    /* ── THERMOMETER ── */
-    .thermometer {
-      position: relative;
-      margin-bottom: 64px;
-      margin-top: 8px;
-    }
-
-    .thermo-track {
-      height: 8px;
-      border-radius: 999px;
-      background-color: #1e293b;
-      overflow: hidden;
-      border: 1px solid #334155;
-    }
-
-    .thermo-fill {
-      height: 100%;
-      border-radius: 999px;
-      background: linear-gradient(90deg, var(--teal) 0%, var(--teal-light) 100%);
-      width: 0%;
-      transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
-      box-shadow: 0 0 12px var(--teal-glow);
-    }
-
-    .milestones {
-      position: relative;
-      height: 44px;
-      margin-top: 8px;
-    }
-
-    .milestone {
-      position: absolute;
-      text-align: center;
-      transform: translateX(-50%);
-    }
-
-    .milestone:last-child { transform: translateX(-85%); }
-
-    .milestone-label {
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--text-secondary);
-      white-space: nowrap;
-      transition: color 0.5s ease;
-    }
-
-    .milestone-label.reached { color: var(--teal); }
-
-    .milestone-dot {
-      display: inline-block;
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--text-dim);
-      margin: 4px auto;
-      transition: all 0.5s ease;
-    }
-
-    .milestone-dot.reached { background: var(--teal); }
-
-    .milestone-count {
-      font-size: 10px;
-      color: var(--text-muted);
-      white-space: nowrap;
-    }
-
-    /* ── IMPACT TOGGLE ── */
-    .impact-toggle {
-      display: block;
-      width: 100%;
-      background: rgba(13, 148, 136, 0.08);
-      border: 1px solid rgba(13, 148, 136, 0.2);
-      border-radius: 10px;
-      padding: 14px 16px;
-      cursor: pointer;
-      margin-bottom: 24px;
-      text-align: left;
-      color: var(--teal);
-      font-size: 13px;
-      font-weight: 600;
-      font-family: 'Open Sans', sans-serif;
-    }
-
-    .impact-toggle:hover { background: rgba(13, 148, 136, 0.12); }
-
-    .impact-grid {
-      display: none;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 12px;
-    }
-
-    .impact-grid.visible { display: grid; }
-
-    .impact-stat {
-      background: rgba(15, 23, 42, 0.5);
-      border-radius: 8px;
-      padding: 12px;
-    }
-
-    .impact-value {
-      font-family: 'Special Elite', serif;
-      font-size: 20px;
-      color: var(--text-primary);
-    }
-
-    .impact-label {
-      font-size: 11px;
-      color: var(--text-muted);
-      margin-top: 2px;
-    }
-
-    /* ── FORM ── */
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-
-    .form-input {
-      background: var(--bg-dark);
-      border: 1px solid #334155;
-      border-radius: 8px;
-      padding: 12px 14px;
-      font-size: 14px;
-      color: var(--text-primary);
-      outline: none;
-      width: 100%;
-      font-family: 'Open Sans', sans-serif;
-    }
-
-    .form-input:focus { border-color: var(--teal); }
-    .form-input.error { border-color: #ef4444; }
-    .form-input::placeholder { color: #7a8a9a; }
-
-    .error-text {
-      font-size: 12px;
-      color: #ef4444;
-      margin-bottom: 8px;
-      padding-left: 2px;
-      display: none;
-    }
-
-    .error-text.visible { display: block; }
-
-    .submit-btn {
-      width: 100%;
-      padding: 15px;
-      border-radius: 10px;
-      border: none;
-      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-light) 100%);
-      color: #ffffff;
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-      letter-spacing: 0.02em;
-      box-shadow: 0 4px 14px rgba(13, 148, 136, 0.3);
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-      font-family: 'Open Sans', sans-serif;
-    }
-
-    .submit-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 20px var(--teal-glow);
-    }
-
-    .submit-btn:active { transform: translateY(0); }
-    .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-
-    .form-fine-print {
-      text-align: center;
-      font-size: 11px;
-      color: var(--text-muted);
-      margin-top: 10px;
+      padding: 28px 16px 64px;
       line-height: 1.6;
     }
+    a { color: var(--teal-light); }
+    .container { max-width: 680px; margin: 0 auto; }
+    .back { display: inline-block; font-size: 13px; color: var(--text-muted); text-decoration: none; margin-bottom: 28px; }
+    .back:hover { color: var(--text-primary); }
+    h1, h2 { font-family: 'Special Elite', serif; font-weight: 400; }
 
-    /* ── CONFIRMATION ── */
-    .confirmation {
-      display: none;
-      text-align: center;
-      background: rgba(13, 148, 136, 0.1);
-      border: 1px solid rgba(13, 148, 136, 0.3);
-      border-radius: 12px;
-      padding: 24px;
-    }
+    /* Hero */
+    .eyebrow { font-family: 'Special Elite', serif; font-size: 13px; letter-spacing: 0.14em; color: var(--teal-light); text-transform: uppercase; }
+    h1 { font-size: clamp(30px, 6vw, 44px); line-height: 1.15; margin: 10px 0 16px; }
+    .sub { font-size: 16px; color: var(--text-secondary); max-width: 600px; }
 
-    .confirmation.visible { display: block; }
-    .confirmation-check { font-size: 28px; margin-bottom: 8px; }
+    .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; margin-top: 24px; }
 
-    .confirmation-title {
-      font-family: 'Special Elite', serif;
-      font-size: 20px;
-      color: var(--teal);
-      margin-bottom: 6px;
-    }
+    /* Counter */
+    .raised { font-size: clamp(34px, 8vw, 48px); font-weight: 700; color: var(--text-primary); line-height: 1; }
+    .raised small { font-size: 16px; font-weight: 400; color: var(--text-muted); margin-left: 6px; }
+    .bar { height: 12px; border-radius: 99px; background: rgba(148, 163, 184, 0.15); overflow: hidden; margin: 16px 0 10px; }
+    .bar > div { height: 100%; width: 0; border-radius: 99px; background: linear-gradient(90deg, var(--teal), var(--teal-light)); transition: width 1.2s ease; box-shadow: 0 0 16px var(--teal-glow); }
+    .counter-row { display: flex; justify-content: space-between; gap: 12px; font-size: 14px; color: var(--text-secondary); }
+    .math { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 15px; color: var(--text-secondary); }
+    .math strong { color: var(--text-primary); }
 
-    .confirmation-text {
-      font-size: 14px;
-      color: var(--text-secondary);
-      margin-bottom: 16px;
-      line-height: 1.5;
-    }
+    /* Give */
+    .tabs { display: inline-flex; background: rgba(15, 23, 42, 0.7); border: 1px solid var(--border); border-radius: 99px; padding: 4px; margin-bottom: 18px; }
+    .tabs button { border: 0; background: none; color: var(--text-secondary); font: 600 14px 'Open Sans', sans-serif; padding: 8px 18px; border-radius: 99px; cursor: pointer; }
+    .tabs button[aria-selected="true"] { background: var(--teal); color: #fff; }
+    .amounts { display: flex; flex-wrap: wrap; gap: 10px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 0; border-radius: 12px; font: 700 16px 'Open Sans', sans-serif; padding: 14px 22px; cursor: pointer; text-decoration: none; color: #fff; background: linear-gradient(135deg, var(--teal), #0f766e); box-shadow: 0 6px 20px var(--teal-glow); }
+    .btn:hover { filter: brightness(1.1); }
+    .btn.big { width: 100%; font-size: 18px; padding: 16px 22px; }
+    .btn.ghost { background: rgba(15, 23, 42, 0.7); border: 1px solid var(--border); box-shadow: none; min-width: 96px; }
+    .btn.ghost:hover { border-color: var(--teal); }
+    .btn[aria-disabled="true"] { opacity: 0.5; pointer-events: none; }
+    .give-note { margin-top: 12px; font-size: 13px; color: var(--text-muted); }
 
-    .confirmation-subtitle {
-      font-size: 13px;
-      color: var(--text-muted);
-      margin-bottom: 16px;
-    }
+    /* Why */
+    .why p { margin-top: 14px; color: var(--text-secondary); }
+    .why p strong { color: var(--text-primary); }
+    .proof { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px; }
+    .proof a { display: block; text-align: center; text-decoration: none; background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border); border-radius: 12px; padding: 14px 8px; font-size: 13px; font-weight: 600; color: var(--text-primary); }
+    .proof a:hover { border-color: var(--teal); }
 
-    .confirmation-actions {
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
+    /* Use of funds */
+    .funds { margin-top: 18px; display: grid; gap: 12px; }
+    .fund { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 16px 18px; }
+    .fund-top { display: flex; justify-content: space-between; gap: 12px; font-weight: 600; }
+    .fund-top strong { color: var(--teal-light); white-space: nowrap; }
+    .fund-bar { height: 6px; border-radius: 99px; background: rgba(148, 163, 184, 0.15); margin: 10px 0 8px; overflow: hidden; }
+    .fund-bar > div { height: 100%; background: linear-gradient(90deg, var(--teal), var(--teal-light)); border-radius: 99px; }
+    .fund p { font-size: 14px; color: var(--text-secondary); }
 
-    .btn-secondary {
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      font-family: 'Open Sans', sans-serif;
-      text-decoration: none;
-      display: inline-block;
-    }
+    /* Badges */
+    h2 { font-size: 24px; margin-top: 44px; }
+    .lead { color: var(--text-secondary); margin-top: 8px; }
+    .ladder { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+    .badge { font-family: 'Special Elite', serif; letter-spacing: 0.08em; text-transform: uppercase; font-size: 13px; padding: 7px 12px; border-radius: 8px; border: 1px solid rgba(45, 212, 191, 0.35); color: var(--teal-light); background: rgba(13, 148, 136, 0.08); }
+    .badge.l2 { background: rgba(13, 148, 136, 0.14); }
+    .badge.l3 { background: rgba(13, 148, 136, 0.22); color: #ccfbf1; }
+    .badge.l4 { background: rgba(13, 148, 136, 0.32); color: #fff; border-color: var(--teal-light); }
+    .badge.l5 { background: linear-gradient(135deg, #7c2d12, var(--forge)); color: #fff; border-color: #fdba74; }
+    .badge.l6 { background: linear-gradient(135deg, #134e4a, #0f766e); color: #fff; border-color: #99f6e4; }
+    .badge.l7 { background: linear-gradient(135deg, #fef3c7, #f59e0b); color: #1c1917; border-color: #fde68a; box-shadow: 0 0 18px rgba(245, 158, 11, 0.35); }
+    .profile { margin-top: 20px; background: rgba(2, 6, 23, 0.7); border: 1px solid var(--border); border-radius: 14px; padding: 18px; }
+    .profile .line1 { font-family: 'Special Elite', serif; letter-spacing: 0.06em; font-size: 15px; color: #fff; }
+    .profile .line1 .num { color: var(--teal-light); }
+    .profile .line2 { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+    .points { margin-top: 18px; display: grid; gap: 12px; }
+    .points div { color: var(--text-secondary); }
+    .points strong { color: var(--text-primary); }
 
-    .btn-teal {
-      border: 1px solid rgba(13, 148, 136, 0.3);
-      background: rgba(13, 148, 136, 0.1);
-      color: var(--teal);
-    }
+    /* Wall */
+    .wall { margin-top: 16px; display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 8px; }
+    .wall > div { background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; }
+    .wall .n { font-weight: 600; font-size: 14px; }
+    .wall .m { font-size: 12px; color: var(--text-muted); font-family: 'Special Elite', serif; letter-spacing: 0.04em; }
+    .empty { color: var(--text-muted); font-style: italic; margin-top: 12px; }
 
-    .btn-gray {
-      border: 1px solid var(--border);
-      background: rgba(30, 41, 59, 0.5);
-      color: var(--text-secondary);
-    }
+    /* Fine print */
+    .fine { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-muted); display: grid; gap: 12px; }
+    .fine strong { color: var(--text-secondary); }
 
-    /* ── TRUST ── */
-    .trust {
-      text-align: center;
-      margin-top: 20px;
-      display: flex;
-      justify-content: center;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
+    /* Thank-you */
+    .thanks { position: fixed; inset: 0; background: rgba(2, 6, 23, 0.86); display: none; align-items: center; justify-content: center; padding: 16px; z-index: 10; }
+    .thanks.open { display: flex; }
+    .thanks .card { max-width: 480px; width: 100%; text-align: center; margin: 0; }
+    .thanks .big-num { font-family: 'Special Elite', serif; font-size: 52px; color: var(--teal-light); line-height: 1.1; margin: 8px 0; }
+    .thanks .actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 18px; }
 
-    .trust span {
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 540px) {
-      .projects { grid-template-columns: 1fr; gap: 8px; }
-      .header-title { font-size: 24px; }
-      .counter-number { font-size: 38px; }
-      .card { padding: 24px 18px; }
-      .form-row { grid-template-columns: 1fr; }
-      .impact-grid { grid-template-columns: 1fr; }
-      .trust { flex-direction: column; gap: 8px; }
-      .project-learn { opacity: 1; }
+    @media (max-width: 520px) {
+      .proof { grid-template-columns: 1fr; }
+      .card { padding: 18px; }
     }
   </style>
 </head>
 <body>
-
 <div class="container">
+  <a class="back" href="/">&larr; civ.works</a>
 
-  <!-- Header -->
-  <div class="header">
-    <div class="header-org">Civic Works · 501(c)(3)</div>
-    <h1 class="header-title">One Pledge.<br>Three Tools for a Stronger Democracy.</h1>
-    <p class="header-desc">
-      We're building the civic infrastructure that should already exist —
-      independent, ad-free, and built for people, not platforms.
-      Commit to $5/month when we launch and help us get there.
-    </p>
+  <div class="eyebrow">CivicSky &middot; Pre-launch</div>
+  <h1>Backed by people.<br>Owned by no billionaire.</h1>
+  <p class="sub">The news you see is owned by a handful of billionaires. CivicSky is the ad-free, subscriber-supported social network built for civic action, and it's being built by people like you, $20 at a time.</p>
+
+  <!-- Counter -->
+  <div class="card" aria-live="polite">
+    <div class="raised"><span id="raised">$0</span><small>raised of $120,000</small></div>
+    <div class="bar" role="progressbar" aria-label="Progress toward $120,000" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="fill"></div></div>
+    <div class="counter-row"><span><strong id="backers">0</strong> backers</span><span id="pct">0%</span></div>
+    <p class="math"><strong>$120,000 lays the groundwork for CivicSky.</strong> That's 6,000 people giving $20, so the moment CivicSky is funded, building starts.</p>
   </div>
 
-  <!-- Project Cards -->
-  <div class="projects">
-    <a href="action-engine.html" class="project-card">
-      <span class="project-icon">⚙️</span>
-      <div class="project-name">Action Engine</div>
-      <p class="project-desc">Privacy-first civic organizing — the independent alternative to corporate-owned mobilization platforms.</p>
-      <div class="project-learn">Learn more →</div>
-    </a>
-    <a href="civicsky.html" class="project-card">
-      <span class="project-icon">📡</span>
-      <div class="project-name">CivicSky Media</div>
-      <p class="project-desc">Decentralized, ad-free civic social network — short-form and long-form, built on the AT Protocol.</p>
-      <div class="project-learn">Learn more →</div>
-    </a>
-    <a href="alonovo.html" class="project-card">
-      <span class="project-icon">🔍</span>
-      <div class="project-name">alonovo / ESG</div>
-      <p class="project-desc">Scan a barcode, see the truth. Independent corporate accountability ratings — lobbying, labor, environment.</p>
-      <div class="project-learn">Learn more →</div>
-    </a>
+  <!-- Give -->
+  <div class="card" id="give">
+    <div class="tabs" role="tablist" aria-label="How to give">
+      <button type="button" role="tab" id="tab-once" aria-selected="true">Give once</button>
+      <button type="button" role="tab" id="tab-monthly" aria-selected="false">Give monthly</button>
+    </div>
+    <div id="panel-once">
+      <a class="btn big" id="once-link" href="#">Back CivicSky &middot; $20</a>
+      <p class="give-note">$20 is suggested. You can choose any amount at checkout.</p>
+    </div>
+    <div id="panel-monthly" hidden>
+      <div class="amounts">
+        <a class="btn ghost" data-monthly="5" href="#">$5 / month</a>
+        <a class="btn ghost" data-monthly="10" href="#">$10 / month</a>
+        <a class="btn ghost" data-monthly="25" href="#">$25 / month</a>
+      </div>
+      <p class="give-note">Monthly backers move up through the badges as their support adds up. Cancel anytime.</p>
+    </div>
+    <p class="give-note">Every backer gets a founding number. Your gift goes to Civic Works to build CivicSky.</p>
   </div>
 
-  <!-- Main Card -->
+  <!-- Why -->
+  <div class="why">
+    <h2>Why backers, not billionaires</h2>
+    <p><strong>Every platform answers to someone.</strong> Most answer to advertisers who profit from outrage, or to a single owner who decides what you see. CivicSky will answer to the people who built it.</p>
+    <p><strong>Big money comes with strings.</strong> Billionaires want influence. Advertisers want your outrage. Thousands of people giving $20 each want one thing: a place where facts, neighbors, and elected officials meet without anyone's thumb on the scale.</p>
+    <p><strong>CivicSky is built so it can't be sold.</strong> It's designed to be held in a perpetual purpose trust. No buyout, no takeover, no new owner with an agenda. Your $20 builds something no one can take away.</p>
+    <div class="proof">
+      <a href="https://civicsky.civ.works">Ad-free</a>
+      <a href="https://civicsky.civ.works">Subscriber-supported</a>
+      <a href="https://civicsky.civ.works">Built for civic action</a>
+    </div>
+  </div>
+
+  <!-- Use of funds -->
+  <h2>What your gift pays for</h2>
+  <p class="lead">Every dollar of the $120,000 goes to the groundwork Civic Works needs so CivicSky can be built safely and fast.</p>
+  <div class="funds">
+    <div class="fund"><div class="fund-top"><span>Security, database, and performance architecture</span><strong>$50,000</strong></div><div class="fund-bar"><div style="width:41.7%"></div></div><p>Turning the working prototype into a production design: a security plan and outside review, the database, and the plans to scale.</p></div>
+    <div class="fund"><div class="fund-top"><span>Legal and accounting groundwork</span><strong>$45,000</strong></div><div class="fund-bar"><div style="width:37.5%"></div></div><p>The legal structure that protects the mission for good: the perpetual purpose trust plan, the license that keeps revenue flowing back to Civic Works, and sound books.</p></div>
+    <div class="fund"><div class="fund-top"><span>Partner commitments</span><strong>$25,000</strong></div><div class="fund-bar"><div style="width:20.8%"></div></div><p>Locking in partners, starting with independent news trust and bias ratings and address verification.</p></div>
+  </div>
+
+  <!-- Badges -->
+  <h2>Your badge and your number</h2>
+  <p class="lead">Every backer gets two things: a badge that grows with their support, and a founding number that marks when they believed.</p>
+  <div class="ladder" aria-label="Badges, from first gift to Cornerstone">
+    <span class="badge">Signal</span>
+    <span class="badge l2">Catalyst</span>
+    <span class="badge l3">Builder</span>
+    <span class="badge l4">Vanguard</span>
+    <span class="badge l5">Foundry</span>
+    <span class="badge l6">Charter</span>
+    <span class="badge l7">Cornerstone</span>
+  </div>
+  <div class="profile" aria-label="Example of a backer badge on a CivicSky profile">
+    <div class="line1">VANGUARD &middot; FOUNDING 5,000 &middot; <span class="num">#00841</span></div>
+    <div class="line2">CivicSky Pre-Launch Backer &middot; Backing since 2026</div>
+  </div>
+  <div class="points">
+    <div><strong>Your badge.</strong> Seven badges, from your first gift to the people who made launch possible. Monthly backers move up as their support adds up.</div>
+    <div><strong>Your founding number.</strong> Your first gift gives you a number that never changes. #00841 means you were the 841st person to back CivicSky. Nobody can buy #00841 in 2030. It says when you believed, not how much you had.</div>
+    <div><strong>Your choice.</strong> Your badge shows on your CivicSky profile only if you turn it on, and you can turn it off anytime. Your founding number is yours either way.</div>
+  </div>
+
+  <!-- Wall -->
+  <h2>Founders Wall</h2>
+  <p class="lead">Backers who chose to be listed. Everyone else counts just the same.</p>
+  <div class="wall" id="wall"></div>
+  <p class="empty" id="wall-empty">Be the first name here.</p>
+
+  <!-- Fine print -->
+  <div class="fine">
+    <div><strong>This is a gift, not an investment.</strong> Backing CivicSky doesn't buy shares, ownership, interest, or any return. Badges and founding numbers are recognition only.</div>
+    <div><strong>Where your gift goes.</strong> Your gift funds Civic Works, a 501(c)(3), which owns everything it builds. As CivicSky grows, it will be run by a public benefit company bound to the same mission and held in a perpetual purpose trust, so it can never be sold, taken over, or turned against the people who built it. That company will license CivicSky from Civic Works and pay a share of its revenue back into Civic Works' mission.</div>
+    <div><strong>Tax note.</strong> Gifts go to Civic Works, a 501(c)(3), and are tax-deductible as the law allows. Badges and founding numbers have no market value. You'll get a receipt by email.</div>
+    <div><strong>Privacy.</strong> We never sell or share your information. Your name and badge appear publicly only if you choose. Monthly gifts can be canceled anytime from the link in your receipt.</div>
+  </div>
+</div>
+
+<!-- Thank-you screen (after checkout: ?thanks=cs_...) -->
+<div class="thanks" id="thanks" role="dialog" aria-modal="true" aria-labelledby="thanks-title">
   <div class="card">
-
-    <!-- Counter -->
-    <div class="counter">
-      <div class="counter-number" id="pledgeCount">0</div>
-      <div class="counter-label">people committed to $5/month at launch</div>
+    <div class="eyebrow">Thank you</div>
+    <div class="big-num" id="thanks-num">&hellip;</div>
+    <h2 id="thanks-title" style="margin-top:0">Welcome to CivicSky.</h2>
+    <p class="lead" id="thanks-text">Finding your founding number&hellip;</p>
+    <div class="actions">
+      <a class="btn" id="share-bsky" href="#" target="_blank" rel="noopener">Share on Bluesky</a>
+      <button class="btn ghost" type="button" id="share-copy">Copy share text</button>
+      <button class="btn ghost" type="button" id="thanks-close">Done</button>
     </div>
-
-    <!-- Thermometer -->
-    <div class="thermometer">
-      <div class="thermo-track">
-        <div class="thermo-fill" id="thermoFill"></div>
-      </div>
-      <div class="milestones" id="milestones"></div>
-    </div>
-
-    <!-- Impact Toggle -->
-    <button class="impact-toggle" id="impactToggle">
-      <span id="impactArrow">▸</span> What <span id="impactCountLabel">0</span> pledges means for the mission
-    </button>
-    <div class="impact-grid" id="impactGrid">
-      <div class="impact-stat">
-        <div class="impact-value" id="mrrValue">$0</div>
-        <div class="impact-label">Projected Monthly Revenue</div>
-      </div>
-      <div class="impact-stat">
-        <div class="impact-value" id="arrValue">$0</div>
-        <div class="impact-label">Projected Annual Revenue</div>
-      </div>
-    </div>
-
-    <!-- Form -->
-    <div id="pledgeForm">
-      <div class="form-row">
-        <input type="text" class="form-input" id="nameInput" placeholder="First name (optional)">
-        <input type="email" class="form-input" id="emailInput" placeholder="Email address *">
-      </div>
-      <div class="error-text" id="errorText"></div>
-      <button class="submit-btn" id="submitBtn">
-        Count me in — $5/month at launch
-      </button>
-      <div class="form-fine-print">
-        No charge today. No credit card required. We'll notify you when we launch.<br>
-        Your pledge helps us demonstrate demand to funders and grantors.
-      </div>
-    </div>
-
-    <!-- Confirmation -->
-    <div class="confirmation" id="confirmation">
-      <div class="confirmation-check">✓</div>
-      <div class="confirmation-title" id="confirmTitle">You're pledged!</div>
-      <div class="confirmation-text" id="confirmText"></div>
-      <div class="confirmation-subtitle">Want to accelerate the launch?</div>
-      <div class="confirmation-actions">
-        <a href="https://bsky.app/intent/compose?text=I%20just%20pledged%20%245%2Fmo%20to%20support%20Civic%20Works%20%E2%80%94%20Action%20Engine%2C%20CivicSky%20Media%2C%20and%20alonovo%2FESG.%20Three%20tools%20for%20a%20stronger%20democracy.%20Join%20me%3A%20https%3A%2F%2Fciv.works%2Fpledge" target="_blank" class="btn-secondary btn-teal">Share on Bluesky</a>
-        <a href="https://buy.stripe.com/00gg04bBZd0V2L69AC" class="btn-secondary btn-gray">Donate now</a>
-      </div>
-    </div>
-
   </div>
-
-  <!-- Trust Signals -->
-  <div class="trust">
-    <span>🔒 No payments collected until launch</span>
-    <span>501(c)(3) nonprofit · Civic Works</span>
-    <span>Ad-free · Privacy-first · Independent</span>
-  </div>
-
 </div>
 
 <script>
-  const WORKER_URL = 'https://civworks-pledge-api.george-fd8.workers.dev';
+  // ── Settings: fill these in during setup (see workers/backers/SETUP.md) ──
+  const WORKER_URL = 'https://civicsky-backers.george-fd8.workers.dev';
+  const LINKS = {
+    once: 'https://buy.stripe.com/14AbJ2ebK99n1Y11zYg7e03',       // one-time, customer chooses amount ($20 suggested)
+    monthly5: 'https://buy.stripe.com/28E5kE3x6fxLauxemKg7e04',   // $5 per month
+    monthly10: 'https://buy.stripe.com/6oU00k0kUgBPbyB4Mag7e05',  // $10 per month
+    monthly25: 'https://buy.stripe.com/00wcN67NmadrbyBemKg7e06',  // $25 per month
+  };
+  const GOAL_CENTS = 12000000;
 
-  const TARGET = 5000;
-  const AMOUNT = 5;
-  const MILESTONES = [
-    { count: 1000, label: 'Build Begins' },
-    { count: 2500, label: 'Beta Launch' },
-    { count: 5000, label: 'Full Launch' },
-  ];
+  const $ = (id) => document.getElementById(id);
+  const usd = (cents) => '$' + Math.round(cents / 100).toLocaleString('en-US');
 
-  let currentCount = 0;
-  let impactOpen = false;
+  // Give buttons: until a payment link is set, the button says so instead of going nowhere.
+  function wire(el, url) {
+    if (url) { el.href = url; return; }
+    el.setAttribute('aria-disabled', 'true');
+    el.removeAttribute('href');
+    el.title = 'Opening soon';
+  }
+  wire($('once-link'), LINKS.once);
+  document.querySelectorAll('[data-monthly]').forEach((el) => wire(el, LINKS['monthly' + el.dataset.monthly]));
+  if (!LINKS.once) $('once-link').textContent = 'Backing opens soon';
 
-  const $count    = document.getElementById('pledgeCount');
-  const $fill     = document.getElementById('thermoFill');
-  const $ms       = document.getElementById('milestones');
-  const $toggle   = document.getElementById('impactToggle');
-  const $arrow    = document.getElementById('impactArrow');
-  const $iLabel   = document.getElementById('impactCountLabel');
-  const $grid     = document.getElementById('impactGrid');
-  const $mrr      = document.getElementById('mrrValue');
-  const $arr      = document.getElementById('arrValue');
-  const $form     = document.getElementById('pledgeForm');
-  const $name     = document.getElementById('nameInput');
-  const $email    = document.getElementById('emailInput');
-  const $error    = document.getElementById('errorText');
-  const $submit   = document.getElementById('submitBtn');
-  const $confirm  = document.getElementById('confirmation');
-  const $cTitle   = document.getElementById('confirmTitle');
-  const $cText    = document.getElementById('confirmText');
+  function showTab(which) {
+    const once = which === 'once';
+    $('tab-once').setAttribute('aria-selected', String(once));
+    $('tab-monthly').setAttribute('aria-selected', String(!once));
+    $('panel-once').hidden = !once;
+    $('panel-monthly').hidden = once;
+  }
+  $('tab-once').addEventListener('click', () => showTab('once'));
+  $('tab-monthly').addEventListener('click', () => showTab('monthly'));
 
-  MILESTONES.forEach(m => {
-    const pct = (m.count / TARGET) * 100;
-    const div = document.createElement('div');
-    div.className = 'milestone';
-    div.style.left = pct + '%';
-    div.innerHTML = `
-      <div class="milestone-label" data-milestone="${m.count}">${m.label}</div>
-      <div class="milestone-dot" data-milestone="${m.count}"></div>
-      <div class="milestone-count">${m.count.toLocaleString()}</div>
-    `;
-    $ms.appendChild(div);
-  });
-
-  function updateUI(count) {
-    currentCount = count;
-    const pct = Math.min((count / TARGET) * 100, 100);
-    $count.textContent = count.toLocaleString();
-    $count.style.opacity = '1';
-    setTimeout(() => { $fill.style.width = pct + '%'; }, 100);
-    document.querySelectorAll('.milestone-label').forEach(el => {
-      el.classList.toggle('reached', count >= parseInt(el.dataset.milestone));
-    });
-    document.querySelectorAll('.milestone-dot').forEach(el => {
-      el.classList.toggle('reached', count >= parseInt(el.dataset.milestone));
-    });
-    $iLabel.textContent = count.toLocaleString();
-    $mrr.textContent = '$' + (count * AMOUNT).toLocaleString();
-    $arr.textContent = '$' + (count * AMOUNT * 12).toLocaleString();
+  async function get(path) {
+    const r = await fetch(WORKER_URL + path);
+    if (!r.ok) throw new Error(String(r.status));
+    return r.json();
   }
 
-  async function fetchCount() {
+  async function loadStats() {
     try {
-      const res = await fetch(`${WORKER_URL}/count`);
-      const data = await res.json();
-      return data.count || 0;
-    } catch { return 0; }
+      const s = await get('/stats');
+      const goal = s.goalCents || GOAL_CENTS;
+      const pct = Math.min(100, (s.raisedCents / goal) * 100);
+      $('raised').textContent = usd(s.raisedCents);
+      $('backers').textContent = s.backers.toLocaleString('en-US');
+      $('pct').textContent = (pct > 0 && pct < 1 ? '<1' : Math.floor(pct)) + '%';
+      document.querySelector('.bar').setAttribute('aria-valuenow', String(Math.floor(pct)));
+      setTimeout(() => { $('fill').style.width = Math.max(pct, s.raisedCents > 0 ? 1 : 0) + '%'; }, 150);
+    } catch { /* counter stays at zero until the service is live */ }
   }
 
-  async function submitPledge(email, name) {
-    const res = await fetch(`${WORKER_URL}/pledge`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, name })
-    });
-    const data = await res.json();
-    if (data.error === 'duplicate') throw new Error('duplicate');
-    if (!res.ok) throw new Error('submit_failed');
-  }
-
-  $toggle.addEventListener('click', () => {
-    impactOpen = !impactOpen;
-    $arrow.textContent = impactOpen ? '▾' : '▸';
-    $grid.classList.toggle('visible', impactOpen);
-  });
-
-  $submit.addEventListener('click', async () => {
-    const email = $email.value.trim();
-    const name  = $name.value.trim();
-
-    if (!email || !email.includes('@') || !email.includes('.')) {
-      $error.textContent = 'Please enter a valid email address.';
-      $error.classList.add('visible');
-      $email.classList.add('error');
-      return;
-    }
-
-    $error.classList.remove('visible');
-    $email.classList.remove('error');
-    $submit.disabled = true;
-    $submit.textContent = 'Submitting...';
-
+  async function loadWall() {
     try {
-      await submitPledge(email, name);
-      currentCount += 1;
-      updateUI(currentCount);
-      $form.style.display = 'none';
-      $cTitle.textContent = name ? `You're pledged, ${name}!` : "You're pledged!";
-      $cText.textContent  = `You're #${currentCount.toLocaleString()} to commit to all three projects. We'll email you when we launch.`;
-      $confirm.classList.add('visible');
-    } catch (err) {
-      $error.textContent = err.message === 'duplicate'
-        ? "You've already pledged — thank you! We'll be in touch at launch."
-        : 'Something went wrong. Please try again.';
-      $error.classList.add('visible');
-      $submit.disabled = false;
-      $submit.textContent = 'Count me in — $5/month at launch';
+      const people = await get('/wall?limit=120');
+      if (!people.length) return;
+      $('wall-empty').hidden = true;
+      $('wall').innerHTML = '';
+      for (const p of people) {
+        const d = document.createElement('div');
+        const n = document.createElement('div'); n.className = 'n'; n.textContent = p.name;
+        const m = document.createElement('div'); m.className = 'm'; m.textContent = `${p.badge.toUpperCase()} · ${p.number}`;
+        d.append(n, m);
+        $('wall').append(d);
+      }
+    } catch { /* wall stays empty */ }
+  }
+
+  // Thank-you screen: Stripe sends the backer back with ?thanks=<checkout session id>.
+  async function showThanks(session) {
+    $('thanks').classList.add('open');
+    let share = 'I just backed CivicSky, the social network no billionaire can buy. civ.works/pledge/pledge';
+    const setShare = () => { $('share-bsky').href = 'https://bsky.app/intent/compose?text=' + encodeURIComponent(share); };
+    setShare();
+    for (let i = 0; i < 15; i++) {
+      try {
+        const t = await get('/thanks?session=' + encodeURIComponent(session));
+        $('thanks-num').textContent = t.number;
+        $('thanks-title').textContent = `Welcome, ${t.badge}.`;
+        $('thanks-text').textContent = `You're ${t.number}, ${t.founding}. Your founding number is yours for good. We'll email when CivicSky opens, and your badge will be waiting if you want it.`;
+        share = `I'm ${t.number} backing CivicSky, the social network no billionaire can buy. civ.works/pledge/pledge`;
+        setShare();
+        loadStats();
+        return;
+      } catch { await new Promise((r) => setTimeout(r, 2000)); }
     }
+    $('thanks-num').textContent = '✓';
+    $('thanks-text').textContent = 'Your gift went through. Your founding number takes a moment to arrive; refresh this page in a minute to see it.';
+  }
+  $('thanks-close').addEventListener('click', () => {
+    $('thanks').classList.remove('open');
+    history.replaceState(null, '', location.pathname);
   });
+  $('share-copy').addEventListener('click', async () => {
+    const text = decodeURIComponent($('share-bsky').href.split('text=')[1] || '');
+    try { await navigator.clipboard.writeText(text); $('share-copy').textContent = 'Copied'; } catch { /* ignore */ }
+  });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') $('thanks-close').click(); });
 
-  $email.addEventListener('keydown', e => { if (e.key === 'Enter') $submit.click(); });
-
-  (async function init() {
-    const count = await fetchCount();
-    updateUI(count);
-  })();
+  loadStats();
+  loadWall();
+  const session = new URLSearchParams(location.search).get('thanks');
+  if (session) showThanks(session);
 </script>
 </body>
 </html>

@@ -1,0 +1,20 @@
+# Cloudflare Worker that records CivicSky gifts from Stripe and serves the
+# counter, the Founders Wall, and the thank-you lookup for civ.works/pledge.
+# Setup: see SETUP.md (the database id below is filled in during setup).
+
+name = "civicsky-backers"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "civicsky-backers"
+database_id = "f0abfd50-c1e2-4f07-9d7b-7e4de34fd2f8"
+
+[vars]
+# Pages allowed to read the counter and wall.
+ALLOWED_ORIGINS = "https://civ.works,https://www.civ.works"
+# Fundraising goal in cents ($120,000).
+GOAL_CENTS = "12000000"
+
+# Secret, set with: npx wrangler secret put STRIPE_WEBHOOK_SECRET
