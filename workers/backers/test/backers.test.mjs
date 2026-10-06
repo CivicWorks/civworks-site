@@ -6,11 +6,13 @@ import { readFileSync } from 'node:fs';
 import assert from 'node:assert/strict';
 import worker, { choicesFrom, handleEvent, stats, thanks, verifyStripe, wall } from '../src/index.js';
 import { badgeFor, formatNumber, foundingBand } from '../src/badges.js';
+import { giftsFrom, importSql, parseCsv } from '../import-past.mjs';
 
 function fakeD1() {
   const db = new DatabaseSync(':memory:');
   db.exec(readFileSync(new URL('../schema.sql', import.meta.url), 'utf8'));
   return {
+    exec(sqlText) { db.exec(sqlText); },
     prepare(sql) {
       let args = [];
       const stmt = db.prepare(sql);
@@ -137,6 +139,47 @@ await test('The Worker answers the page and rejects unsigned webhooks', async ()
   assert.equal(bad.status, 400);
   const pending = await worker.fetch(new Request('https://w.example/thanks?session=cs_nope'), env);
   assert.equal(pending.status, 404);
+});
+
+const stripeExport = [
+  'id,Created date (UTC),Amount,Amount Refunded,Currency,Status,Customer Email,Customer Description',
+  'ch_3,2025-11-02 18:00:00,"1,000.00",0.00,usd,Paid,later@example.org,"Second, Donor"',
+  'ch_1,2025-03-14 16:20:00,500.00,0.00,usd,Paid,first@example.org,First Donor',
+  'ch_2,2025-06-01 12:00:00,750.00,0.00,usd,Failed,nope@example.org,',
+  'ch_4,2025-07-04 09:00:00,600.00,600.00,usd,Paid,refunded@example.org,',
+  'ch_5,2026-01-10 10:00:00,250.00,0.00,usd,Paid,first@example.org,First Donor',
+].join('\n');
+
+await test('CSV parsing handles quotes and commas inside fields', () => {
+  assert.deepEqual(parseCsv('a,b\n"x, y","say ""hi"""\n'), [['a', 'b'], ['x, y', 'say "hi"']]);
+});
+
+await test('A Stripe export becomes past gifts: paid only, refunds removed, oldest first', () => {
+  const g = giftsFrom(stripeExport);
+  assert.deepEqual(g.map((x) => [x.email, x.amountCents]), [['first@example.org', 50_000], ['later@example.org', 100_000], ['first@example.org', 25_000]]);
+});
+
+await test('Past donors get the earliest numbers, Charter-level badges, and stay private', async () => {
+  const db = fakeD1();
+  db.exec(importSql(giftsFrom(stripeExport)));
+  db.exec(importSql(giftsFrom(stripeExport))); // run twice: nothing doubles
+  const s = await stats(db, {});
+  assert.deepEqual([s.backers, s.raisedCents], [2, 175_000]);
+  assert.equal((await wall(db)).length, 0);
+  // A new backer after the import gets the next number.
+  await handleEvent(db, checkout());
+  assert.equal((await thanks(db, 'cs_test_a1')).number, '#00003');
+  const first = await db.prepare('SELECT id, total_cents, wall_name FROM backers WHERE email = ?').bind('first@example.org').first();
+  assert.equal(first.id, 1);
+  assert.equal(badgeFor(first.total_cents), 'Charter'); // $750
+  assert.equal(first.wall_name, 'First Donor');
+  const later = await db.prepare('SELECT id, total_cents FROM backers WHERE email = ?').bind('later@example.org').first();
+  assert.deepEqual([later.id, badgeFor(later.total_cents)], [2, 'Charter']);
+});
+
+await test('A simple hand-made list works too', () => {
+  const g = giftsFrom('email,name,amount,date\nann@example.org,Ann,$500,2024-12-01\n');
+  assert.deepEqual([g.length, g[0].amountCents, g[0].name], [1, 50_000, 'Ann']);
 });
 
 console.log(`\n${passed} tests passed.`);
