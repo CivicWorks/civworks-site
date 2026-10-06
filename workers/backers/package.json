@@ -1,0 +1,1 @@
+{"type":"module","private":true,"scripts":{"test":"node --no-warnings test/backers.test.mjs"}}
