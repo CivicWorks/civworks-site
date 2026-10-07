@@ -170,7 +170,7 @@ export async function handleEvent(db, event) {
 export async function stats(db, env) {
   // Reserved slots (#00001 to #00025, not yet filled in) have no gifts and aren't counted.
   const r = await db.prepare('SELECT COUNT(*) AS backers, COALESCE(SUM(total_cents), 0) AS raised FROM backers WHERE total_cents > 0').first();
-  return { backers: r.backers, raisedCents: r.raised, goalCents: Number(env.GOAL_CENTS ?? 12_000_000) };
+  return { backers: r.backers, raisedCents: r.raised, goalCents: Number(env.GOAL_CENTS ?? 5_500_000) };
 }
 
 export async function wall(db, limit = 100) {
