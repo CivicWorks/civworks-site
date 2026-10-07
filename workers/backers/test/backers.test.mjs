@@ -74,8 +74,8 @@ await test('A first gift creates backer #00001; the same webhook twice counts on
   const db = fakeD1();
   await handleEvent(db, checkout());
   await handleEvent(db, checkout());
-  const s = await stats(db, { GOAL_CENTS: '12000000' });
-  assert.deepEqual(s, { backers: 1, raisedCents: 2000, goalCents: 12_000_000 });
+  const s = await stats(db, { GOAL_CENTS: '5500000' });
+  assert.deepEqual(s, { backers: 1, raisedCents: 2000, goalCents: 5_500_000 });
   assert.equal((await thanks(db, 'cs_test_a1')).number, '#00001');
 });
 
@@ -134,10 +134,10 @@ await test('Stripe signatures: valid passes; tampered, missing, or stale fail', 
 });
 
 await test('The Worker answers the page and rejects unsigned webhooks', async () => {
-  const env = { DB: fakeD1(), GOAL_CENTS: '12000000', ALLOWED_ORIGINS: 'https://civ.works', STRIPE_WEBHOOK_SECRET: 'whsec_x' };
+  const env = { DB: fakeD1(), GOAL_CENTS: '5500000', ALLOWED_ORIGINS: 'https://civ.works', STRIPE_WEBHOOK_SECRET: 'whsec_x' };
   const r = await worker.fetch(new Request('https://w.example/stats', { headers: { Origin: 'https://civ.works' } }), env);
   assert.equal(r.headers.get('Access-Control-Allow-Origin'), 'https://civ.works');
-  assert.equal((await r.json()).goalCents, 12_000_000);
+  assert.equal((await r.json()).goalCents, 5_500_000);
   const bad = await worker.fetch(new Request('https://w.example/stripe', { method: 'POST', body: '{}' }), env);
   assert.equal(bad.status, 400);
   const pending = await worker.fetch(new Request('https://w.example/thanks?session=cs_nope'), env);
@@ -191,7 +191,7 @@ await test('Reserving #00001 to #00025: new backers start at #00026 and empty sl
   const db = fakeD1();
   db.exec(reserveSql);
   db.exec(reserveSql); // safe to run twice
-  assert.deepEqual(await stats(db, {}), { backers: 0, raisedCents: 0, goalCents: 12_000_000 });
+  assert.deepEqual(await stats(db, {}), { backers: 0, raisedCents: 0, goalCents: 5_500_000 });
   await handleEvent(db, checkout());
   assert.equal((await thanks(db, 'cs_test_a1')).number, '#00026');
   assert.equal((await wall(db)).length, 1); // only Ada, who chose the wall
@@ -242,7 +242,7 @@ await test('Refunds: a refunded gift stops counting; repeats and partial refunds
   assert.equal((await stats(db, {})).raisedCents, 1500 + 500);
   await handleEvent(db, refund({ amount: 2000, amount_refunded: 2000, payment_intent: 'pi_1' }));
   await handleEvent(db, refund({ amount: 500, amount_refunded: 500, payment_intent: 'pi_m', invoice: 'in_1' }));
-  assert.deepEqual(await stats(db, {}), { backers: 0, raisedCents: 0, goalCents: 12_000_000 });
+  assert.deepEqual(await stats(db, {}), { backers: 0, raisedCents: 0, goalCents: 5_500_000 });
   await handleEvent(db, refund({ amount: 900, amount_refunded: 900, payment_intent: 'pi_unknown' })); // not ours: ignored
 });
 
