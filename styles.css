@@ -1500,3 +1500,17 @@ body {
 .card-link:hover {
   color: var(--purple-light);
 }
+
+/* Support section: Donate + Shop buttons */
+.support-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.support-shop-note {
+  color: var(--grey);
+  font-size: 0.9rem;
+  margin-top: 1.25rem;
+}
